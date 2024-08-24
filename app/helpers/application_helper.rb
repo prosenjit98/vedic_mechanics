@@ -1,4 +1,5 @@
 module ApplicationHelper
+  include Pagy::Frontend
   def status_tag(status)
     case status
     when "initiate"

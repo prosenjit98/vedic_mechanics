@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_14_021752) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_21_095016) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -106,6 +106,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_021752) do
     t.text "description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "parent_category_id"
+  end
+
+  create_table "contacts", force: :cascade do |t|
+    t.string "name"
+    t.string "email"
+    t.text "message"
+    t.string "msg_rf_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["msg_rf_id"], name: "index_contacts_on_msg_rf_id", unique: true
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -133,6 +144,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_021752) do
     t.decimal "total_with_gst"
     t.decimal "delivery_cost"
     t.datetime "expected_delivery_date"
+    t.integer "length"
+    t.integer "width"
+    t.integer "height"
+    t.integer "weight"
+    t.datetime "shipped_at"
+    t.datetime "processed_at"
+    t.datetime "delivered_at"
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
@@ -147,6 +165,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_021752) do
     t.integer "user_id"
     t.string "remarks"
     t.integer "cart_id"
+    t.string "razorpay_payment_id"
+    t.string "razorpay_signature"
+    t.datetime "captured_at"
   end
 
   create_table "products", force: :cascade do |t|
@@ -159,6 +180,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_021752) do
     t.datetime "updated_at", null: false
     t.float "discount", default: 0.0
     t.float "original_price"
+    t.decimal "mfg_cost"
+    t.decimal "approx_delivery_cost"
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -170,6 +193,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_14_021752) do
     t.datetime "updated_at", null: false
     t.index ["product_id"], name: "index_questions_on_product_id"
     t.index ["user_id"], name: "index_questions_on_user_id"
+  end
+
+  create_table "refunds", force: :cascade do |t|
+    t.string "raz_refund_id"
+    t.string "status"
+    t.integer "payment_id"
+    t.integer "order_id"
+    t.float "amount"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "replies", force: :cascade do |t|
