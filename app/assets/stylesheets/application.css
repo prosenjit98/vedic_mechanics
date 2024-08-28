@@ -16,28 +16,28 @@
 
  @import "aos";
 
-:root {
-  --primary_bg_color: #038d3e; /* Primary green color */
-  --secondary_color: #f6921e;  /* Secondary orange color */
+ :root {
+  --primary_bg_color: #4a4a4a; /* Industrial dark grey for primary background */
+  --secondary_color: #ffa500;  /* Machinery-related orange, symbolizing warning and caution */
   --primary_text_color: #ffffff; /* Light text for dark backgrounds */
-  --secondary_text_color: #000000; /* Dark text for light backgrounds */
-  --form_bg_color: #0a1f44; /* Form section background color */
-  --form_input_bg_color: #102a57; /* Form input background color */
-  --form_input_border_color: #4a5568; /* Form input border color */
-  --form_input_focus_border_color: #63b3ed; /* Form input focus border color */
-  --required_color: #f56565; /* Required asterisk color */
+  --secondary_text_color: #333333; /* Dark grey for text on light backgrounds */
+  --form_bg_color: #2c2c2c; /* Dark grey for form section background */
+  --form_input_bg_color: #3b3b3b; /* Slightly lighter grey for form input backgrounds */
+  --form_input_border_color: #565656; /* Medium grey for form input borders */
+  --form_input_focus_border_color: #ffa500; /* Orange for focused input borders */
+  --required_color: #d32f2f; /* Strong red for required asterisk */
 }
 
 .dark:root {
-  --primary_bg_color: #036329; /* Darker primary color for dark mode */
-  --secondary_color: #e67e22;  /* Slightly darker secondary color for dark mode */
+  --primary_bg_color: #303030; /* Even darker grey for dark mode */
+  --secondary_color: #ff8c00;  /* Slightly darker machinery orange for dark mode */
   --primary_text_color: #ffffff; /* Light text color for dark mode */
-  --secondary_text_color: #f5f5f5; /* Light secondary text color */
-  --form_bg_color: #0a1f44; /* Unchanged, already dark */
-  --form_input_bg_color: #102a57; /* Unchanged, already dark */
-  --form_input_border_color: #4a5568; /* Unchanged, already dark */
-  --form_input_focus_border_color: #63b3ed; /* Unchanged, already suitable for dark mode */
-  --required_color: #f56565; /* Unchanged, stands out in both modes */
+  --secondary_text_color: #cccccc; /* Light grey for secondary text in dark mode */
+  --form_bg_color: #1f1f1f; /* Darker grey for form background in dark mode */
+  --form_input_bg_color: #2c2c2c; /* Dark grey for form input backgrounds */
+  --form_input_border_color: #444444; /* Darker grey for input borders */
+  --form_input_focus_border_color: #ff8c00; /* Orange for focused input borders */
+  --required_color: #d32f2f; /* Unchanged, stands out in both modes */
 }
 
 .primary-bg {
@@ -87,12 +87,14 @@
   border-radius: 5px;
   color: var(--secondary_text_color);
 }
-.nice-select{
+
+.nice-select {
   width: 100%;
   height: 45px;
   line-height: 45px;
   font-size: 1rem;
 }
-select.selectable{
+
+select.selectable {
   position: absolute;
 }
