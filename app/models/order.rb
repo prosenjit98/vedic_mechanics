@@ -139,7 +139,7 @@ class Order < ApplicationRecord
         ["Payment method", "Online"]
       ],
       company: {
-        name: "Chandra Herbals",
+        name: "Machinery co.",
 
         address: "\n<link href='https://maps.google.com/'>NOHAR, WARD NO 05,\n VILLAGE CHAK DEIDASPURA,\n Chak Deidaspura, Hanumangarh,\n Rajasthan PIN-335523</link>\n",
         email: "chandraherbals2024@gmail.com",

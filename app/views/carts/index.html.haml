@@ -59,7 +59,7 @@
               %span= number_to_currency(@cart.total_price * 1.18, unit: "Rs. ")
 
             %div.mt-4
-              = link_to "Checkout", cart_path(id: 'user_details'), class: 'w-full bg-green-500 block text-white px-4 py-2 rounded-lg text-center hover:bg-green-600'
+              = link_to "Checkout", cart_path(id: 'user_details'), class: 'w-full bg-indigo-900 block text-white px-4 py-2 rounded-lg text-center hover:bg-indigo-800'
     - else 
       %div.grid.grid-cols-3.md:grid-cols-3.gap-4
         .col-span-1
@@ -67,5 +67,5 @@
           = image_tag 'empty_cart.svg'
           %div.flex.justify-center.text-lg.text-red-500.mt-4
             Your cart is empty. Please add some products into your cart.
-          = link_to "Go to Products", products_path, class: 'bg-green-500 block text-white px-4 py-2 mt-4 rounded-lg text-center hover:bg-green-600'
+          = link_to "Go to Products", products_path, class: 'bg-indigo-900 block text-white px-4 py-2 mt-4 rounded-lg text-center hover:bg-indigo-800'
         .col-span-1

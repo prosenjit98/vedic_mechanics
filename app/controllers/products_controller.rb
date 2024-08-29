@@ -11,7 +11,7 @@ class ProductsController < ApplicationController
     @products = @products.order(created_at: params[:created_at]) if params[:created_at].present?
     @products = @products.by_review(params[:rating]) if params[:rating].present?
     @products = @products.popular_product if params[:popular].present?
-    @pagy, @products = pagy(@products, items: 12)
+    @pagy, @products = pagy(@products, items: 2)
     @query_params = request.query_parameters
 
     respond_to do |format|
