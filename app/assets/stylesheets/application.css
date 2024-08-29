@@ -17,14 +17,14 @@
  @import "aos";
 
  :root {
-  --primary_bg_color: #4a4a4a; /* Industrial dark grey for primary background */
-  --secondary_color: #ffa500;  /* Machinery-related orange, symbolizing warning and caution */
+  --primary_bg_color: #121272; /* Industrial dark grey for primary background */
+  --secondary_color: #6e9cff;  /* Machinery-related orange, symbolizing warning and caution */
   --primary_text_color: #ffffff; /* Light text for dark backgrounds */
   --secondary_text_color: #333333; /* Dark grey for text on light backgrounds */
-  --form_bg_color: #2c2c2c; /* Dark grey for form section background */
-  --form_input_bg_color: #3b3b3b; /* Slightly lighter grey for form input backgrounds */
-  --form_input_border_color: #565656; /* Medium grey for form input borders */
-  --form_input_focus_border_color: #ffa500; /* Orange for focused input borders */
+  --form_bg_color: #290862; /* Dark grey for form section background */
+  --form_input_bg_color: #460aae; /* Slightly lighter grey for form input backgrounds */
+  --form_input_border_color: #350882; /* Medium grey for form input borders */
+  --form_input_focus_border_color: #2dceff; /* Orange for focused input borders */
   --required_color: #d32f2f; /* Strong red for required asterisk */
 }
 

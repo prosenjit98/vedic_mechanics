@@ -43,7 +43,7 @@
 
 .public-nav-active {
   background: white;
-  color: rgb(23, 206, 23);
+  color: var(--primary_bg_color);
 }
 
 .admin-nav-active {

@@ -8,7 +8,7 @@
             / Modal header
             .flex.items-center.justify-between.p-4.md:p-5.border-b.rounded-t
               %h3.text-xl.font-semibold.text-gray-900
-                Login to Chandra Herbal
+                Login to Machinery Co.
               %button.text-gray-400.bg-transparent.hover:bg-gray-200.hover:text-gray-900.rounded-lg.text-sm.w-8.h-8.ms-auto.inline-flex.justify-center.items-center.end-2.5{data: {action: "global-modal#close"}, type: "button"}
                 %svg.w-3.h-3{"aria-hidden" => "true", fill: "none", viewbox: "0 0 14 14", xmlns: "http://www.w3.org/2000/svg"}
                   %path{d: "m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6", stroke: "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
@@ -28,19 +28,19 @@
                       .text-red-500.text-base.font-semibold= alert || notice
                   %div
                     = f.label :email, class: "block mb-2 text-sm font-medium text-gray-900"
-                    = f.email_field :email,autofocus: true,placeholder: "example@gmail.com",required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                    = f.email_field :email,autofocus: true,placeholder: "example@gmail.com",required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
                   %div
                     = f.label :password, class: "block mb-2 text-sm font-medium text-gray-900"
-                    = f.password_field :password,required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-green-500 focus:border-green-500 block w-full p-2.5"
+                    = f.password_field :password,required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
                   .flex.justify-between.py-2.5
                     .flex.items-start
                       -# - if devise_mapping.rememberable?
                       -#   .flex.items-center.h-5
                       -#     = f.check_box :remember_me, class: "w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300", required: "", type: "checkbox", value: ""
                       -#   %label.ms-2.text-sm.font-medium.text-gray-900{for: "remember"} Remember me
-                    %a.text-sm.text-green-500.hover:underline{href: "#"} Lost Password?
-                  %button.w-full.text-white.bg-green-500.hover:bg-green-800.focus:ring-4.focus:outline-none.focus:ring-green-300.font-medium.rounded-lg.text-sm.px-5.text-center{class: "py-2.5", type: "submit"} Login to your account
+                    %a.text-sm.text-indigo-900.hover:underline{href: "#"} Lost Password?
+                  %button.w-full.text-white.bg-indigo-900.hover:bg-indigo-700.focus:ring-4.focus:outline-none.focus:ring-indigo-300.font-medium.rounded-lg.text-sm.px-5.text-center{class: "py-2.5", type: "submit"} Login to your account
                 .text-sm.font-medium.text-gray-500
                   Not registered?
                   -# %a.text-green-500.hover:underline{href: "#"} Create account
-                  = link_to "Create Account", new_registration_path(resource_name), data: { turbo_frame: 'sign_up_form' }, class: "text-green-500 hover:underline"
+                  = link_to "Create Account", new_registration_path(resource_name), data: { turbo_frame: 'sign_up_form' }, class: "text-indigo-900 hover:underline"
