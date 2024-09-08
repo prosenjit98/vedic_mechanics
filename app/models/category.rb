@@ -10,7 +10,8 @@ class Category < ApplicationRecord
       {
         id: category.id,
         name: category.name,
-        children: to_nested_hash(category.child_categories)
+        children: to_nested_hash(category.child_categories),
+        products: category.products.pluck([:id, :name]).to_h
       }
     end
   end

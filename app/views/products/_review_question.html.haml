@@ -7,7 +7,7 @@
 
 #default-styled-tab-content
   #styled-review.hidden.p-4.rounded-lg.bg-white.dark:bg-gray-800{"aria-labelledby" => "review-styled-tab", role: "tabpanel"}
-    - @reviews = @product.reviews.order(created_at: :desc)
+    - @reviews = product.reviews.order(created_at: :desc)
     - if @reviews.present?
       - @reviews.each do |review|
         %div.p-4
@@ -25,7 +25,7 @@
     - else
       %p.text-gray-700.dark:text-gray-300 No review yet!
   #styled-questions.hidden.p-4.rounded-lg.bg-white.dark:bg-gray-800{"aria-labelledby" => "questions-styled-tab", role: "tabpanel"}
-    - @questions = @product.questions.order(created_at: :desc)
+    - @questions = product.questions.order(created_at: :desc)
     - if @questions.present?
       - @questions.each do |question|
         - if question.reply.present?

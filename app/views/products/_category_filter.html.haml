@@ -1,14 +1,17 @@
 %div{ data: { controller: "sidebar" } }
   %div.dark:text-gray-300.flex.items-center.justify-between.py-1.cursor-pointer.rounded.hover:bg-gray-300.dark:hover:bg-gray-800{ data: { action: "click->sidebar#toggle", sidebar_target: "toggle" } }
+    %span.text-sm= category[:name].humanize
     - if category[:children].any?
-      %span.text-sm= category[:name].humanize
       %button.flex.items-center
         %svg.h-6.w-6.text-gray-400.ml-2.dark:text-gray-500{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 20 20', fill: 'currentColor' }
           %path{ d: 'M6 8l4 4 4-4' }
-    - else
-      .flex.items-center
-        = check_box_tag 'category_id[]', category[:id], checked: params[:category_id]&.include?(category[:id].to_s), id: "category_#{category[:id]}", class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600", data: {sidebar_target: "checkbox", filter_target: "filterinput" }
-        %label.ms-2.text-sm.text-gray-800.dark:text-gray-300{:for => "category_#{category[:id]}"}= category[:name].humanize
+
+  - if category[:products].any?
+    %div.ml-2
+      - category[:products].each do |product_id, product_name|
+        .flex.items-center
+          = radio_button_tag 'product_id', product_id, params[:product_id] == product_id.to_s, id: "product_#{product_id}", class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600", data: {sidebar_target: "checkbox", filter_target: "filterinput" }
+          %label.ml-2.text-sm.text-gray-800.dark:text-gray-300{:for => "product_#{product_id}"}= product_name
 
   - if category[:children].any?
     %div.ml-1.pl-2.border-l.border-gray-200.dark:border-gray-600.hidden{ data: { sidebar_target: "children" } }
