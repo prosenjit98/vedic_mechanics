@@ -5,6 +5,14 @@ class Category < ApplicationRecord
 
   validates :name, presence: true, uniqueness: true
 
+  scope :search_by_name, -> (name) { where('name ILIKE ?', "%#{name}%") }
+
+  def all_subcategories
+    child_categories.includes(:child_categories).flat_map do |subcategory|
+      [subcategory] + subcategory.all_subcategories
+    end
+  end
+
   def self.to_nested_hash(categories = Category.where(parent_category_id: nil))
     categories.map do |category|
       {

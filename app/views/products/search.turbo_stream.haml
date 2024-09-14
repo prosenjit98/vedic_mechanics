@@ -1,0 +1,6 @@
+= turbo_stream.update("search_results") do
+  - if @products.present?
+    %div.bg-white.w-full.p-4.shadow-md.rounded-lg{class: 'md:w-4/5'}
+      - @products.each do |product|
+        = link_to product.name, products_path(product_id: product.id), class: "bg-blue-100 hover:bg-blue-200 text-blue-800 text-xs font-semibold me-2 p-1 rounded dark:bg-gray-700 dark:text-blue-400 border border-blue-400 inline-flex items-center justify-center", data: {turbo_stream: true}
+        -# %a.bg-blue-100.hover:bg-blue-200.text-blue-800.text-xs.font-semibold.me-2.rounded.dark:bg-gray-700.dark:text-blue-400.border.border-blue-400.inline-flex.items-center.justify-center{:class => "px-2.5 py-0.5", :href => "#"}= product.name

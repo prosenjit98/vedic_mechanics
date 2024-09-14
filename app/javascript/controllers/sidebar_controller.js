@@ -4,6 +4,20 @@ export default class extends Controller {
   static targets = ["toggle", "children", 'checkbox'];
 
   connect() {
+    this.checkboxTargets.forEach(input => {
+      input.addEventListener("change", function() {
+        var next_sibling = input.nextElementSibling;
+        if (input.checked) {
+          [...document.querySelectorAll('.checkbox_label')].map(x => x.classList.add("text-gray-800", "dark:text-gray-300"));
+          [...document.querySelectorAll('.checkbox_label')].map(x => x.classList.remove("text-blue-500"));
+          if(next_sibling){
+            next_sibling.classList.remove("text-gray-800", "dark:text-gray-300")
+            next_sibling.classList.add("text-blue-500");
+          }
+        }
+      });
+    });
+
     this.childrenTargets.forEach((child) => {
       if (!child.classList.contains("hidden")) {
         child.classList.add("hidden");

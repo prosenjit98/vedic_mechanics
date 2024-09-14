@@ -1,0 +1,12 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @admin_vendor.name
+%p
+  %b Address:
+  = @admin_vendor.address
+
+= link_to 'Edit', edit_admin_vendor_path(@admin_vendor)
+\|
+= link_to 'Back', admin_vendors_path

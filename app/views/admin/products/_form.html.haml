@@ -48,7 +48,10 @@
       %label.block.text-sm.font-medium.text-gray-700{:for => "multiple_files"} Product Images
       %div.mt-1
         = f.file_field :product_images, multiple: true, class: "block w-full form-input text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
-
+    .col-span-1
+      %label.block.text-sm.font-medium.text-gray-700 Vendor
+      %div.mt-1
+        = f.collection_select :vendor_id, Vendor.all, :id, :name, {prompt: "Select Vendor(optional)"}, {class: "selectable w-full border-gray-300 rounded-md shadow-sm"}
   .col-span-2
     %label.block.text-sm.font-medium.text-gray-700 Description
     %div.mt-1

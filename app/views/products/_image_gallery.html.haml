@@ -1,7 +1,9 @@
-%div.flex.flex-row.lg:flex-col.items-center.overflow-y-auto{class: "lg:h-[290px] h-[90px] lg:w-[60px] w-full"}
+- orientation = orientation || 'side'
+
+%div.flex.items-center.overflow-y-auto{class: "#{orientation == 'bottom' ? 'w-[60px] lg:w-[100px]' : 'lg:h-[290px] h-[90px] lg:w-[60px] w-full flex-row lg:flex-col'}"}
   - product.product_images.each_with_index do |image, index|
-    %div.mb-2.cursor-pointer
+    %div.mb-2.cursor-pointer{class: orientation == 'bottom' ? 'mx-2' : ''}
       = image_tag image, alt: product.name, class: "object-contain w-[60px] h-full border-2 #{index.zero? ? 'border-green-500' : 'border-transparent'} hover:opacity-80 transition-opacity duration-200 ease-in-out", data: { action: "click->product#selectImage", image_url: url_for(image) }
-%div.flex-1.flex.justify-center.items-center
+%div.flex-1.flex.justify-center.items-center.w-full
   %div.w-full.max-w-lg{class: "lg:h-[550px] h-[350px]"}
     = image_tag product.product_images.first, alt: product.name, id: "main_product_image", class: "object-contain w-full h-full border-2 border-gray-200 dark:border-gray-600 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out", data: {"product-target": 'mainImage'}

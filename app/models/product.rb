@@ -1,5 +1,6 @@
 class Product < ApplicationRecord
   belongs_to :category
+  belongs_to :vendor, optional: true
   has_many :order_items
   has_many :orders, through: :order_items
   has_many :cart_items
@@ -21,6 +22,8 @@ class Product < ApplicationRecord
   scope :by_search,     lambda { |search| where('name ILIKE ?', "%#{search.downcase}%")}
   scope :by_category,   lambda { |category_id| where(category_id: category_id) }
   scope :by_review,     lambda { |review| left_joins(:reviews).group('products.id').having('AVG(reviews.rating) > ?', review) }
+  scope :own_products,  lambda { where(vendor_id: nil) }
+  scope :vendor_products, lambda { where.not(vendor_id: nil) }
 
 
   def self.popular_product

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
+    resources :vendors
     root to: 'dash_board#index'
     resources :orders, only: [:index, :show, :update] do
       member do
@@ -32,6 +33,7 @@ Rails.application.routes.draw do
     end
   end
   root "home#index"
+  resources :market_places, only: :index
   resources :home do
     collection do
       get :privacy_policy
@@ -74,7 +76,11 @@ Rails.application.routes.draw do
       patch :cancel
     end
   end
-  resources :products
+  resources :products do
+    collection do
+      get :search
+    end
+  end
   resources :reviews
   resources :contacts, only: [:new, :create]
 end

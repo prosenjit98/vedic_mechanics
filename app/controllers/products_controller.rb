@@ -21,6 +21,19 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    if params[:query].present?
+      categories = Category.search_by_name(params[:query])
+      categories = categories.flat_map(&:all_subcategories)
+      @products = Product.own_products.where('name LIKE ?', "%#{params[:query]}%").or(Product.where(category_id: categories))
+    else
+      @products = Product.none
+    end
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   # GET /products/1 or /products/1.json
   def show
     @rating_percentage = @product.reviews.rating_percentage
