@@ -19,7 +19,18 @@ class Category < ApplicationRecord
         id: category.id,
         name: category.name,
         children: to_nested_hash(category.child_categories),
-        products: category.products.pluck([:id, :name]).to_h
+        products: category.products.own_products.pluck([:id, :name]).to_h
+      }
+    end
+  end
+
+  def self.to_vendor_nested_hash(categories = Category.where(parent_category_id: nil))
+    categories.map do |category|
+      {
+        id: category.id,
+        name: category.name,
+        children: to_nested_hash(category.child_categories),
+        products: category.products.vendor_products.pluck([:id, :name]).to_h
       }
     end
   end

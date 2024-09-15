@@ -1,7 +1,7 @@
 class MarketPlacesController < ApplicationController
 
   def index
-    @categories = Category.to_nested_hash
+    @categories = Category.to_vendor_nested_hash
     @products = Product.vendor_products.includes(:reviews)
     @products = @products.by_search(params[:search]) if params[:search].present?
     @products = @products.order(price: params[:price]) if params[:price].present?

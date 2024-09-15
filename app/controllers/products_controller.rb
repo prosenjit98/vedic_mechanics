@@ -25,7 +25,7 @@ class ProductsController < ApplicationController
     if params[:query].present?
       categories = Category.search_by_name(params[:query])
       categories = categories.flat_map(&:all_subcategories)
-      @products = Product.own_products.where('name LIKE ?', "%#{params[:query]}%").or(Product.where(category_id: categories))
+      @products = Product.own_products.where('name LIKE ?', "%#{params[:query]}%").or(Product.own_products.where(category_id: categories))
     else
       @products = Product.none
     end
