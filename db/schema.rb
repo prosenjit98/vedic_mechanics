@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_21_095016) do
+ActiveRecord::Schema[7.1].define(version: 2024_09_19_103146) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -170,6 +170,16 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_095016) do
     t.datetime "captured_at"
   end
 
+  create_table "product_variants", force: :cascade do |t|
+    t.bigint "variant_id", null: false
+    t.bigint "product_id", null: false
+    t.string "value", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["product_id"], name: "index_product_variants_on_product_id"
+    t.index ["variant_id"], name: "index_product_variants_on_variant_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -182,6 +192,9 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_095016) do
     t.float "original_price"
     t.decimal "mfg_cost"
     t.decimal "approx_delivery_cost"
+    t.integer "vendor_id"
+    t.string "hsn"
+    t.jsonb "variant"
     t.index ["category_id"], name: "index_products_on_category_id"
   end
 
@@ -259,6 +272,19 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_095016) do
     t.index ["unlock_token"], name: "index_users_on_unlock_token", unique: true
   end
 
+  create_table "variants", force: :cascade do |t|
+    t.string "title"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "vendors", force: :cascade do |t|
+    t.string "name"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "addresses", "users"
@@ -267,6 +293,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_21_095016) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_variants", "products"
+  add_foreign_key "product_variants", "variants"
   add_foreign_key "products", "categories"
   add_foreign_key "questions", "products"
   add_foreign_key "questions", "users"

@@ -13,6 +13,7 @@ class Admin::ProductsController < Admin::BaseController
   
   def new
     @product = Product.new
+    @product_variants = @product.product_variants.build
     breadcrumbs.add "new"
   end
 
@@ -26,6 +27,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def edit
+    @product_variants = @product.product_variants.build unless @product.product_variants.present?
     respond_to do |format|
       format.turbo_stream
       format.html
@@ -58,7 +60,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :vendor_id, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [])
+    params.require(:product).permit(:name, :price, :description, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id])
   end
 
   def add_breadcrumbs

@@ -3,10 +3,11 @@
   .grid.grid-cols-12.gap-4.px-4.py-8
     .col-span-12.lg:col-span-3
       = render 'products/filters'
-    .col-span-12.lg:col-span-9
-      .flex.justify-between.items-center.py-4
-        .w-full.flex.justify-between
-          = render 'search'
+    .col-span-12.lg:col-span-9.relative
+      .sticky.top-16.z-10.p-4
+        .flex.justify-between.items-center
+          .w-full.flex.justify-between
+            = render 'search'
           -# = text_field_tag 'search', params[:search], placeholder: "Search for Products", class: "form-input w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100", data: { filter_target: "filterinput" }
   
       %div.container.mx-auto.px-4.mt-4

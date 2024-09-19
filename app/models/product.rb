@@ -7,8 +7,12 @@ class Product < ApplicationRecord
   has_many :carts, through: :cart_items
   has_many :reviews
   has_many :questions
+  has_many :product_variants
+  has_many :variants, through: :product_variants
 
   has_many_attached :product_images
+
+  accepts_nested_attributes_for :product_variants
   has_rich_text :specification
 
   validates :name, presence: true
@@ -25,6 +29,7 @@ class Product < ApplicationRecord
   scope :own_products,  lambda { where(vendor_id: nil) }
   scope :vendor_products, lambda { where.not(vendor_id: nil) }
 
+  PRODUCT_VARIANTS = ['weight', 'size', 'volume', 'color']
 
   def self.popular_product
     left_joins(:reviews).group('products.id').order('COUNT(reviews.id) DESC')

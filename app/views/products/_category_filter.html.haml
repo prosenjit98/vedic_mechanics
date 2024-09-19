@@ -1,5 +1,5 @@
 %div{ data: { controller: "sidebar" } }
-  %div.dark:text-gray-300.flex.items-center.justify-between.py-1.cursor-pointer.rounded.hover:bg-gray-300.dark:hover:bg-gray-800{ data: { action: "click->sidebar#toggle", sidebar_target: "toggle" } }
+  %div.dark:text-gray-300.flex.items-center.justify-between.py-1.cursor-pointer.rounded.hover:bg-gray-300.dark:hover:bg-gray-800{ data: { action: "click->sidebar#toggle", sidebar_target: "toggle", is_root: root_cat ? "true" : "false" } }
     %span.text-sm= category[:name].humanize
     - if category[:children].any?
       %button.flex.items-center
@@ -16,4 +16,4 @@
   - if category[:children].any?
     %div.ml-1.pl-2.border-l.border-gray-200.dark:border-gray-600.hidden{ data: { sidebar_target: "children" } }
       - category[:children].each do |child|
-        = render partial: 'category_filter', locals: { category: child }
+        = render partial: 'category_filter', locals: { category: child, root_cat: false }

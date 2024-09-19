@@ -5,6 +5,8 @@ class ProductsController < ApplicationController
   def index
     @categories = Category.to_nested_hash
     @products = Product.where(id: params[:product_id])
+    @variants = @products.first.variants if @products.present?
+    @similar_products_variants = ProductVariant.where(variant_id: @variants.ids) if @products.present?
     # @products = Product.all.includes(:reviews)
     # @products = @products.by_search(params[:search]) if params[:search].present?
     # @products = @products.order(price: params[:price]) if params[:price].present?

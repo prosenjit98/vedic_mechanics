@@ -9,7 +9,7 @@
     .p-5.border.border-b-1.rounded-lg.rounded-t-none.border-gray-200.bg-white.dark:border-gray-700.dark:bg-gray-900
       #sidebar
         - @categories.each do |category|
-          = render partial: 'category_filter', locals: { category: category }
+          = render partial: 'category_filter', locals: { category: category, root_cat: true }
       -# - Category.all.each do |cat|
       -#   .flex.items-center
       -#     = check_box_tag 'category_id[]', cat.id, checked: params[:category_id]&.include?(cat.id.to_s), id: "category_#{cat.id}", class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600", data: { filter_target: "filterinput" }

@@ -52,6 +52,20 @@
       %label.block.text-sm.font-medium.text-gray-700 Vendor
       %div.mt-1
         = f.collection_select :vendor_id, Vendor.all, :id, :name, {prompt: "Select Vendor(optional)"}, {class: "selectable w-full border-gray-300 rounded-md shadow-sm"}
+    .col-span-1
+      %label.block.text-sm.font-medium.text-gray-700 HSN
+      %div.mt-1
+        = f.text_field :hsn, class: "form-input block w-full border-gray-300 rounded-md shadow-sm", placeholder: "Add same string to link same type of products"
+    
+    = f.fields_for :product_variants, @product_variants do |d|
+      .col-span-1
+        %label.block.text-sm.font-medium.text-gray-700 Variant type
+        %div.mt-1
+          = d.collection_select :variant_id, Variant.all, :id, :title, {}, {class: "selectable w-full border-gray-300 rounded-md shadow-sm"}
+      .col-span-1
+        %label.block.text-sm.font-medium.text-gray-700 Variant value
+        %div.mt-1
+          = d.text_field :value, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
   .col-span-2
     %label.block.text-sm.font-medium.text-gray-700 Description
     %div.mt-1

@@ -48,6 +48,14 @@
               = (1..5).map { |i| ratings >= i ? "★" : "☆" }.join(' ')
             %span.text-gray-600.dark:text-gray-400.text-sm.ml-2
               = "#{ratings.to_f} (#{product&.review_count} reviews)"
+          %div.my-4
+            - @variants.each do |variant|
+              - similar_products_variant = @similar_products_variants.find_by(variant_id: variant.id)
+              - if similar_products_variant.present? 
+                .flex
+                  .font-semibold.mr-4= variant.title
+                  = select_tag :selected_variant, options_for_select(@similar_products_variants.map { |e| [e.value, e.product_id] }, product.id), class: "border-gray-300 rounded-md shadow-sm"
+
           - if product.discount.present?
             %div.mt-4
               %span.bg-red-500.text-white.px-2.py-1.text-xs.font-bold.uppercase.rounded
