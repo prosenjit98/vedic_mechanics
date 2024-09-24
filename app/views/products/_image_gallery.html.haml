@@ -1,9 +1,37 @@
 - orientation = orientation || 'side'
 
-%div.flex.items-center.overflow-y-auto{class: "#{orientation == 'bottom' ? 'w-[60px] lg:w-[100px]' : 'lg:h-[290px] h-[90px] lg:w-[60px] w-full flex-row lg:flex-col'}"}
-  - product.product_images.each_with_index do |image, index|
-    %div.mb-2.cursor-pointer{class: orientation == 'bottom' ? 'mx-2' : ''}
-      = image_tag image, alt: product.name, class: "object-contain w-[60px] h-full border-2 #{index.zero? ? 'border-green-500' : 'border-transparent'} hover:opacity-80 transition-opacity duration-200 ease-in-out", data: { action: "click->product#selectImage", image_url: url_for(image) }
-%div.flex-1.flex.justify-center.items-center.w-full
-  %div.w-full.max-w-lg{class: "lg:h-[550px] h-[350px]"}
-    = image_tag product.product_images.first, alt: product.name, id: "main_product_image", class: "object-contain w-full h-full border-2 border-gray-200 dark:border-gray-600 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out", data: {"product-target": 'mainImage'}
+-# %div.flex.items-center.overflow-y-auto{class: "#{orientation == 'bottom' ? 'w-[60px] lg:w-[100px]' : 'lg:h-[290px] h-[90px] lg:w-[60px] w-full flex-row lg:flex-col'}"}
+-#   - product.product_images.each_with_index do |image, index|
+-#     %div.mb-2.cursor-pointer{class: orientation == 'bottom' ? 'mx-2' : ''}
+-#       = image_tag image, alt: product.name, class: "object-contain w-[60px] h-full border-2 #{index.zero? ? 'border-green-500' : 'border-transparent'} hover:opacity-80 transition-opacity duration-200 ease-in-out", data: { action: "click->product#selectImage", image_url: url_for(image) }
+-# %div.flex-1.flex.justify-center.items-center.w-full
+-#   %div.w-full.max-w-lg{class: "lg:h-[550px] h-[350px]"}
+-#     = image_tag product.product_images.first, alt: product.name, id: "main_product_image", class: "object-contain w-full h-full border-2 border-gray-200 dark:border-gray-600 rounded-lg shadow-lg hover:shadow-2xl transition-shadow duration-300 ease-in-out", data: {"product-target": 'mainImage'}
+
+
+
+#default-carousel.relative.w-full{"data-carousel" => "static"}
+  / Carousel wrapper
+  .relative.h-56.overflow-hidden.rounded-lg.md:h-96
+    / Item 1
+    - product.product_images.each_with_index do |image, index|
+      .hidden.duration-700.ease-in-out{"data-carousel-item" => ""}
+        = image_tag image, alt: product.name, class: "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 absolute block object-contain w-full h-full"
+    
+  / Slider indicators
+  .absolute.z-30.flex.space-x-3.rtl:space-x-reverse.px-1.py-1.rounded{:class => "-bottom-4 -translate-x-1/2 left-1/2 bg-gray-700/50 dark:bg-gray-100/50"}
+    - product.product_images.each_with_index do |image, index|
+      %button.w-3.h-3.rounded-full{"aria-current" => "true", "aria-label" => "Slide 1", "data-carousel-slide-to" => "0", :type => "button"}
+  / Slider controls
+  %button.absolute.top-0.start-0.z-30.flex.items-center.justify-center.h-full.px-4.cursor-pointer.group.focus:outline-none{"data-carousel-prev" => "", :type => "button"}
+    %span.inline-flex.items-center.justify-center.w-10.h-10.rounded-full.group-focus:ring-4.group-focus:ring-white.group-focus:outline-none{:class => "bg-gray-800/30 dark:bg-gray-800/30 group-hover:bg-gray-800/50 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70"}
+      %svg.w-4.h-4.text-white.dark:text-gray-800.rtl:rotate-180{"aria-hidden" => "true", :fill => "none", :viewbox => "0 0 6 10", :xmlns => "http://www.w3.org/2000/svg"}
+        %path{:d => "M5 1 1 5l4 4", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+      %span.sr-only Previous
+  %button.absolute.top-0.end-0.z-30.flex.items-center.justify-center.h-full.px-4.cursor-pointer.group.focus:outline-none{"data-carousel-next" => "", :type => "button"}
+    %span.inline-flex.items-center.justify-center.w-10.h-10.rounded-full.group-focus:ring-4.group-focus:ring-white.group-focus:outline-none{:class => "bg-gray-800/30 dark:bg-gray-800/30 group-hover:bg-gray-800/50 dark:group-hover:bg-gray-800/60 dark:group-focus:ring-gray-800/70"}
+      %svg.w-4.h-4.text-white.dark:text-gray-800.rtl:rotate-180{"aria-hidden" => "true", :fill => "none", :viewbox => "0 0 6 10", :xmlns => "http://www.w3.org/2000/svg"}
+        %path{:d => "m1 9 4-4-4-4", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+      %span.sr-only Next
+
+

@@ -1,5 +1,5 @@
-%div.w-full{"data-controller" => "product-search", "data-action" => "input->product-search#query"}
-  %input{"data-product-search-target" => "input", type: "text", placeholder: "Search for products or categories...", class: "w-full md:w-4/5 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100"}
+%div.w-full.z-80{"data-controller" => "product-search", "data-action" => "input->product-search#query"}
+  %input{"data-product-search-target" => "input", type: "text", placeholder: "please search or select from categories ...", class: "w-full md:w-4/5 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100"}
   
   %div{"data-product-search-target" => "results"}
     = turbo_frame_tag "search_results"
