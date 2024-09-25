@@ -87,4 +87,5 @@ gem "httparty"
 gem 'indian_postal_codes'
 gem 'receipts'
 gem "pagy"
+gem 'acts-as-taggable-on'
 

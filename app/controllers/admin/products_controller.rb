@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::BaseController 
-  before_action :find_by_id_product, only: [:show, :edit, :update, :destroy]
+  before_action :find_by_id_product, only: [:show, :edit, :update, :destroy, :add_tags]
   before_action :add_breadcrumbs
   before_action :set_category, only: [:new, :create, :edit, :update]
   
@@ -49,6 +49,16 @@ class Admin::ProductsController < Admin::BaseController
     redirect_to admin_products_path
   end 
 
+  def add_tags
+  end
+
+  def update_tags
+    @product.tag_list = params[:product][:tag_list]
+    if @product.save
+      redirect_to admin_products_path
+    end
+  end
+
 
   private
   
@@ -60,7 +70,7 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id])
+    params.require(:product).permit(:name, :price, :description, :tag_list, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id])
   end
 
   def add_breadcrumbs

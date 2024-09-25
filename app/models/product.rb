@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  acts_as_taggable_on :tags
   belongs_to :category
   belongs_to :vendor, optional: true
   has_many :order_items

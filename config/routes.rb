@@ -17,7 +17,12 @@ Rails.application.routes.draw do
       collection do
       end
     end
-    resources :products
+    resources :products do
+      member do
+        get :add_tags
+        patch :update_tags
+      end
+    end
     resources :categories  
     resources :users 
   end
