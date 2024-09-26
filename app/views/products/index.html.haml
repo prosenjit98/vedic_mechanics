@@ -1,7 +1,9 @@
 -# %div.flex.justify-center.min-h-screen.bg-gray-100.dark:bg-gray-900.text-gray-900.dark:text-gray-100
 = form_tag products_path, :method => 'get', :class => "filter-form", data: { controller: "filter", turbo_stream: true, turbo: true } do
-  .grid.grid-cols-12.gap-4.px-4.py-8
-    .col-span-12.lg:col-span-3
+  .grid.grid-cols-12.gap-4.px-4.py-8{data: { controller: "responsive" }}
+    .col-span-12.lg:hidden{ data: { responsive_target: "mobile" } }
+      = render 'mobile_drawer'
+    .col-span-12.lg:col-span-3.hidden.lg:block{ data: { responsive_target: "web" } }
       = render 'products/filters'
     .col-span-12.lg:col-span-9.relative
       .sticky.top-16.z-100.p-4{style: 'z-index: 100;'}
