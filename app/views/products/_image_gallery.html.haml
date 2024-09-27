@@ -15,8 +15,12 @@
   .relative.h-56.overflow-hidden.rounded-lg.md:h-96
     / Item 1
     - product.product_images.each_with_index do |image, index|
-      .hidden.duration-700.ease-in-out{"data-carousel-item" => ""}
-        = image_tag image, alt: product.name, class: "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 absolute block object-contain w-full h-full"
+      - if product.is_image?(image)
+        .hidden.duration-700.ease-in-out{"data-carousel-item" => ""}
+          = image_tag image, alt: product.name, class: "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 absolute block object-contain w-full h-full"
+      - elsif product.is_video?(image)
+        .hidden.duration-700.ease-in-out{"data-carousel-item" => ""}
+          = video_tag image, controls: true, class: "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 absolute block object-contain w-full h-full"
     
   / Slider indicators
   .absolute.z-30.flex.space-x-3.rtl:space-x-reverse.px-1.py-1.rounded{:class => "-bottom-4 -translate-x-1/2 left-1/2 bg-gray-700/50 dark:bg-gray-100/50"}

@@ -54,4 +54,10 @@ class Product < ApplicationRecord
     reviews&.average(:rating)&.round(1) || 0
   end
 
+  ['image', 'video'].each do |key|
+    define_method "is_#{key}?" do |arg|
+      arg.content_type.start_with?("#{key}/")
+    end
+  end
+
 end
