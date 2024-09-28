@@ -15,4 +15,11 @@ export default class extends Controller {
       document.body.appendChild(fragment);
     })
   }
+
+  remove() {
+    let targetEle = document.getElementsByClassName('final_product_result')
+    if(targetEle.length > 0) {
+      targetEle[0].remove()
+    }
+  }
 }

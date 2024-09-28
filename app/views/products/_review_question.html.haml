@@ -6,7 +6,7 @@
       %button#questions-styled-tab.inline-block.p-4.border-b-2.rounded-t-lg.hover:text-green-300.hover:border-gray-300{"aria-controls" => "questions", "aria-selected" => "false", "data-tabs-target" => "#styled-questions", role: "tab", type: "button"} Questions
 
 #default-styled-tab-content
-  #styled-review.hidden.p-4.rounded-lg.bg-white.dark:bg-gray-800{"aria-labelledby" => "review-styled-tab", role: "tabpanel"}
+  #styled-review.hidden.p-4.rounded-lg.main_background_color.dark:bg-gray-800{"aria-labelledby" => "review-styled-tab", role: "tabpanel"}
     - @reviews = product.reviews.order(created_at: :desc)
     - if @reviews.present?
       - @reviews.each do |review|
@@ -24,7 +24,7 @@
         %hr 
     - else
       %p.text-gray-700.dark:text-gray-300 No review yet!
-  #styled-questions.hidden.p-4.rounded-lg.bg-white.dark:bg-gray-800{"aria-labelledby" => "questions-styled-tab", role: "tabpanel"}
+  #styled-questions.hidden.p-4.rounded-lg.main_background_color.dark:bg-gray-800{"aria-labelledby" => "questions-styled-tab", role: "tabpanel"}
     - @questions = product.questions.order(created_at: :desc)
     - if @questions.present?
       - @questions.each do |question|

@@ -1,5 +1,7 @@
-%div.w-full.z-80{"data-controller" => "product-search", "data-action" => "input->product-search#query"}
-  %input{"data-product-search-target" => "input", type: "text", placeholder: "please search or select from categories ...", class: "w-full md:w-4/5 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100"}
-  
+%div.w-full{style: 'z-index: 49', "data-controller" => "product-search", "data-action" => "input->product-search#query"}
+  .relative
+    %input{"data-product-search-target" => "input", type: "text", placeholder: "please search or select from categories ...", class: "w-full py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-1 text-sm focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100"}
+    .absolute.inset-y-0.flex.items-center.ps-3.pointer-events-none.end-2.5
+      = heroicon 'magnifying-glass', variant: :solid, options: {class: "w-5 h-5 inline-block text-green-500 hover:text-green-700 bg-white"}
   %div{"data-product-search-target" => "results"}
     = turbo_frame_tag "search_results"

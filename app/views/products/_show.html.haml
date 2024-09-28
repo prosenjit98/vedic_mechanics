@@ -1,17 +1,17 @@
 - if product.present?
-  %div.flex.flex-col.lg:flex-row.gap-8{data: {controller: 'product tabs'}}
+  %div.flex.flex-col.lg:flex-row.gap-8.pt-8.md:pt-1{data: {controller: 'product tabs'}}
     %div.w-full{class: "lg:w-7/12 lg:max-h-[80vh] lg:overflow-y-scroll"}
-      %div.flex.flex-col.items-center.lg:flex-col-reverse.lg:items-start.gap-4.bg-white.dark:bg-gray-700.border-gray-200.dark:border-gray-600.p-8.rounded-lg.shadow-lg.hover:shadow-2xl.transition-shadow.duration-300.ease-in-out
+      %div.flex.flex-col.items-center.lg:flex-col-reverse.lg:items-start.gap-4.dark:bg-gray-700.border-gray-200.dark:border-gray-600.p-8.rounded-lg.shadow-lg.hover:shadow-2xl.transition-shadow.duration-300.ease-in-out.main_background_color
         = render 'image_gallery', {product: product, orientation: 'bottom'}
-      %div.mt-8.p-4.bg-white.dark:bg-gray-800.rounded-lg.shadow-md
+      %div.mt-8.p-4.dark:bg-gray-800.rounded-lg.shadow-md.main_background_color
         %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100
           Description
         %p.text-gray-700.dark:text-gray-400.leading-relaxed= product.description
-      %div.mt-8.p-4.bg-white.dark:bg-gray-800.rounded-lg.shadow-md
+      %div.mt-8.p-4.main_background_color.dark:bg-gray-800.rounded-lg.shadow-md
         %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100
           Specification
         %p.text-gray-700.dark:text-gray-400.leading-relaxed= product.specification
-      %div.mt-8.p-4.bg-white.dark:bg-gray-800.rounded-lg.shadow-md
+      %div.mt-8.p-4.main_background_color.dark:bg-gray-800.rounded-lg.shadow-md
         %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100
           Reviews
         .grid.grid-cols-1.md:grid-cols-12.py-4.mb-4
@@ -35,7 +35,7 @@
       %div
         = render 'review_question', {product: product}
     %div.overflow-y-hidden{class: "w-full lg:w-5/12"}
-      .card.border.border-gray-200.dark:border-gray-700.bg-white.dark:bg-gray-800.rounded-lg.shadow-md.p-4
+      .card.border.border-gray-200.dark:border-gray-700.main_secondary_bg_color.dark:bg-gray-800.rounded-lg.shadow-md.p-4
         %div.card-header.p-4.flex.items-center
           %div.flex.flex-row.bg-blue-100.dark:bg-green-900.text-blue-800.dark:text-blue-300.px-2.py-1.rounded.text-xs
             = "#1 best seller"
@@ -69,6 +69,7 @@
               = number_to_currency(product.original_price - product.approx_delivery_cost, precision: 0, unit: "Rs. ")
           %button.w-full.inline-block.bg-gradient-to-r.from-blue-500.to-indigo-900.text-white.px-8.py-3.rounded-lg.shadow-lg.mt-8.mb-4.hover:from-indigo-900.hover:to-blue-700.focus:outline-none.focus:ring.focus:ring-blue-200.focus:ring-opacity-50.transition-transform.transform.hover:scale-105{'data-action': "click->cart#addToCart", 'data-product-id': "#{product.id}"}
             Add to Cart
+          -# %div discount based on total order value
 - else
   %div.flex.flex-col.lg:flex-row.gap-8.pt-4
     %div.w-full

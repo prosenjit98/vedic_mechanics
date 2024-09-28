@@ -36,4 +36,8 @@ document.addEventListener("turbo:load", () => {
 document.addEventListener("turbo:frame-load", () => {
   initializeNiceSelect()
 });
+
+// document.addEventListener("turbo:load", function() {
+//   googleTranslateElementInit();  // Reinitialize Google Translate after Turbo load
+// });
 window.initializeNiceSelect = initializeNiceSelect

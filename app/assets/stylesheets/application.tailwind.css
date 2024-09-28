@@ -4,6 +4,13 @@
 @tailwind utilities;
 @import 'actiontext.css';
 
+.main_background_color{
+  background-color: #cbe7c9;
+}
+.main_secondary_bg_color{
+  background-color: #ded2d2;
+}
+
 .breadcrumbs {
   display: flex;
   flex-wrap: wrap;

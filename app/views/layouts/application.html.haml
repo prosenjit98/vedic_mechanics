@@ -11,6 +11,7 @@
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    -# %script{:src => "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit", :type => "text/javascript"}
 
   %body.bg-gray-100.dark:bg-gray-900(data-controller="cart root")
     = render 'layouts/top'
@@ -23,3 +24,13 @@
         #flash.flash.hidden{"data-controller": 'toast', "data-toast-target": 'toast'}
           = render 'layouts/flash_message'
     = render 'layouts/footer'
+-#     #google_translate_element
+
+-# :javascript
+-#   function googleTranslateElementInit() {
+-#     new google.translate.TranslateElement({
+-#       pageLanguage: 'en',  // Specify the default page language (e.g., 'en' for English)
+-#       includedLanguages: 'en,hi,fr,es,de,bn',  // List of languages you want to offer (Hindi, French, Spanish, German in this case)
+-#       layout: google.translate.TranslateElement.InlineLayout.SIMPLE,
+-#     }, 'google_translate_element');
+-#   }

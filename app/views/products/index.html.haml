@@ -1,16 +1,22 @@
 -# %div.flex.justify-center.min-h-screen.bg-gray-100.dark:bg-gray-900.text-gray-900.dark:text-gray-100
 = form_tag products_path, :method => 'get', :class => "filter-form", data: { controller: "filter", turbo_stream: true, turbo: true } do
   .grid.grid-cols-12.gap-4.px-4.py-8{data: { controller: "responsive" }}
-    .col-span-12.lg:hidden{ data: { responsive_target: "mobile" } }
-      = render 'mobile_drawer'
-    .col-span-12.lg:col-span-3.hidden.lg:block{ data: { responsive_target: "web" } }
-      = render 'products/filters'
+    .col-span-12.lg:col-span-3
+      %div.fixed.top-20{style: "height: 80vh; z-index: 49;", class: "w-11/12 lg:w-1/4"}
+        %div.pt-2 
+          -# .z-100{style: 'z-index: 100;'}
+          .flex.justify-between.items-center
+            .w-full.flex.justify-between
+              = render 'search'
+            .lg:hidden{ data: { responsive_target: "mobile" } }
+              = render 'mobile_drawer'
+            -# = text_field_tag 'search', params[:search], placeholder: "Search for Products", class: "form-input w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100", data: { filter_target: "filterinput" }
+            -# %div.lg:hidden{data: { responsive_target: "mobile" }}
+            -#   %button.text-white.bg-green-700.hover:bg-green-900.focus:ring-4.focus:ring-green-300.font-medium.rounded-lg.text-xs.px-3.py-3.ml-2.dark:bg-green-600.dark:hover:bg-green-700.focus:outline-none.dark:focus:ring-green-800{"aria-controls" => "mobile-filter", :class => "py-2.5", "data-drawer-show" => "mobile-filter", "data-drawer-target" => "mobile-filter", :type => "button"}
+            -#     Category
+          .hidden.lg:block{ data: { responsive_target: "web" } }
+            = render 'products/filters'
     .col-span-12.lg:col-span-9.relative
-      .sticky.top-16.z-100.p-4{style: 'z-index: 100;'}
-        .flex.justify-between.items-center
-          .w-full.flex.justify-between
-            = render 'search'
-          -# = text_field_tag 'search', params[:search], placeholder: "Search for Products", class: "form-input w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100", data: { filter_target: "filterinput" }
   
       %div.container.mx-auto.px-4
         = turbo_frame_tag "products_list", src: products_url(page: params[:page], format: :turbo_stream), loading: "lazy", data: {turbo_action: "advance"} do
