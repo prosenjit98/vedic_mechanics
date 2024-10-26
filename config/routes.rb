@@ -25,6 +25,8 @@ Rails.application.routes.draw do
     end
     resources :categories  
     resources :users 
+    resources :concerns
+    resources :ingredients
   end
   # normal_user_routes
 
