@@ -25,6 +25,14 @@
         = active_link_to admin_categories_path,active: [['admin/categories'], []], class_active: 'admin-nav-active' ,class: "flex items-center px-6 py-2 text-gray-800 hover:bg-green-200 group hover:text-green-900"  do
           = heroicon 'rectangle-stack',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 
           %span.ms-4 Category
+      %li 
+        = active_link_to admin_concerns_path,active: [['admin/concerns'], []], class_active: 'admin-nav-active' ,class: "flex items-center px-6 py-2 text-gray-800 hover:bg-green-200 group hover:text-green-900"  do
+          = heroicon 'tag',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 
+          %span.ms-4 concerns
+      %li 
+        = active_link_to admin_ingredients_path,active: [['admin/ingredients'], []], class_active: 'admin-nav-active' ,class: "flex items-center px-6 py-2 text-gray-800 hover:bg-green-200 group hover:text-green-900"  do
+          = heroicon 'beaker',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 
+          %span.ms-4 ingredients
       %li
         = active_link_to admin_products_path,active: [['admin/products'], []], class_active: 'admin-nav-active' ,class: "flex items-center px-6 py-2 text-gray-800 hover:bg-green-200 group hover:text-green-900"  do
           = heroicon 'shopping-bag',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 

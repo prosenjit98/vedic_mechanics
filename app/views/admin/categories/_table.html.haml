@@ -1,4 +1,4 @@
-%div.w-full.text-sm.text-left.rtl:text-right.text-gray-500
+%div.w-full.text-sm.text-left.text-gray-500
   %div.text-sm.text-gray-700.uppercase.bg-gray-50.flex.font-semibold
     %div.p-4.flex-1.text-center= "#id"
     %div.px-6.py-3.flex-1.text-center Name
@@ -6,5 +6,34 @@
     %div.px-6.py-3.flex-1.text-center Parent Cat.
     %div.px-6.py-3.flex-1.text-center Action
   = turbo_frame_tag "categories" do
-    - @categories.each do |category|
-      = render "category", category: category
+    -# = @mother_categories.inspect
+    - @mother_categories.each do |category|
+      -# = category.name
+      -# = render "category", category: category
+      / Main Category Accordion
+      .bg-gray-100.p-4.rounded-md.mb-4
+        .flex.justify-between.items-center
+          %h3.text-lg.font-semibold=category.name
+          %button.text-gray-600.focus:outline-none{"aria-controls" => "cat1", "aria-expanded" => "false", onclick: "toggleAccordion(#{category.id})", type: "button"}
+            %svg.w-5.h-5{fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
+              %path{d: "M19 9l-7 7-7-7", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+        / Subcategories Accordion
+        = render "sub_category", category: category
+        
+        -# .ml-6.mt-2.hidden{id: "#{category.id}"}
+        -#   .bg-gray-200.p-3.rounded-md.mb-2
+        -#     .flex.justify-between.items-center
+        -#       %h4.text-md= category.child_categories.last.name
+        -#       %button.text-gray-600.focus:outline-none{"aria-controls" => "subcat1-1", "aria-expanded" => "false", onclick: "toggleAccordion('subcat1-1')", type: "button"}
+        -#         %svg.w-5.h-5{fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
+        -#           %path{d: "M19 9l-7 7-7-7", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+            / Child Subcategories Accordion
+            -# #subcat1-1.ml-6.mt-2.hidden
+            -#   .bg-gray-300.p-2.rounded-md.mb-2 Child Subcategory 1.1.1
+            -#   .bg-gray-300.p-2.rounded-md.mb-2 Child Subcategory 1.1.2
+
+-# :javascript
+-#   function toggleAccordion(id) {
+-#     const element = document.getElementById(id);
+-#     element.classList.toggle('hidden');
+-#   }
