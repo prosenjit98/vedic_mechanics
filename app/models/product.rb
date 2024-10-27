@@ -34,7 +34,7 @@ class Product < ApplicationRecord
   scope :by_review,     lambda { |review| left_joins(:reviews).group('products.id').having('AVG(reviews.rating) > ?', review) }
   scope :own_products,  lambda { where(vendor_id: nil) }
   scope :vendor_products, lambda { where.not(vendor_id: nil) }
-  scope :by_concern,    lambda { |concern| joins(:concern).where('concerns.id = ?', concern) }
+  scope :by_concern,    lambda { |concern| joins(:concerns).where('concerns.id = ?', concern) }
   scope :by_ingredient, lambda { |ingredient| joins(:ingredients).where('ingredients.id = ?', ingredient) }
 
   PRODUCT_VARIANTS = ['weight', 'size', 'volume', 'color']

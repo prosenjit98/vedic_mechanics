@@ -17,8 +17,8 @@
  @import "aos";
 
  :root {
-  --primary_bg_color: #121272; /* Industrial dark grey for primary background */
-  --secondary_color: #6e9cff;  /* Machinery-related orange, symbolizing warning and caution */
+  --primary_bg_color: #064d06; /* Industrial dark grey for primary background */
+  --secondary_color: #e9ff6e;  /* Machinery-related orange, symbolizing warning and caution */
   --primary_text_color: #ffffff; /* Light text for dark backgrounds */
   --secondary_text_color: #333333; /* Dark grey for text on light backgrounds */
   --form_bg_color: #290862; /* Dark grey for form section background */

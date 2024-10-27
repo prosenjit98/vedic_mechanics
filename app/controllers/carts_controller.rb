@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   include Wicked::Wizard
+  before_action :set_nav_filter
   before_action :authenticate_user!, only: [:checkout, :show]
   before_action :set_cart, only: %i[ edit destroy]
 

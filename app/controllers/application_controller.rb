@@ -16,4 +16,10 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.permit(:sign_up, keys: [:first_name, :last_name, :phone_number, :external_user_id])
     devise_parameter_sanitizer.permit(:sign_in, keys: [:login, :phone, :email, :password, :password_confirmation, :remember_me])
   end
+
+  def set_nav_filter
+    @categories = Category.to_nested_hash
+    @concerns = Concern.all
+    @ingredients = Ingredient.all
+  end
 end

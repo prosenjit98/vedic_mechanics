@@ -13,4 +13,4 @@
   - if category[:children].any?
     %div.ml-1.pl-2.border-l.border-gray-200.dark:border-gray-600.hidden{ data: { sidebar_target: "children" } }
       - category[:children].each do |child|
-        = render partial: 'category_filter', locals: { category: child }
+        = render partial: 'market_places/category_filter', locals: { category: child }

@@ -29,6 +29,32 @@ function initializeNiceSelect(){
 }
 
 
+function scrollEvent() {
+  const carouselContainer = document.querySelector(".carousel-container");
+  const scrollLeft = document.querySelector(".scroll-left");
+  const scrollRight = document.querySelector(".scroll-right");
+
+  function updateScrollButtons() {
+    const isOverflowing = carouselContainer.scrollWidth > carouselContainer.clientWidth;
+    scrollLeft.classList.toggle("hidden", carouselContainer.scrollLeft === 0);
+    scrollRight.classList.toggle("hidden", carouselContainer.scrollLeft + carouselContainer.clientWidth >= carouselContainer.scrollWidth);
+  }
+
+  // Scroll the carousel left or right
+  if(carouselContainer){
+    scrollLeft.addEventListener("click", () => {
+      carouselContainer.scrollBy({ left: -carouselContainer.clientWidth, behavior: "smooth" });
+    });
+  
+    scrollRight.addEventListener("click", () => {
+      carouselContainer.scrollBy({ left: carouselContainer.clientWidth, behavior: "smooth" });
+    });
+    carouselContainer.addEventListener("scroll", updateScrollButtons);
+    updateScrollButtons();
+    window.addEventListener("resize", updateScrollButtons);
+  }
+}
+
 document.addEventListener("turbo:load", () => {
   initializeNiceSelect()
 });
@@ -37,7 +63,5 @@ document.addEventListener("turbo:frame-load", () => {
   initializeNiceSelect()
 });
 
-// document.addEventListener("turbo:load", function() {
-//   googleTranslateElementInit();  // Reinitialize Google Translate after Turbo load
-// });
+document.addEventListener("DOMContentLoaded", scrollEvent);
 window.initializeNiceSelect = initializeNiceSelect
