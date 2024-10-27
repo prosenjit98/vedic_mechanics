@@ -41,8 +41,6 @@ class Admin::ProductsController < Admin::BaseController
     respond_to do |format|
       if @product.update(product_params)
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@product, partial: "admin/products/product", locals: {product: @product}) }
-        @product.concern_ids = product_params[:concern_ids]
-        @product.ingredient_ids = product_params[:ingredient_ids]
         format.html { redirect_to admin_products_path(@product), notice: "Product was successfully updated." }
       end
     end
