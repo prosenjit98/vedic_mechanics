@@ -20,11 +20,8 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def create
-    # @product = Product.new(product_params)
-    @product = Product.new(product_params.except(:concern_ids, :ingredient_ids))
+    @product = Product.new(product_params)
     if @product.save
-      @product.concern_ids = product_params[:concern_ids]
-      @product.ingredient_ids = product_params[:ingredient_ids]
       redirect_to [:admin, @product], notice: "Product was successfully created."
     else
       render :new, alert: "There was an error creating the product."
@@ -42,7 +39,7 @@ class Admin::ProductsController < Admin::BaseController
   def update
     @product = Product.find_by_id(params[:id])
     respond_to do |format|
-      if @product.update(product_params.except(:concern_ids, :ingredient_ids))
+      if @product.update(product_params)
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@product, partial: "admin/products/product", locals: {product: @product}) }
         @product.concern_ids = product_params[:concern_ids]
         @product.ingredient_ids = product_params[:ingredient_ids]
@@ -77,6 +74,8 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
+    params[:product][:concern_ids].reject!(&:blank?) if params[:product][:concern_ids].present?
+    params[:product][:ingredient_ids].reject!(&:blank?) if params[:product][:ingredient_ids].present?
     params.require(:product).permit(:name, :price, :description, :tag_list, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id],concern_ids: [], ingredient_ids: [])
   end
 
