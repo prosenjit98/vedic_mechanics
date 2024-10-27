@@ -13,6 +13,10 @@
       %div.mt-1
         = f.text_field :name, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
     .col-span-2
+      %label.block.text-sm.font-medium.text-gray-700 Image
+      %div.mt-1
+        = f.file_field :image, class: "form-input block w-full border-gray-300 rounded-md shadow-sm" 
+    .col-span-2
       %label.block.text-sm.font-medium.text-gray-700 Describtion
       %div.mt-1
         = f.text_area :description, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"

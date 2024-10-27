@@ -1,3 +1,5 @@
 class Concern < ApplicationRecord
-  has_and_belongs_to_many :product, join_table: "product_concerns", foreign_key: "product_id"
+  has_one_attached :image
+  has_many :product_concerns
+  has_many :products, through: :product_concerns
 end
