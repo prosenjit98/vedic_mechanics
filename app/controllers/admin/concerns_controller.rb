@@ -52,7 +52,7 @@ class Admin::ConcernsController < Admin::BaseController
   end
 
   def concern_params
-    params.require(:concern).permit(:name, :description)
+    params.require(:concern).permit(:name, :description, :image)
   end
 
   def add_breadcrumbs

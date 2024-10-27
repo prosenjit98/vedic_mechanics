@@ -2,6 +2,8 @@ class Admin::ProductsController < Admin::BaseController
   before_action :find_by_id_product, only: [:show, :edit, :update, :destroy, :add_tags]
   before_action :add_breadcrumbs
   before_action :set_category, only: [:new, :create, :edit, :update]
+  before_action :set_collections
+
   
   def index
     @products = Product.all.with_rich_text_specification
@@ -70,12 +72,19 @@ class Admin::ProductsController < Admin::BaseController
   end
 
   def product_params
-    params.require(:product).permit(:name, :price, :description, :tag_list, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id])
+    params[:product][:concern_ids].reject!(&:blank?) if params[:product][:concern_ids].present?
+    params[:product][:ingredient_ids].reject!(&:blank?) if params[:product][:ingredient_ids].present?
+    params.require(:product).permit(:name, :price, :description, :tag_list, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id],concern_ids: [], ingredient_ids: [])
   end
 
   def add_breadcrumbs
     # breadcrumbs.add "Admin"
     breadcrumbs.add "Products", admin_products_path
+  end
+
+  def set_collections
+    @concerns = Concern.all
+    @ingredients = Ingredient.all
   end
 
 

@@ -10,8 +10,11 @@ class Product < ApplicationRecord
   has_many :questions
   has_many :product_variants
   has_many :variants, through: :product_variants
-  has_and_belongs_to_many :concern, join_table: "product_concerns", foreign_key: "concern_id"
-  has_and_belongs_to_many :ingredients, join_table: "product_ingredients", foreign_key: "ingredient_id"
+  has_many :product_concerns
+  has_many :concerns, through: :product_concerns
+  has_many :product_ingredients
+  has_many :ingredients, through: :product_ingredients
+
 
   has_many_attached :product_images
 

@@ -66,6 +66,15 @@
         %label.block.text-sm.font-medium.text-gray-700 Variant value
         %div.mt-1
           = d.text_field :value, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
+      .col-span-1
+        %label.block.text-sm.font-medium.text-gray-700 Concern
+        %div.mt-1
+          = f.collection_select :concern_ids, @concerns, :id, :name, { multiple: true }, {  class: "form-control selectable w-full border-gray-300 rounded-md shadow-sm" }
+
+      .col-span-1
+        %label.block.text-sm.font-medium.text-gray-700 Ingredient
+        %div.mt-1
+          = f.collection_select :ingredient_ids, @ingredients, :id, :name, { multiple: true }, {  class: "form-control selectable w-full border-gray-300 rounded-md shadow-sm" }
   .col-span-2
     %label.block.text-sm.font-medium.text-gray-700 Description
     %div.mt-1
