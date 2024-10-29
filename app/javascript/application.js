@@ -29,30 +29,32 @@ function initializeNiceSelect(){
 }
 
 
-function scrollEvent() {
-  const carouselContainer = document.querySelector(".carousel-container");
-  const scrollLeft = document.querySelector(".scroll-left");
-  const scrollRight = document.querySelector(".scroll-right");
+function initializeCarousels() {
+  document.querySelectorAll(".carousel-container").forEach((carouselContainer) => {
+    const scrollLeft = carouselContainer.closest('.relative').querySelector(".scroll-left");
+    const scrollRight = carouselContainer.closest('.relative').querySelector(".scroll-right");
 
-  function updateScrollButtons() {
-    const isOverflowing = carouselContainer.scrollWidth > carouselContainer.clientWidth;
-    scrollLeft.classList.toggle("hidden", carouselContainer.scrollLeft === 0);
-    scrollRight.classList.toggle("hidden", carouselContainer.scrollLeft + carouselContainer.clientWidth >= carouselContainer.scrollWidth);
-  }
+    function updateScrollButtons() {
+      const isOverflowing = carouselContainer.scrollWidth > carouselContainer.clientWidth;
+      scrollLeft.classList.toggle("hidden", carouselContainer.scrollLeft === 0);
+      scrollRight.classList.toggle("hidden", carouselContainer.scrollLeft + carouselContainer.clientWidth >= carouselContainer.scrollWidth);
+    }
 
-  // Scroll the carousel left or right
-  if(carouselContainer){
-    scrollLeft.addEventListener("click", () => {
-      carouselContainer.scrollBy({ left: -carouselContainer.clientWidth, behavior: "smooth" });
-    });
-  
-    scrollRight.addEventListener("click", () => {
-      carouselContainer.scrollBy({ left: carouselContainer.clientWidth, behavior: "smooth" });
-    });
-    carouselContainer.addEventListener("scroll", updateScrollButtons);
-    updateScrollButtons();
-    window.addEventListener("resize", updateScrollButtons);
-  }
+    // Scroll the carousel left or right
+    if (carouselContainer) {
+      scrollLeft.addEventListener("click", () => {
+        carouselContainer.scrollBy({ left: -carouselContainer.clientWidth, behavior: "smooth" });
+      });
+
+      scrollRight.addEventListener("click", () => {
+        carouselContainer.scrollBy({ left: carouselContainer.clientWidth, behavior: "smooth" });
+      });
+
+      carouselContainer.addEventListener("scroll", updateScrollButtons);
+      updateScrollButtons();
+      window.addEventListener("resize", updateScrollButtons);
+    }
+  });
 }
 
 document.addEventListener("turbo:load", () => {
@@ -63,5 +65,5 @@ document.addEventListener("turbo:frame-load", () => {
   initializeNiceSelect()
 });
 
-document.addEventListener("DOMContentLoaded", scrollEvent);
+document.addEventListener("DOMContentLoaded", initializeCarousels);
 window.initializeNiceSelect = initializeNiceSelect
