@@ -6,6 +6,7 @@ class Category < ApplicationRecord
   validates :name, presence: true, uniqueness: true
 
   scope :search_by_name, -> (name) { where('name ILIKE ?', "%#{name}%") }
+  scope :parent_categories, -> { where(parent_category_id: nil) }
 
   def all_subcategories
     child_categories.includes(:child_categories).flat_map do |subcategory|

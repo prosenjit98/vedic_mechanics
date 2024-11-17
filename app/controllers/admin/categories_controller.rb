@@ -6,6 +6,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories = Category.all
+    @mother_categories = Category.parent_categories
   end
 
   def show
