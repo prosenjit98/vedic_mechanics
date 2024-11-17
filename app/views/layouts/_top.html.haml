@@ -10,7 +10,7 @@
     #navbar-multi-level.hidden.w-full.md:block.md:w-auto
       %ul.flex.flex-col.font-medium.p-4.md:p-0.mt-4.border.border-gray-100.rounded-lg.bg-gray-50.md:space-x-4.rtl:space-x-reverse.md:flex-row.md:mt-0.md:border-0.primary-bg
         = active_link_to "Home", root_path, active: [['home'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
-        = active_link_to 'Products', market_places_path, active: [['market_places'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
+        -# = active_link_to 'Products', market_places_path, active: [['market_places'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
         = active_link_to 'About us', "#", active: [['#'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
         = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-controller': 'root', 'data-root-target': 'link' do
           .flex
@@ -72,29 +72,34 @@
                           %span Log Out
   %nav.bg-gray-50.dark:bg-gray-700
     .max-w-screen-xl.px-4.py-3.mx-auto
-      .grid.grid-cols-1.md:grid-cols-2
-        .flex.items-center
+      .grid.grid-cols-1
+        .relative.mt-4.md:mt-0
+          = render 'products/search'
+        .flex.items-center.pt-4
           %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse.text-sm
-            %li
-              .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "category_dropdown"} By Category
+            - Category.parent_categories.each do |category|
+              %li
+                - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
+                = link_to category.name, market_places_path(parent_category: category.id), class: "text-gray-900 dark:text-white hover:underline #{active_class}"
+            -# %li
+              -# .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "category_dropdown"} By Category
             %li
               .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "concern_dropdown"} By Concern
             %li
               .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "ingredient_dropdown"} By Ingredient
-        .relative.mt-4.md:mt-0
-          = render 'products/search'
+
           -# .absolute.inset-y-0.start-0.flex.items-center.ps-3.pointer-events-none
           -#   %svg.w-4.h-4.text-gray-500.dark:text-gray-400{"aria-hidden" => "true", :fill => "none", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
           -#     %path{:d => "m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
           -#   %span.sr-only Search icon
           -# %input#search-navbar.block.w-full.p-2.ps-10.text-sm.text-gray-900.border.border-gray-300.rounded-lg.bg-gray-50.focus:ring-blue-500.focus:border-blue-500.dark:bg-gray-700.dark:border-gray-600.dark:placeholder-gray-400.dark:text-white.dark:focus:ring-blue-500.dark:focus:border-blue-500{:placeholder => "Search...", :type => "text"}
 
-#category_dropdown.hidden.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700{style: "z-index: 200"}
-  .p-5.border.border-b-1.rounded-lg.rounded-t-none.border-gray-200.bg-white.dark:border-gray-700.dark:bg-gray-900
-    #sidebar
-      - if @categories.present?
-        - @categories.each do |category|
-          = render partial: 'products/category_filter', locals: { category: category, root_cat: true }
+-# #category_dropdown.hidden.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700{style: "z-index: 200"}
+-#   .p-5.border.border-b-1.rounded-lg.rounded-t-none.border-gray-200.bg-white.dark:border-gray-700.dark:bg-gray-900
+-#     #sidebar
+-#       - if @categories.present?
+-#         - @categories.each do |category|
+-#           = render partial: 'products/category_filter', locals: { category: category, root_cat: true }
 #concern_dropdown.hidden.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700{style: "z-index: 200"}
   - if @concerns.present?
     %ul.py-2.text-sm.text-gray-700.dark:text-gray-200
