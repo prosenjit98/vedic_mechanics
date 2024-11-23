@@ -27,6 +27,12 @@ Rails.application.routes.draw do
     resources :users 
     resources :concerns
     resources :ingredients
+    resources :settings do
+      collection do 
+        match :banner, via: [:get, :post]
+        match :trending, via: [:get, :post]
+      end
+    end
   end
   # normal_user_routes
 

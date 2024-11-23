@@ -1,0 +1,68 @@
+= render 'subnav'
+
+= form_with model: @settings, url: banner_admin_settings_path, scope: "app_configuration", method: "post", local: true do |f|
+  = f.hidden_field :key, value: 'banner'
+  = f.hidden_field :value, value: 'banner'
+  %section.mx-auto.bg-white.p-6.mt-4.rounded
+    .flex.justify-between.items-center.pb-6.border-b.border-gray-200
+      %div 
+        %h2.text-2xl.font-semibold.text-gray-800 Banner Settings
+        %p.text-sm.text-gray-500 View and update organisation details.
+      %button.bg-green-600.text-white.font-medium.py-2.px-4.rounded-md.shadow-md#submit_btn Save changes
+
+    .mt-6.space-y-6.border-b.border-gray-200.pb-6
+      .grid.grid-cols-1.md:grid-cols-2
+        %div 
+          %label.block.text-sm.font-medium.text-gray-700{ for: "organisation_name" } Banner *
+          %p.text-xs.text-gray-500 Add banner that will display on top of your home page
+        %div 
+          .flex.justify-between
+            = f.file_field :file
+            - if @settings.file.attached?
+              = image_tag @settings.file, alt: '', height: 50, width: 50
+          -# %input#organisation_name.mt-1.block.w-full.border-gray-300.rounded-md.shadow-sm.text-sm{:type => "text", :value => "Demo"}
+
+:javascript
+  $('#submit_btn').addClass('cursor-not-allowed');
+  $("#app_configuration_file").on('change', function(){
+    var cont_field = $(this);
+    var files = $(this)[0].files;
+    var i = 0;
+    var error = false;
+    while(i < files.length){
+      var file = files[i];
+      var row_width = 1280;
+      var row_height = 640;
+      var url = URL.createObjectURL(file);
+      i++;
+      var img = new Image();
+      img.src = url;
+      img.onload = function(){
+        var result = set_reset_field(row_width, img.width, row_height, img.height, cont_field)
+        if(result){
+          return true;
+        }else{
+          error = true;
+          return false
+        }
+      }
+      if(error){break;}
+    }
+  })
+
+  function set_reset_field(row_width, file_width, row_height, file_height, cont_field){
+    if(row_width != file_width || row_height != file_height){
+      cont_field.val("");
+      if(row_width == null ||row_height == null ){
+        alert('Alert!! Your selected asset has no resolution \nContact administration to update resolution ');
+      }else{
+        alert('Alert!! Resolution Not Matched!!!. \nSelected asset has resolution of ' + row_width + ' * ' + row_height + ' but your provided resolution is ' + file_width + ' * ' + file_height);
+      }
+      $('#submit_btn').addClass('cursor-not-allowed');
+      return false;
+    }
+    else{
+      $('#submit_btn').removeClass('cursor-not-allowed');
+      return true;
+    }
+  }
