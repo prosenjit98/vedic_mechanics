@@ -1,0 +1,13 @@
+.ml-6.mt-2.hidden{id: "#{category.id}"}
+  .bg-gray-200.p-3.rounded-md.mb-2
+    .flex.justify-between.items-center
+      %h4.text-md= category.child_categories.last.name
+      %button.text-gray-600.focus:outline-none{"aria-controls" => "subcat1-1", "aria-expanded" => "false", onclick: "toggleAccordion('subcat1-1')", type: "button"}
+        %svg.w-5.h-5{fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
+          %path{d: "M19 9l-7 7-7-7", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+    
+:javascript
+  function toggleAccordion(id) {
+    const element = document.getElementById(id);
+    element.classList.toggle('hidden');
+  }
