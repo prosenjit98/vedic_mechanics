@@ -1,7 +1,6 @@
-= turbo_frame_tag "category-#{@category.id}" do
+= turbo_frame_tag "category-#{@category.id}", class: "flex-1" do
   = form_for [:admin, @category], as: @category  do |f|
     %div.bg-white.border-b.hover:bg-gray-50.flex.text-center.border.border-green-500
-      %div.w-4.p-4.flex-1= @category.id
       %div.px-6.py-4.text-gray-900.whitespace-nowrap.flex-1
         -  if @category.errors.any?
           = f.text_field :name, class: "bg-gray-50 border border-gray-300 text-red-600 text-sm rounded-lg focus:ring-red-500 focus:border-red-500 block w-full p-2.5 ", required: true, autofocus: true

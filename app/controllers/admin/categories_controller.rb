@@ -43,7 +43,7 @@ class Admin::CategoriesController < Admin::BaseController
         format.json { render :show, status: :ok, location: @category }
         format.turbo_stream do
           flash.now[:notice] = "Updated!"
-          render turbo_stream: turbo_stream.replace("category-#{@category.id}", partial: "admin/categories/category", locals: { category: @category })
+          render turbo_stream: turbo_stream.replace("category-#{@category.id}", partial: "admin/categories/new_category", locals: { category: @category })
         end
       else
         format.html { render :edit, status: :unprocessable_entity }
