@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
+ActiveRecord::Schema[7.1].define(version: 2024_10_26_150937) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "app_configurations", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.json "meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
@@ -109,6 +117,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.integer "parent_category_id"
   end
 
+  create_table "concerns", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.string "name"
     t.string "email"
@@ -117,6 +132,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["msg_rf_id"], name: "index_contacts_on_msg_rf_id", unique: true
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -168,6 +190,24 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.string "razorpay_payment_id"
     t.string "razorpay_signature"
     t.datetime "captured_at"
+  end
+
+  create_table "product_concerns", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "concern_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["concern_id"], name: "index_product_concerns_on_concern_id"
+    t.index ["product_id"], name: "index_product_concerns_on_product_id"
+  end
+
+  create_table "product_ingredients", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_product_ingredients_on_ingredient_id"
+    t.index ["product_id"], name: "index_product_ingredients_on_product_id"
   end
 
   create_table "product_variants", force: :cascade do |t|
@@ -324,6 +364,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_concerns", "concerns"
+  add_foreign_key "product_concerns", "products"
+  add_foreign_key "product_ingredients", "ingredients"
+  add_foreign_key "product_ingredients", "products"
   add_foreign_key "product_variants", "products"
   add_foreign_key "product_variants", "variants"
   add_foreign_key "products", "categories"
