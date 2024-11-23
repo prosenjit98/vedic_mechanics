@@ -13,12 +13,13 @@
       / Main Category Accordion
       .bg-gray-100.p-4.rounded-md.mb-4
         .flex.justify-between.items-center
-          %h3.text-lg.font-semibold=category.name
+          %h3.text-lg.font-semibold= category.name
           %button.text-gray-600.focus:outline-none{"aria-controls" => "cat1", "aria-expanded" => "false", onclick: "toggleAccordion(#{category.id})", type: "button"}
             %svg.w-5.h-5{fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
               %path{d: "M19 9l-7 7-7-7", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
         / Subcategories Accordion
-        = render "sub_category", category: category
+        - if category.child_categories.present?
+          = render "sub_category", category: category
         
         -# .ml-6.mt-2.hidden{id: "#{category.id}"}
         -#   .bg-gray-200.p-3.rounded-md.mb-2
