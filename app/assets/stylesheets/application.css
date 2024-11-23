@@ -98,3 +98,8 @@
 select.selectable {
   position: absolute;
 }
+.active {
+  font-weight: bold;
+  text-decoration: underline;
+  color: var(--primary_bg_color);
+}
