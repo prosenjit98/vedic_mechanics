@@ -31,6 +31,7 @@ Rails.application.routes.draw do
       collection do 
         match :banner, via: [:get, :post]
         match :trending, via: [:get, :post]
+        match :other_settings, via: [:get, :post]
       end
     end
   end
