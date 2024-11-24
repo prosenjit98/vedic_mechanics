@@ -1,0 +1,19 @@
+= render 'subnav', {i: 2}
+
+= form_with model: @settings, url: other_settings_admin_settings_path, scope: "app_configuration", method: "post", local: true do |f|
+  = f.hidden_field :key, value: 'banner'
+  = f.hidden_field :value, value: 'banner'
+  %section.mx-auto.bg-white.p-6.mt-4.rounded
+    .flex.justify-between.items-center.pb-6.border-b.border-gray-200
+      %div 
+        %h2.text-2xl.font-semibold.text-gray-800 Other Settings
+        %p.text-sm.text-gray-500 View and update organisation details.
+      %button.bg-green-600.text-white.font-medium.py-2.px-4.rounded-md.shadow-md#submit_btn Save changes
+
+    .mt-6.space-y-6.border-b.border-gray-200.pb-6
+      .grid.grid-cols-1.md:grid-cols-2
+        %div 
+          %label.block.text-sm.font-medium.text-gray-700{ for: "organisation_name" } First Loading category *
+          %p.text-xs.text-gray-500 Select category that will be loaded on initial page load
+        %div 
+          = f.select :initial_category, options_for_select(@parents.collect{|e| [e.name, e.id]}, @settings&.value), {include_blank: true}, class: 'selectable focus:ring-green-500 focus:border-green-500'

@@ -13,6 +13,19 @@ class Admin::SettingsController < Admin::BaseController
     end
   end
 
+  def other_settings
+    breadcrumbs.add "other settings", other_settings_admin_settings_path
+    @settings = AppConfiguration.find_by(key: "initial_category")
+    @settings = AppConfiguration.new(key: "initial_category") if @settings.nil?
+    @parents = Category.left_joins(:products).group(:id).having('COUNT(products.id) = 0').order(:name)
+    if params[:app_configuration].present? && params[:app_configuration][:initial_category].present?
+      @settings.value = params[:app_configuration][:initial_category]
+      if @settings.save
+        redirect_to other_settings_admin_settings_path
+      end
+    end
+  end
+
   private
   def add_breadcrumbs
     breadcrumbs.add "Settings", admin_settings_path

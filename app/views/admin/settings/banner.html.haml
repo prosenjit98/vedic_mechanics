@@ -1,4 +1,4 @@
-= render 'subnav'
+= render 'subnav', {i: 0}
 
 = form_with model: @settings, url: banner_admin_settings_path, scope: "app_configuration", method: "post", local: true do |f|
   = f.hidden_field :key, value: 'banner'
