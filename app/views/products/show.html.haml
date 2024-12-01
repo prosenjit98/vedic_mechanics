@@ -40,8 +40,9 @@
         .card.border.border-gray-200.dark:border-gray-700.bg-white.dark:bg-gray-800.rounded-lg.shadow-md.p-4
           %div.card-header.p-4.flex.items-center
             %div.flex.flex-row.bg-green-200.dark:bg-green-900.text-green-800.dark:text-green-300.px-2.py-1.rounded
-              = "#2 best seller"
-            %span.text-gray-500.dark:text-gray-400.ml-4= "in #{@product.category.name} category"
+              = "#1 Best seller"
+            -if @product.categories.present?
+              %span.text-gray-500.dark:text-gray-400.ml-4= "in #{@product.categories.first.name} category"
           %div.card-body.p-4
             %h2.text-2xl.font-semibold.mb-4.text-gray-900.dark:text-gray-100= @product.name
             %div.flex.items-center.mt-2

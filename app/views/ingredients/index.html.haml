@@ -1,20 +1,28 @@
 %div.container.mx-auto.p-4
   %h1.text-3xl.font-bold.mb-8.text-center.pt-4 Ingredients List
 
-  / Loop through ingredients
+  %div.mb-6
+    %label.block.text-gray-700.font-bold.mb-2{ for: "ingredient-search" } Search for an Ingredient
+    %div.relative{data: { controller: "ingredient"}}
+      %input#ingredient-search.placeholder-gray-500.text-gray-700.block.w-full.border-gray-300.rounded-md.shadow-sm.focus:ring-blue-500.focus:border-blue-500.px-3.py-2.placeholder:text-sm{ type: "text", placeholder: "Start typing to search...", data: {action: "input->ingredient#filter" } }
+
+      / Dropdown List
+      %ul.hidden.mt-2.bg-white.shadow-md.rounded-md.border.border-gray-300.absolute.w-full.z-10{ data: { ingredient_target: "results" } }
+        - @ingredients.each do |ingredient|
+          %li.cursor-pointer.hover:bg-gray-100.px-4.py-2{ data: { ingredient_target: "item", name: ingredient.name.parameterize, action: "click->ingredient#select" } }
+            = ingredient.name
+
+  -#  Loop through ingredients
   - @ingredients.each do |ingredient|
     %div.bg-white.shadow-md.rounded-lg.mb-8.p-6{id: ingredient.name.parameterize }
-      / Ingredient Name
       %h2.text-2xl.font-semibold.mb-4.text-gray-800= ingredient.name
 
-      / Image Section for multiple images
       - if ingredient.images.attached?
         %div.grid.grid-cols-2.md:grid-cols-8.gap-4.mb-6
           - ingredient.images.each do |image|
             %div
               = image_tag(image, alt: ingredient.name, class: "w-[150px] h-[150px] object-cover rounded-md border")
 
-      / Long Description Section
       %div.prose.max-w-full.text-gray-700
         = ingredient.description
 

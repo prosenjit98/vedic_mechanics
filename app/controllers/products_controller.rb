@@ -30,11 +30,11 @@ class ProductsController < ApplicationController
       categories = Category.search_by_name(params[:query])
       categories = categories.flat_map(&:all_subcategories)
 
-      matching_products_by_name = Product.own_products.where('name LIKE ?', "%#{params[:query]}%")
-      matching_products_by_category = Product.own_products.where(category_id: categories)
-      matching_products_by_tags = Product.own_products.tagged_with(matching_tags.map(&:name), any: true)
+      matching_products_by_name = Product.where('name LIKE ?', "%#{params[:query]}%")
+      matching_products_by_category = Product.by_category(categories&.pluck(:id))
+      matching_products_by_tags = Product.tagged_with(matching_tags.map(&:name), any: true)
 
-      @products_by_name_or_category = matching_products_by_name.or(matching_products_by_category)
+      @products_by_name_or_category = matching_products_by_name + matching_products_by_category
       @products = (@products_by_name_or_category + matching_products_by_tags).uniq
     else
       @products = Product.none

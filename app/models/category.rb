@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
-  has_many :products, dependent: :destroy
+  has_many :product_categories, dependent: :destroy
+  has_many :products, through: :product_categories
   has_many :child_categories, foreign_key: "parent_category_id", class_name: "Category"
   belongs_to :parent_category, foreign_key: "parent_category_id", class_name: "Category", optional: true
 

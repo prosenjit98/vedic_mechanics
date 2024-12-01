@@ -74,7 +74,8 @@ class Admin::ProductsController < Admin::BaseController
   def product_params
     params[:product][:concern_ids].reject!(&:blank?) if params[:product][:concern_ids].present?
     params[:product][:ingredient_ids].reject!(&:blank?) if params[:product][:ingredient_ids].present?
-    params.require(:product).permit(:name, :price, :description, :tag_list, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :category_id, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id],concern_ids: [], ingredient_ids: [])
+    params[:product][:categories_ids].reject!(&:blank?) if params[:product][:categories_ids].present?
+    params.require(:product).permit(:name, :price, :description, :tag_list, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id], category_ids: [],concern_ids: [], ingredient_ids: [])
   end
 
   def add_breadcrumbs

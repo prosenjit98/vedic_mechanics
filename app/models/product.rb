@@ -1,6 +1,7 @@
 class Product < ApplicationRecord
   acts_as_taggable_on :tags
-  belongs_to :category
+  has_many :product_categories, dependent: :destroy
+  has_many :categories, through: :product_categories
   belongs_to :vendor, optional: true
   has_many :order_items
   has_many :orders, through: :order_items
@@ -25,13 +26,14 @@ class Product < ApplicationRecord
   validates :original_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :approx_delivery_cost, presence: true,  numericality: { greater_than_or_equal_to: 0 }
   validates :discount, numericality: { greater_than_or_equal_to: 0, less_than_or_equal_to: 100 }
+  validate :at_least_has_one_category
 
 
   after_save :update_price 
 
   scope :by_search,     lambda { |search| where('name ILIKE ?', "%#{search.downcase}%")}
-  scope :by_category,   lambda { |category_id| where(category_id: category_id) }
-  scope :by_parent_category, lambda { |category_id| joins(:category).where('categories.parent_category_id = ?', category_id) }
+  scope :by_category,   lambda { |category_id| joins(:categories).where('categories.id': category_id) }
+  scope :by_parent_category, lambda { |category_id| joins(:categories).where('categories.parent_category_id = ?', category_id) }
   scope :by_review,     lambda { |review| left_joins(:reviews).group('products.id').having('AVG(reviews.rating) > ?', review) }
   scope :own_products,  lambda { where(vendor_id: nil) }
   scope :vendor_products, lambda { where.not(vendor_id: nil) }
@@ -42,6 +44,10 @@ class Product < ApplicationRecord
 
   def self.popular_product
     left_joins(:reviews).group('products.id').order('COUNT(reviews.id) DESC')
+  end
+
+  def at_least_has_one_category
+    errors.add(:categories, "must have at least one category") if categories.empty?
   end
 
 

@@ -10,7 +10,7 @@ class MarketPlacesController < ApplicationController
     if params[:parent_category].present?
       _category = Category.find(params[:parent_category])
       ids = [_category.all_subcategories.pluck(:id)] + [_category.id]
-      @products = @products.where(category_id: [ids].flatten)
+      @products = @products.by_category([ids].flatten)
     end
     @products = @products.order(created_at: params[:created_at]) if params[:created_at].present?
     @products = @products.by_review(params[:rating]) if params[:rating].present?
