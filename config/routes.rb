@@ -96,5 +96,6 @@ Rails.application.routes.draw do
     end
   end
   resources :reviews
+  resources :ingredients, only: [:index, :show]
   resources :contacts, only: [:new, :create]
 end

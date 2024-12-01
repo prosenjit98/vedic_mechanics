@@ -46,6 +46,8 @@ class ProductsController < ApplicationController
 
   # GET /products/1 or /products/1.json
   def show
+    @variants = @product.variants if @product.present?
+    @similar_products_variants = ProductVariant.where(variant_id: @variants.ids) if @product.present?
     @rating_percentage = @product.reviews.rating_percentage
     breadcrumbs.add "Products", products_path
     breadcrumbs.add @product.name

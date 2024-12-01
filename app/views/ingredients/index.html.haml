@@ -1,0 +1,21 @@
+%div.container.mx-auto.p-4
+  %h1.text-3xl.font-bold.mb-8.text-center.pt-4 Ingredients List
+
+  / Loop through ingredients
+  - @ingredients.each do |ingredient|
+    %div.bg-white.shadow-md.rounded-lg.mb-8.p-6{id: ingredient.name.parameterize }
+      / Ingredient Name
+      %h2.text-2xl.font-semibold.mb-4.text-gray-800= ingredient.name
+
+      / Image Section for multiple images
+      - if ingredient.images.attached?
+        %div.grid.grid-cols-2.md:grid-cols-8.gap-4.mb-6
+          - ingredient.images.each do |image|
+            %div
+              = image_tag(image, alt: ingredient.name, class: "w-[150px] h-[150px] object-cover rounded-md border")
+
+      / Long Description Section
+      %div.prose.max-w-full.text-gray-700
+        = ingredient.description
+
+

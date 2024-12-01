@@ -52,7 +52,7 @@ class Admin::IngredientsController < Admin::BaseController
   end
 
   def ingredient_params
-    params.require(:ingredient).permit(:name, :description)
+    params.require(:ingredient).permit(:name, :description, images: [])
   end
 
   def add_breadcrumbs

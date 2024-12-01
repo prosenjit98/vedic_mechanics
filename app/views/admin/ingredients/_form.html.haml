@@ -15,9 +15,14 @@
     .col-span-2
       %label.block.text-sm.font-medium.text-gray-700 Describtion
       %div.mt-1
-        = f.text_area :description, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
+        = f.rich_text_area :description, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
+    .col-span-2
+      %label.block.text-sm.font-medium.text-gray-700{:for => "multiple_files"} Images
+      %div.mt-1
+        = f.file_field :images, multiple: true, class: "block w-full form-input text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+
       
       
 
   .flex.justify-end
-    = f.submit 'Save ', class: "btn bg-green-600 text-white px-4 py-2 rounded-md"
+    = f.submit 'Save', class: "btn bg-green-600 text-white px-4 py-2 rounded-md", disabled_with: "Please wait..."

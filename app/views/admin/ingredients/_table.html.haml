@@ -6,14 +6,17 @@
       %th.px-6.py-3{:scope => "col"}
         Name
       %th.px-6.py-3{:scope => "col"}
-        Description 
+        Images 
       %th.px-6.py-3{:scope => "col"}
   %tbody
     - @ingredients.each do |ingredient|
       %tr.bg-white.border-b.hover:bg-gray-200
         %td.w-4.p-4= ingredient.id
         %th.px-6.py-4.text-gray-900.whitespace-nowrap= ingredient.name
-        %td.px-6.py-4.text-gray-900.whitespace-nowrap= ingredient.description
+        %td.px-6.py-4.text-gray-900.whitespace-nowrap
+          .flex
+            - ingredient.images.each do |im|
+              = image_tag im, class: "w-20 h-20 mx-2"
         %td.px-6.py-4
           = link_to "Edit", edit_admin_ingredient_path(ingredient), class: "font-medium text-green-500 hover:underline"
 :css
