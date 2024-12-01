@@ -2,7 +2,8 @@
 = turbo_stream.remove("products_placeholder")
 -#  append @products to the #article_list turbo_frame
 = turbo_stream.update("products_list") do
-  %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-4
+  %div.my-2= categories_breadcrumb(params[:category_id] || params[:parent_category])
+  %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
     - @products.each do |product|
       = render 'product_tiles_view', {product: product}
 -# update the pagination turbo_frame with the current pagination offset
