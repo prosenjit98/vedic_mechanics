@@ -1,5 +1,5 @@
 class Admin::CategoriesController < Admin::BaseController 
-  before_action :set_category, only: %i[ show edit update destroy ]
+  before_action :set_category, only: %i[ show edit update destroy update_position ]
   before_action :set_parents, only: %i[ new edit create update ]
   before_action :add_breadcrumbs
 
@@ -39,7 +39,7 @@ class Admin::CategoriesController < Admin::BaseController
   def update
     respond_to do |format|
       if @category.update(category_params)
-        format.html { redirect_to category_url(@category), notice: "Category was successfully updated." }
+        format.html { redirect_to admin_categories_url, notice: "Category was successfully updated." }
         format.json { render :show, status: :ok, location: @category }
         format.turbo_stream do
           flash.now[:notice] = "Updated!"
@@ -63,6 +63,10 @@ class Admin::CategoriesController < Admin::BaseController
       format.html { redirect_to categories_url, notice: "Category was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def update_position
+    @category.insert_at(params[:position].to_i + 1)
   end
 
   private

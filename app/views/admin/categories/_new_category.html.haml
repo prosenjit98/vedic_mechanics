@@ -1,4 +1,4 @@
-.bg-white.p-4.rounded-lg.shadow-sm.mb-4.border
+.bg-white.p-4.rounded-lg.shadow-sm.mb-4.border{data: {url: update_position_admin_category_path(id: category.id)}}
   .flex.items-center.justify-between
     .flex.items-center.gap-3.flex-grow
       .flex-grow
@@ -7,12 +7,14 @@
             %svg.w-5.h-5{fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
               %path{"stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M15 12H3m12 0l-4-4m4 4l-4 4"}
             %span= category.name
-    %button.text-gray-500.hover:text-gray-700.transition{"aria-controls" => "cat#{category.id}", "aria-expanded" => "false", onclick: "toggleAccordion('cat#{category.id}')", type: "button"}
-      %svg.w-5.h-5.transition-transform.duration-300{id: "icon-cat#{category.id}", fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
-        %path{"stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 9l-7 7-7-7"}
+    - if category.child_categories.present?
+      %button.text-gray-500.hover:text-gray-700.transition{"aria-controls" => "cat#{category.id}", "aria-expanded" => "false", onclick: "toggleAccordion('cat#{category.id}')", type: "button"}
+        %svg.w-5.h-5.transition-transform.duration-300{id: "icon-cat#{category.id}", fill: "none", stroke: "currentColor", viewbox: "0 0 24 24"}
+          %path{"stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 9l-7 7-7-7"}
 
   - if category.child_categories.present?
     .ml-6.mt-2.bg-gray-50.p-3.rounded-md.border.shadow-sm.transition{id: "cat#{category.id}"}
       %h4.text-md.font-semibold.text-gray-600.mb-2
         Subcategories
-      = render partial: 'admin/categories/new_category', collection: category.child_categories, as: :category
+      .group{ data: { parent_id: category.parent_category_id, controller: "sortable"}}
+        = render partial: 'admin/categories/new_category', collection: category.child_categories.order(:position), as: :category

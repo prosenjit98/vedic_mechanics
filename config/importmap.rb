@@ -13,3 +13,5 @@ pin "nice-select2", to: "nice-select2.js"
 pin "aos", preload: true # @2.3.4
 pin "uuid" # @10.0.0
 pin "jquery", preload: true
+pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.11
+pin "sortablejs" # @1.15.6
