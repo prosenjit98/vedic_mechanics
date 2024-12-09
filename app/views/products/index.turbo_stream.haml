@@ -4,8 +4,8 @@
 = turbo_stream.update("products_list") do
   %div.grid.grid-cols-1.gap-4
     = render 'show', {product: @products&.first}
-    -# - @products.each do |product|
-    -#   = render 'product_tiles_view', {product: product}
+  -# - @products.each do |product|
+  -#   = render 'product_tiles_view', {product: product}
 -# update the pagination turbo_frame with the current pagination offset
 -# = turbo_stream.update "products_pagination" do
 -#   .flex.mt-12.items-center.justify-center.space-x-4.w-full

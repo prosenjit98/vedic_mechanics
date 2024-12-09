@@ -40,6 +40,18 @@
   --required_color: #d32f2f; /* Unchanged, stands out in both modes */
 }
 
+body.google-sans {
+  font-family: 'Google Sans', sans-serif;
+}
+
+body.gill-sans {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+body.verdana {
+  font-family: 'Verdana', sans-serif;
+}
+
 .primary-bg {
   background-color: var(--primary_bg_color);
 }

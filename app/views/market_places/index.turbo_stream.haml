@@ -6,6 +6,29 @@
   %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
     - @products.each do |product|
       = render 'product_tiles_view', {product: product}
+  :javascript
+    function updatePriceDisplay() {
+      const currency = localStorage.getItem("preferredCurrency") || "INR";
+      // Add logic to update all displayed prices dynamically.
+      const priceElements = document.querySelectorAll(".price");
+      priceElements.forEach(element => {
+        const amount = parseFloat(element.dataset.amount);
+        let formattedPrice = "";
+        switch (currency) {
+          case "INR":
+            formattedPrice = `₹${amount.toFixed(2)}`;
+            break;
+          case "USD":
+            formattedPrice = `$${amount.toFixed(2)}`;
+            break;
+          case "EUR":
+            formattedPrice = `€${amount.toFixed(2)}`;
+            break;
+        }
+        element.textContent = formattedPrice;
+      });
+    }
+    updatePriceDisplay();
 -# update the pagination turbo_frame with the current pagination offset
 = turbo_stream.update "products_pagination" do
   .flex.mt-12.items-center.justify-center.space-x-4.w-full

@@ -18,8 +18,8 @@ export default class extends Controller {
   open(event) {
     console.log("Open modal");
     this.containerTarget.classList.remove("hidden");
-    const contentType = event.target.dataset.modalType;
-    const content = event.target.dataset.modalContent || "No content available.";
+    const contentType = event.currentTarget.dataset.modalType;
+    const content = event.currentTarget.dataset.modalContent || "No content available.";
 
     if (contentType === "description") {
       this.contentTarget.innerHTML = `<strong>Description:</strong> <p>${content}</p>`;

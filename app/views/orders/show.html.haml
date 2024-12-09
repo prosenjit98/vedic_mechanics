@@ -42,7 +42,7 @@
           .ml-8.mr-12
             %h2.text-xl.font-semibold= product.name
             %p.text-gray-600.mt-1.dark:text-gray-400 Quantity: #{item.quantity}
-            %p.text-xl.font-semibold= item.price&.round(2)
+            %p.text-xl.font-semibold.price{data: {amount: item.price&.round(2)}}= item.price&.round(2)
         %div.mt-4.md:mt-0
           - if review.present?
             .flex.item-center

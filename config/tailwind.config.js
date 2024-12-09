@@ -12,7 +12,9 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        sans: ['Inter var', ...defaultTheme.fontFamily.sans],
+        sans: ['Google Sans', ...defaultTheme.fontFamily.sans],
+        verdana: ['Verdana', 'sans-serif'],
+        gillsans: ['"Gill Sans"', 'sans-serif']
       },
     },
   },

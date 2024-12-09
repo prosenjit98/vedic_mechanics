@@ -28,13 +28,13 @@
       .flex.flex-row.my-2.border-b.py-3
         .text-gray-500.font-light.text-sm.pl-4{class: "basis-1/2"}
           Subtotal:
-        %div.font-medium.text-sm.text-center{class: "basis-1/2"} 
-          = "₹#{@order.order_items.pluck(:price).sum}"
+        %div.font-medium.text-sm.text-center{class: "basis-1/2"}
+          = "#{@order.order_items.pluck(:price).sum}"
       .flex.flex-row.my-2.border-b.py-3 
         .text-gray-500.font-light.text-sm.pl-4{class: "basis-1/2"}
           Shipping:
         %div.font-medium.text-sm.text-center{class: "basis-1/2"} 
-          = "₹#{0}"
+          = "#{0}"
       .flex.flex-row.my-2.border-b.py-3 
         .text-gray-500.font-light.text-sm.pl-4{class: "basis-1/2"}
           Tax (GST):
@@ -63,7 +63,7 @@
         .text-gray-500.font-light.text-sm{class: "basis-1/4"}
           Total
         %div.font-medium.text-sm.text-red-500{class: "basis-3/4"} 
-          ="₹#{@order.total_price}"
+          ="#{@order.total_price}"
     .rounded-lg.border.bg-white.p-4.mt-4
       %h2.font-medium.text-sm Shipping Address
       .text-gray-500.font-light.text-sm.my-2 

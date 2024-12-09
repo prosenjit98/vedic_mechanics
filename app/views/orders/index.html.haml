@@ -65,7 +65,7 @@
                       %h2= order_item.product.name 
                       %p Qnt: #{order_item.quantity}
                     .col-span-3 
-                      %p ₹#{order_item.price}
+                      %p.price{data: {amount: order_item.price}} ₹#{order_item.price}
                     .col-span-3
             
             

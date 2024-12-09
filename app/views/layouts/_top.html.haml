@@ -18,6 +18,8 @@
             %div.relative
               = heroicon 'shopping-cart', options: { class: "w-5 h-5" }
               %div.absolute.cart-count(data-cart-target="count") 0
+        = render 'layouts/language_dropdown'
+        = render 'layouts/currency_dropdown'
         - unless current_user.present?
           %li 
             .block.py-2.px-3.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
