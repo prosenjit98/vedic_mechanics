@@ -5,6 +5,7 @@ class IngredientsController < ApplicationController
   # GET /ingredients or /ingredients.json
   def index
     @ingredients = Ingredient.all
+    @ingredients = @ingredients.search(params[:ing_search]) if params[:ing_search].present?
   end
 
   # GET /ingredients/1 or /ingredients/1.json

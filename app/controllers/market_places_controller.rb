@@ -3,6 +3,11 @@ class MarketPlacesController < ApplicationController
 
   def index
     @categories = params[:parent_category].present? ? Category.to_nested_hash(Category.where(id: params[:parent_category])) : Category.to_nested_hash
+    if params[:product_id].present?
+      _product = Product.find(params[:product_id])
+      _category = _product.top_parent_category
+      @categories = Category.to_nested_hash([_category])
+    end
     @products = Product.all.includes(:reviews)
     @products = @products.by_search(params[:search]) if params[:search].present?
     @products = @products.order(price: params[:price]) if params[:price].present?

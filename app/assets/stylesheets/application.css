@@ -115,3 +115,6 @@ select.selectable {
   text-decoration: underline;
   color: var(--primary_bg_color);
 }
+.hidden_radio:checked{
+  opacity: 0;
+}

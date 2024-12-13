@@ -89,3 +89,4 @@ gem 'receipts'
 gem "pagy"
 gem 'acts-as-taggable-on'
 gem "acts_as_list"
+gem "acts_as_paranoid"

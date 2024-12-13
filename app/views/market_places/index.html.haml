@@ -1,5 +1,5 @@
 = form_tag market_places_path, :method => 'get', :class => "filter-form", data: { controller: "filter", turbo_stream: true, turbo: true } do
-  .grid.grid-cols-12.gap-4.px-4.py-8
+  .grid.grid-cols-12.gap-4.pr-4.py-8
     .col-span-12.lg:col-span-3
       = render 'products/filters'
     .col-span-12.lg:col-span-9
@@ -18,7 +18,7 @@
           != pagy_nav(@pagy)
 
 
-    %div.hidden.fixed.inset-0.bg-gray-800.bg-opacity-50.flex.items-center.justify-center{ id: "modal", "data-filter-target": "container" }
+    %div.hidden.fixed.inset-0.bg-gray-800.bg-opacity-50.z-30.flex.items-center.justify-center{ id: "modal", "data-filter-target": "container" }
       %div.bg-white.rounded-lg.shadow-lg.w-full.max-w-lg
         %div.p-4.flex.justify-between.items-center.border-b
           %h3.text-xl.font-semibold.text-gray-900 Details

@@ -1,8 +1,9 @@
 %nav.primary-bg.border-gray-200.dark:border-gray-700.fixed.w-full.top-0.start-0{style: 'z-index: 200;'}
   .flex.flex-wrap.items-center.justify-between.mx-auto.px-4.py-3
     %a.flex.items-center.space-x-3.rtl:space-x-reverse{:href => "/"}
-      = image_tag 'vedic_icon.png', class: "h-12 rounded"
-      %span.self-center.text-2xl.font-semibold.whitespace-nowrap.text-white.dark:text-gray-200 Nutri Vedic
+      = image_tag 'vedic_icon.png', class: "h-16 rounded"
+      = image_tag 'satvik-icon.png', class: "h-16 rounded"
+      -# %span.self-center.text-2xl.font-semibold.whitespace-nowrap.text-white.dark:text-gray-200 Nutri Vedic
     %button.inline-flex.items-center.p-2.ml-3.text-sm.text-gray-500.rounded-lg.md:hidden.hover:bg-gray-100.dark:text-gray-400.dark:hover:bg-gray-700{"aria-controls" => "navbar-multi-level", "aria-expanded" => "false", "data-collapse-toggle" => "navbar-multi-level", type: "button"}
       %span.sr-only Open main menu
       %svg.w-6.h-6{:fill => "currentColor", :viewBox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
@@ -12,12 +13,19 @@
         = active_link_to "Home", root_path(home: "home"), active: [['home'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
         = active_link_to 'Learn', ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
         = active_link_to 'About us', "#", active: [['#'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
-        = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-controller': 'root', 'data-root-target': 'link' do
+        = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: "block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white", 'data-controller': 'root', 'data-root-target': 'link', 'data-popover-target': "cart-details",  "data-popover-offset": "5", "data-action" => "mouseenter->cart#fetchCartDetails" do
           .flex
             %div.px-2 Cart
             %div.relative
               = heroicon 'shopping-cart', options: { class: "w-5 h-5" }
               %div.absolute.cart-count(data-cart-target="count") 0
+          #cart-details.absolute.z-10.invisible.inline-block.w-64.text-sm.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+            .px-3.py-2.bg-gray-100.border-b.border-gray-200.rounded-t-lg.dark:border-gray-600.dark:bg-gray-700
+              %h3.font-semibold.text-gray-900.dark:text-white Cart
+            .px-3.py-2
+              %p(data-cart-target="cartDetails") Fetching details....
+            %div{"data-popper-arrow" => ""}
+
         = render 'layouts/language_dropdown'
         = render 'layouts/currency_dropdown'
         - unless current_user.present?
@@ -75,14 +83,18 @@
   %nav.bg-gray-50.dark:bg-gray-700
     .max-w-screen-xl.px-4.py-3.mx-auto
       .grid.grid-cols-1
-        .relative.mt-4.md:mt-0
+        .relative.mt-4.md:mt-0.hidden(data-root-target= 'searchBar')
           = render 'products/search'
-        .flex.items-center.pt-4
+        .flex.items-center.pt-1(data-root-target= 'categoryBar')
           %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse.text-sm
             - Category.parent_categories.each do |category|
               %li
                 - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
                 = link_to category.name, market_places_path(parent_category: category.id), class: "text-gray-900 dark:text-white hover:underline #{active_class}"
+          
+          %div.p-1.border-2.rounded.border-green-500.hover:border-green-800.ml-5{"data-action" => "click->root#showSearch"}
+            = heroicon 'magnifying-glass', variant: :solid, options: {class: "w-4 h-4 inline-block text-green-500 hover:text-green-700"}
+
             -# %li
               -# .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "category_dropdown"} By Category
             -# %li

@@ -48,7 +48,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def destroy 
     @product.destroy
-    redirect_to admin_products_path
+    # redirect_to admin_products_path
   end 
 
   def add_tags

@@ -15,6 +15,43 @@ window.$ = jQuery
 
 document.addEventListener('turbo:load', () => { AOS.init({offset: 300, delay: 100}) });
 
+document.addEventListener("DOMContentLoaded", () => {
+  document.body.addEventListener("click", (event) => {
+    const link = event.target.closest("a[data-role='delete-link']"); // Target only links with data-role='delete-link'
+
+    if (link) {
+      event.preventDefault();
+
+      const confirmMessage = link.dataset.confirm;
+      if (confirmMessage && !window.confirm(confirmMessage)) {
+        return;
+      }
+
+      const url = link.href;
+      const csrfToken = document.querySelector("meta[name='csrf-token']").content;
+
+      fetch(url, {
+        method: "DELETE",
+        headers: {
+          "X-CSRF-Token": csrfToken,
+          "Content-Type": "application/json"
+        }
+      }).then((response) => {
+          if (response.ok) {
+            // Handle success (e.g., reload or navigate)
+            window.location.reload();
+          } else {
+            // Handle errors
+            alert("Failed to delete. Please try again.");
+          }
+        })
+        .catch(() => {
+          alert("An error occurred. Please try again.");
+        });
+    }
+  });
+});
+
 
 function initializeNiceSelect(){
   var selectElements = document.querySelectorAll("select.selectable");

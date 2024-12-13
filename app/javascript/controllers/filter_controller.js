@@ -6,6 +6,20 @@ export default class extends Controller {
 
   connect() {
     this.filterinputTargets.forEach(input => {
+      input.addEventListener("click", () => {
+        // Remove the class from all labels
+        console.log({input})
+        console.log({"id": input.id})
+        document.querySelectorAll(".checkbox_label_2").forEach((label) => {
+          label.classList.remove("text-green-600", "font-bold");
+        });
+  
+        // Find the corresponding label and add the class
+        const label = input.querySelector('.checkbox_label_2');
+        if (label) {
+          label.classList.add("text-green-600", "font-bold");
+        }
+      });
       input.addEventListener("change", this.submitForm.bind(this));
     });
     this.containerTargets.forEach(input => input.classList.add("hidden"))

@@ -21,8 +21,8 @@ export default class extends Controller {
 
     // Hide all children elements initially
     this.childrenTargets.forEach((child) => {
-      if (child.classList.contains("hidden")) {
-        child.classList.remove("hidden");
+      if (!child.classList.contains("hidden")) {
+        child.classList.add("hidden");
       }
     });
 

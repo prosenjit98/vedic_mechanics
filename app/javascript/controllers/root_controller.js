@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 import { v4 as uuid_v4 } from 'uuid';
 
 export default class extends Controller {
-  static targets = ["user", "link"]
+  static targets = ["user", "link", "categoryBar", "searchBar"]
   connect() {
     console.log("connected root")
     this.ensureExternalUserId()
@@ -36,6 +36,16 @@ export default class extends Controller {
       url.searchParams.set('external_id', externalUserId); // Add or update query parameter
       link.href = url.toString();
     });
+  }
+
+  showSearch() {
+    this.searchBarTarget.classList.remove("hidden");
+    this.categoryBarTarget.classList.add("hidden");
+  }
+
+  closeSearch(){
+    this.searchBarTarget.classList.add("hidden");
+    this.categoryBarTarget.classList.remove("hidden");
   }
   
 }

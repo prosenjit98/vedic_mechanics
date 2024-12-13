@@ -1,4 +1,5 @@
 class Product < ApplicationRecord
+  acts_as_paranoid
   acts_as_taggable_on :tags
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
@@ -72,6 +73,16 @@ class Product < ApplicationRecord
     define_method "is_#{key}?" do |arg|
       arg.content_type.start_with?("#{key}/")
     end
+  end
+
+  def top_parent_category
+    top_parent = self.categories.first
+    parent = self.categories.first.parent_category
+    while parent.present?
+      top_parent = parent
+      parent = parent.parent_category
+    end
+    top_parent
   end
 
 end

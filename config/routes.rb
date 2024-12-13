@@ -83,6 +83,9 @@ Rails.application.routes.draw do
   end
   resources :cart_items
   resources :carts do 
+    collection do
+      get :get_cart_details
+    end
     member do
       get :checkout, as: :checkout_process
     end

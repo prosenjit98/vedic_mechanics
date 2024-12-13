@@ -115,6 +115,14 @@ class CartsController < ApplicationController
     product_path(product)
   end
 
+  def get_cart_details
+    @cart = Cart.active.find_by(external_user_id: params[:external_user_id] || current_user.external_user_id)
+    @cart_items = @cart&.cart_items
+    cart_html = render_to_string(partial: "carts/cart_details", locals: { cart_items: @cart_items, cart: @cart })
+
+    render json: { html: cart_html }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart

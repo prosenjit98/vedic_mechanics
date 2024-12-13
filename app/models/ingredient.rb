@@ -4,4 +4,12 @@ class Ingredient < ApplicationRecord
   has_many_attached :images
 
   has_rich_text :description
+
+  def self.search(search)
+    if search
+      left_joins(:products).where("ingredients.name ILIKE ? or products.name ILIKE ?", "%#{search}%", "%#{search}%")
+    else
+      scoped
+    end
+  end
 end

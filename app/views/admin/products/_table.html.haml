@@ -47,6 +47,8 @@
         %td.px-6.py-4= product.stock_quantity
         %td.px-6.py-4
           = link_to "Edit", edit_admin_product_path(product), class: "font-medium text-green-500 hover:underline"
+          = link_to "Destroy", admin_product_path(product), data: { method: :destroy, confirm: 'Are you sure?', role: 'delete-link' }, class: "font-medium text-green-500 hover:underline"
+          -# = link_to "Destroy", admin_product_path(product), method: :delete, data: {turbo: false, 'turbo-link': false, confirm: 'Are you sure?'}, class: "font-medium text-green-500 hover:underline"
 :css
   .show-on-hover {
     opacity: 0;
