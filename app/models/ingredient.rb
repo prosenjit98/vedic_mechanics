@@ -7,7 +7,7 @@ class Ingredient < ApplicationRecord
 
   def self.search(search)
     if search
-      left_joins(:products).where("ingredients.name ILIKE ? or products.name ILIKE ?", "%#{search}%", "%#{search}%")
+      left_joins(:products).where("ingredients.name ILIKE ? or products.name ILIKE ? or products.product_code ILIKE ?", "%#{search}%", "%#{search}%", "%#{search}%").distinct
     else
       scoped
     end

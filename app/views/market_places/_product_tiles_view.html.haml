@@ -16,10 +16,11 @@
     -#   %div.cursor-pointer.bg-green-600.text-white.py-1.px-1.mx-1.rounded.hover:bg-green-800{ data: {"action": "click->filter#open", "modal-content": product.specification, "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
     -#     = heroicon 'newspaper', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
     %div.flex.justify-center.my-4
-      %div.cursor-pointer.bg-green-600.text-white.py-1.px-2.mx-1.rounded.hover:bg-green-800{ data: {action: "click->filter#open", "modal-content": product.description, "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
-        = heroicon 'information-circle', variant: :solid , options: {class: "w-5 h-5 inline-block"}
-      %div.cursor-pointer.bg-green-600.text-white.py-1.px-2.mx-1.rounded.hover:bg-green-800{ data: {action: "click->filter#open", "modal-content": product.specification, "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
-        = heroicon 'newspaper', variant: :solid , options: {class: "w-5 h-5 inline-block"}
+      %div.cursor-pointer.text-blue-600.mx-1.rounded.hover:text-blue-800{ data: {action: "click->filter#open", "modal-content": product.description, "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
+        = heroicon 'information-circle', variant: :solid , options: {class: "w-8 h-8 inline-block"}
+      %div.cursor-pointer.text-white.mx-1.pt-1.rounded.hover:bg-grey-300{ data: {action: "click->filter#open", "modal-content": product.specification, "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
+        = inline_svg "paper.svg", class: "w-6 h-6 inline-block"
+        
     %div.flex.items-center.mt-2
       %span.text-yellow-400.text-sm
         - ratings = product&.product_ratings
