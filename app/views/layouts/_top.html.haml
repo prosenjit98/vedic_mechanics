@@ -11,7 +11,7 @@
     #navbar-multi-level.hidden.w-full.md:block.md:w-auto
       %ul.flex.flex-col.font-medium.p-4.md:p-0.mt-4.border.border-gray-100.rounded-lg.bg-gray-50.md:space-x-4.rtl:space-x-reverse.md:flex-row.md:mt-0.md:border-0.primary-bg
         = active_link_to "Home", root_path(home: "home"), active: [['home'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
-        = active_link_to 'Learn', ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
+        -# = active_link_to 'Learn', ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
         = active_link_to 'About us', "#", active: [['#'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
         = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: "block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white", 'data-controller': 'root', 'data-root-target': 'link', 'data-popover-target': "cart-details",  "data-popover-offset": "5", "data-action" => "mouseenter->cart#fetchCartDetails" do
           .flex
@@ -25,6 +25,13 @@
             .px-3.py-2
               %p(data-cart-target="cartDetails") Fetching details....
             %div{"data-popper-arrow" => ""}
+        = active_link_to ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "learn-section",  "data-popover-offset": "5" do
+          .block.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
+            = inline_svg "paper.svg", class: "w-6 h-6 fill-yellow-900 dark:fill-gray-200 hover:bg-green-500 hover:fill-yellow-900", id: "my-svg"
+            #learn-section.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+              .px-3.py-2
+                %h3 Learn
+              %div{"data-popper-arrow" => ""}
 
         = render 'layouts/language_dropdown'
         = render 'layouts/currency_dropdown'

@@ -21,6 +21,7 @@ Rails.application.routes.draw do
       member do
         get :add_tags
         patch :update_tags
+        delete :delete_image
       end
     end
     resources :categories do

@@ -1,5 +1,5 @@
 class Admin::ProductsController < Admin::BaseController 
-  before_action :find_by_id_product, only: [:show, :edit, :update, :destroy, :add_tags]
+  before_action :find_by_id_product, only: [:show, :edit, :update, :destroy, :add_tags, :delete_image]
   before_action :add_breadcrumbs
   before_action :set_category, only: [:new, :create, :edit, :update]
   before_action :set_collections
@@ -11,6 +11,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def show
     @product = Product.find_by_id(params[:id])
+    breadcrumbs.add @product.name
   end
   
   def new
@@ -58,6 +59,14 @@ class Admin::ProductsController < Admin::BaseController
     @product.tag_list = params[:product][:tag_list]
     if @product.save
       redirect_to admin_products_path
+    end
+  end
+
+  def delete_image
+    if @product.product_images.find(params[:file_id]).purge
+      redirect_to admin_product_path(@product), notice: "Image was successfully deleted."
+    else
+      redirect_to admin_product_path(@product), notice: "Image successfully deleted."
     end
   end
 
