@@ -6,7 +6,7 @@ class Admin::ProductsController < Admin::BaseController
 
   
   def index
-    @products = Product.all.with_rich_text_specification
+    @products = Product.order(name: :asc).with_rich_text_specification
   end
 
   def show

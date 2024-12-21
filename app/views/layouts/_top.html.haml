@@ -27,10 +27,32 @@
             %div{"data-popper-arrow" => ""}
         = active_link_to ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "learn-section",  "data-popover-offset": "5" do
           .block.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
-            = inline_svg "paper.svg", class: "w-6 h-6 fill-yellow-900 dark:fill-gray-200 hover:bg-green-500 hover:fill-yellow-900", id: "my-svg"
+            = heroicon 'information-circle', variant: :solid , options: {class: "w-6 h-6 fill-white hover:bg-green-500 hover:fill-gray-200"}
+            
             #learn-section.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
               .px-3.py-2
                 %h3 Learn
+              %div{"data-popper-arrow" => ""}
+        -# = active_link_to '', active: [[''], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "rate-section",  "data-popover-offset": "5" do
+        %li{class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "rate-section",  "data-popover-offset": "5"}
+          .block.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white{"data-controller" => "site-ratings"}
+            = heroicon 'star', variant: :solid , options: {class: "w-6 h-6 fill-white hover:bg-green-500 hover:fill-gray-200"}
+            
+            #rate-section.absolute.z-10.invisible.inline-block.w-64.text-sm.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", "data-site-ratings-target" => "popup", :role => "tooltip"}
+              .px-3.py-2.bg-gray-100.border-b.border-gray-200.rounded-t-lg.dark:border-gray-600.dark:bg-gray-700
+                %h3.font-semibold.text-gray-900.dark:text-white Rate Us
+              .px-3.py-2
+                %div.text-md.font-semibold Express your thought
+                .flex.mt-4.justify-between
+                  %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#submitRating", "data-rate" => "3"}
+                    = inline_svg "smiling_face.svg", class: "w-10 h-10"
+                    .text-md Excellent
+                  %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#submitRating", "data-rate" => "2"}
+                    = inline_svg "smiley_good.svg", class: "w-10 h-10"
+                    .text-md Good
+                  %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#submitRating", "data-rate" => "1"}
+                    = inline_svg "sad.svg", class: "w-10 h-10"
+                    .text-md Bad
               %div{"data-popper-arrow" => ""}
 
         = render 'layouts/language_dropdown'
@@ -137,3 +159,12 @@
       - @ingredients.each do |ingredient|
         %li= link_to ingredient.name, market_places_path(ingredient: ingredient.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
 
+#thank-model.fixed.left-0.right-0.top-0.z-50.hidden.max-h-full.w-full.overflow-y-auto.overflow-x-hidden.p-4.md:inset-0{"aria-hidden" => "true", :class => "h-[calc(100%-1rem)]", :tabindex => "-1"}
+  .relative.max-h-full.w-full.max-w-2xl
+    .relative.rounded-lg.bg-white.shadow.dark:bg-gray-700
+      .flex.items-start.justify-between.rounded-t.border-b.p-5.dark:border-gray-600
+        %h3.text-xl.font-semibold.text-gray-900.dark:text-white.lg:text-2xl
+          Thank You
+      .p-4.md:p-5.text-center.flex.justify-center.flex-col.items-center
+        = heroicon 'hand-thumb-up', variant: :solid, options: { class: "w-24 h-24 fill-green-700" }
+        .mb-5.text-lg.font-normal.text-gray-500.dark:text-gray-400 Thank you for sharing your thoughts; your feedback means the world to us.

@@ -52,7 +52,7 @@ export default class extends Controller {
 
     if (reviewsSection) {
       this.contentTarget.innerHTML = `${reviewsSection.innerHTML}`;
-      initFlowbite();
+      // initFlowbite();
     } else {
       this.contentTarget.innerHTML = "<p>No reviews available for this product.</p>";
     }

@@ -104,6 +104,7 @@ Rails.application.routes.draw do
     end
   end
   resources :reviews
+  resources :site_ratings, only: [:create]
   resources :ingredients, only: [:index, :show]
   resources :contacts, only: [:new, :create]
 end

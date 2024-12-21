@@ -1,5 +1,5 @@
 - if product.present?
-  %div.flex.flex-col.lg:flex-row.gap-8.pt-8.md:pt-1{data: {controller: 'product tabs'}}
+  %div.flex.flex-col.lg:flex-row.gap-8.pt-8.md:pt-1{data: {controller: 'product'}}
     %div.w-full{class: "lg:w-7/12 lg:max-h-[80vh] lg:overflow-y-scroll"}
       %div.flex.flex-col.items-center.lg:flex-col-reverse.lg:items-start.gap-4.dark:bg-gray-700.border-gray-200.dark:border-gray-600.p-8.rounded-lg.shadow-lg.hover:shadow-2xl.transition-shadow.duration-300.ease-in-out.main_background_color
         = render 'image_gallery', {product: product, orientation: 'bottom'}
