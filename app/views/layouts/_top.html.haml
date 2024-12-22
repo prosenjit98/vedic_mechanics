@@ -3,6 +3,7 @@
     %a.flex.items-center.space-x-3.rtl:space-x-reverse{:href => "/"}
       = image_tag 'vedic_icon.png', class: "h-16 rounded"
       = image_tag 'satvik-icon.png', class: "h-16 rounded"
+      = image_tag "v_stamp.png", class: "h-16 rounded"
       -# %span.self-center.text-2xl.font-semibold.whitespace-nowrap.text-white.dark:text-gray-200 Nutri Vedic
     %button.inline-flex.items-center.p-2.ml-3.text-sm.text-gray-500.rounded-lg.md:hidden.hover:bg-gray-100.dark:text-gray-400.dark:hover:bg-gray-700{"aria-controls" => "navbar-multi-level", "aria-expanded" => "false", "data-collapse-toggle" => "navbar-multi-level", type: "button"}
       %span.sr-only Open main menu
@@ -26,8 +27,8 @@
               %p(data-cart-target="cartDetails") Fetching details....
             %div{"data-popper-arrow" => ""}
         = active_link_to ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "learn-section",  "data-popover-offset": "5" do
-          .block.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
-            = heroicon 'information-circle', variant: :solid , options: {class: "w-6 h-6 fill-white hover:bg-green-500 hover:fill-gray-200"}
+          .block
+            = heroicon 'information-circle', variant: :solid , options: {class: "w-6 h-6"}
             
             #learn-section.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
               .px-3.py-2

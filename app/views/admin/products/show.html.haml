@@ -46,6 +46,11 @@
           %p.text-gray-600.mb-2= "Product Code: #{@product.product_code}"
         - else
           %p.text-gray-600.mb-2.text-red-500 Product code is not available.
+      - if @product.ingredients.present?
+        .flex.flex-col
+          .h1.text-3xl.font-bold.mb-4 Ingredients
+          - @product.ingredients.each do |ingredient|
+            %p.text-gray-600.mb-2= ingredient.name
 
     / Specification Section
     .mt-8
@@ -55,4 +60,4 @@
 
   / Back Button
   .flex.justify-center.mt-8
-    = link_to 'Back to Products', products_path, class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"
+    = link_to 'Back to Products', admin_products_path, class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"

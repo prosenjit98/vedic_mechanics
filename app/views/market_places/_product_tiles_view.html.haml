@@ -27,8 +27,8 @@
         = (1..5).map { |i| ratings >= i ? "★" : "☆" }.join(' ')
       %span.text-gray-600.dark:text-gray-400.text-sm.ml-2
         = "#{ratings.to_f} (#{product&.review_count} reviews)"
-      %div.underline.cursor-pointer{"data-action": "click->filter#openReviews", "data-product-id": product.id, "data-modal-type": "reviews"}
-        Details
+      -# %div.underline.cursor-pointer{"data-action": "click->filter#openReviews", "data-product-id": product.id, "data-modal-type": "reviews"}
+      -#   Details
     %div.mt-6
       %span.text-lg.font-bold.text-red-500.price{data: {amount: product.price}}
         = number_to_currency(product.price, precision: 0, unit: "Rs. ")

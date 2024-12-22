@@ -12,7 +12,7 @@
 
   -#  Loop through ingredients
   .bg-white.shadow-md.rounded-lg.mb-8.p-6
-    - @ingredients.each do |ingredient|
+    - @ingredients.each_with_index do |ingredient, index|
       %div{id: ingredient.name.parameterize }
         %h2.text-2xl.font-semibold.mb-4.text-gray-800= ingredient.name
 
@@ -22,8 +22,10 @@
               %div
                 = image_tag(image, alt: ingredient.name, class: "w-[150px] h-[150px] object-cover rounded-md border")
 
-        %div.prose.max-w-full.text-gray-700
+        %div.prose.max-w-full.text-gray-700{style: "font-family: 'gill sans'"}
           = ingredient.description
+      - if @ingredients.count < index + 1
+        %hr.my-4
     - unless @ingredients.present?
       %h2.text-2xl.font-semibold.mb-4.text-gray-800 Ingredients not present with this search result
 

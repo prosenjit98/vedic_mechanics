@@ -1,4 +1,4 @@
-%div{ data: { controller: "sidebar" } }
+%div.cursor-pointer{ data: { controller: "sidebar" } }
   %div.dark:text-gray-300.flex.items-center.justify-between.py-1.cursor-pointer.rounded.hover:bg-gray-300.dark:hover:bg-gray-800{ data: { action: "click->sidebar#toggle", sidebar_target: "toggle" } }
     %span.text-sm.p-0
       = heroicon 'chevron-right', variant: :solid, options: {class: "w-4 h-4 inline-block text-green-500 hover:text-green-700"}
@@ -8,12 +8,12 @@
         %svg.h-6.w-6.text-gray-400.ml-2.dark:text-gray-500{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 20 20', fill: 'currentColor' }
           %path{ d: 'M6 8l4 4 4-4' }
     - else
-      .flex.items-center.flex-grow.justify-between{data: {sidebar_target: "checkbox", filter_target: "filterinput" }}
-        %label.flex-grow.ms-2.text-sm.text-gray-800.dark:text-gray-300.checkbox_label_2{:for => "category_#{category[:id]}", class: "#{params[:category_id] == category[:id].to_s ? 'text-green-800' : ''}"}= category[:name].humanize
+      .flex.items-center.flex-grow.justify-between.cursor-pointer{data: {sidebar_target: "checkbox", filter_target: "filterinput" }}
+        %label.flex-grow.ms-2.text-sm.text-gray-800.dark:text-gray-300.checkbox_label_2.cursor-pointer{:for => "category_#{category[:id]}", class: "#{params[:category_id] == category[:id].to_s ? 'text-green-800' : ''}"}= category[:name].humanize
         = radio_button_tag 'category_id', category[:id], params[:category_id] == category[:id].to_s, id: "category_#{category[:id]}", class: "w-0 h-0 text-green-600 bg-gray-700 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-0 hidden_radio"
         -# = check_box_tag 'category_id[]', category[:id], checked: params[:category_id]&.include?(category[:id].to_s), id: "category_#{category[:id]}", class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600", data: {sidebar_target: "checkbox", filter_target: "filterinput" }
 
   - if category[:children].any?
-    %div.ml-1.pl-2.border-l.border-gray-200.dark:border-gray-600{ data: { sidebar_target: index_h == 0 ? "root" : "children" } }
+    %div.ml-1.pl-2.border-l.border-gray-200.dark:border-gray-600{ data: { sidebar_target: index_h == 0 ? "root" : "children", 'is-root': (index_h == 0 || index_h == 1) ? "true" : "false" } }
       - category[:children].each do |child|
-        = render partial: 'market_places/category_filter', locals: { category: child, index_h: 1 }
+        = render partial: 'market_places/category_filter', locals: { category: child, index_h: 1 + index_h }

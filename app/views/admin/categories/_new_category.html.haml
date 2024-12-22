@@ -13,7 +13,7 @@
           %path{"stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2", d: "M19 9l-7 7-7-7"}
 
   - if category.child_categories.present?
-    .ml-6.mt-2.bg-gray-50.p-3.rounded-md.border.shadow-sm.transition{id: "cat#{category.id}"}
+    .hidden.ml-6.mt-2.bg-gray-50.p-3.rounded-md.border.shadow-sm.transition{id: "cat#{category.id}"}
       %h4.text-md.font-semibold.text-gray-600.mb-2
         Subcategories
       .group{ data: { parent_id: category.parent_category_id, controller: "sortable"}}

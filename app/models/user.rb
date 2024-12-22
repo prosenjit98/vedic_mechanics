@@ -11,7 +11,7 @@ class User < ApplicationRecord
   has_many :payments
 
 
-
+  before_validation :set_external_user_id
   validates :phone_number, presence: true, uniqueness: true, length: { is: 10 }
 
   attr_writer :login
@@ -38,6 +38,12 @@ class User < ApplicationRecord
 
   def default_address
     addresses.default.first
+  end
+
+  private 
+
+  def set_external_user_id
+    self.external_user_id = self.external_user_id || SecureRandom.uuid
   end
   
 

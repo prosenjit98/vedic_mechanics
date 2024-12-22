@@ -55,7 +55,7 @@ export default class extends Controller {
 
     const rootElement = event.currentTarget.closest('[data-is-root="true"]');
     if (rootElement) {
-      const parentElement = rootElement.parentNode.parentNode;
+      const parentElement = rootElement;
       if(parentElement) {
         const siblings = Array.from(parentElement.children).filter(child => child.firstElementChild !== rootElement);
         siblings.forEach(sibling => {
