@@ -47,13 +47,14 @@
                 .flex.mt-4.justify-between
                   %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#submitRating", "data-rate" => "3"}
                     = inline_svg "smiling_face.svg", class: "w-10 h-10"
-                    .text-md Excellent
-                  %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#submitRating", "data-rate" => "2"}
-                    = inline_svg "smiley_good.svg", class: "w-10 h-10"
-                    .text-md Good
+                    .text-md.text-green-600
+                      Good
+                      %b{"data-site-ratings-target": 'good'}= "(#{@rating_hash["excellent"]}%)"
                   %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#submitRating", "data-rate" => "1"}
                     = inline_svg "sad.svg", class: "w-10 h-10"
-                    .text-md Bad
+                    .text-md.text-red-500
+                      Bad
+                      %b{"data-site-ratings-target": 'bad'}= "(#{@rating_hash["bad"]}%)"
               %div{"data-popper-arrow" => ""}
 
         = render 'layouts/language_dropdown'

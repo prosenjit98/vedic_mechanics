@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="site-ratings"
 export default class extends Controller {
-  static targets = ["popup"]
+  static targets = ["popup", 'good', 'bad']
 
   connect() {
     
@@ -29,6 +29,10 @@ export default class extends Controller {
     })
       .then((response) => response.json())
       .then((data) => {
+        if(data.data){
+          this.goodTarget.innerText = "(" + data.data["excellent"] + "%)"
+          this.badTarget.innerText = "(" + data.data["bad"] + "%)"
+        }
         if (data.message) {
           modal.show();
           setTimeout(() => {

@@ -21,5 +21,6 @@ class ApplicationController < ActionController::Base
     @categories = Category.to_nested_hash
     @concerns = Concern.all
     @ingredients = Ingredient.all
+    @rating_hash = SiteRating.rate_percentages
   end
 end
