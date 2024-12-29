@@ -1,8 +1,8 @@
 = form_tag market_places_path, :method => 'get', :class => "filter-form", data: { controller: "filter", turbo_stream: true, turbo: true } do
-  .grid.grid-cols-12.gap-4.pr-4.py-8
-    .col-span-12.lg:col-span-3
+  .grid.grid-cols-9.gap-0.pr-4.py-8.no-scrollbar
+    .col-span-9.lg:col-span-2
       = render 'products/filters'
-    .col-span-12.lg:col-span-9
+    .col-span-9.lg:col-span-7.no-scrollbar
       -# .flex.justify-between.items-center.py-4
       -#   .w-full.flex.justify-between
       -#     = text_field_tag 'search', params[:search], placeholder: "Search for Products", class: "form-input w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100", data: { filter_target: "filterinput" }
@@ -19,7 +19,7 @@
 
 
     %div.hidden.fixed.inset-0.bg-gray-800.bg-opacity-50.z-30.flex.items-center.justify-center{ id: "modal", "data-filter-target": "container" }
-      %div.bg-white.rounded-lg.shadow-lg.w-full.max-w-lg
+      %div.bg-white.rounded-lg.shadow-lg.w-full.max-w-3xl.overflow-auto.max-h-96
         %div.p-4.flex.justify-between.items-center.border-b
           %h3.text-xl.font-semibold.text-gray-900 Details
           .text-gray-400.hover:text-gray-600{"data-action": "click->filter#close"}

@@ -21,7 +21,41 @@ module ProductsHelper
     breadcrumb(items.reverse)
   end
 
+  def generate_description product
+    content_tag(:div) do
+      content_tag(:div, product.description) + product_description(product)
+    end
+  end
+
+  def generate_specification product
+    content_tag(:div) do
+      content_tag(:div, product.specification.to_s) + ingredients(product)
+    end
+  end
+
   private
+
+  def product_description product
+    ingredients = Ingredient.where(name: product.product_code)
+    content_tag(:div) do
+      if ingredients.present?
+        ingredients.map do |ingredient|
+          content_tag(:div, ingredient.description.to_s)
+        end.join.html_safe
+      end
+    end
+  end
+
+  def ingredients(product)
+    content_tag(:div) do
+      if product.ingredients.present?
+        content_tag(:h3, "About ingredients: ", class: "font-semibold text-lg mt-2") + 
+        product.ingredients.map do |ingredient|
+          content_tag(:div, ingredient.description.to_s)
+        end.join.html_safe
+      end
+    end
+  end
 
   def breadcrumb_item(item, index, total_items)
     if index == total_items - 1

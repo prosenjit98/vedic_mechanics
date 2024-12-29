@@ -1,7 +1,7 @@
 %div.bg-white.dark:bg-gray-800.shadow-md.rounded-lg.overflow-hidden.relative{id: "#{dom_id(product)}"}
-  - if product.discount.present?
-    %span.absolute.top-0.left-0.bg-red-500.text-white.px-2.py-1.text-xs.font-bold.uppercase
-      Save #{product.discount}%
+  -# - if product.discount.present?
+  -#   %span.absolute.top-0.left-0.bg-red-500.text-white.px-2.py-1.text-xs.font-bold.uppercase
+  -#     Save #{product.discount}%
   %div.relative.mt-8
     = render 'products/image_gallery', { product: product }
     -# = link_to product_path(product), data: {turbo: false} do
@@ -10,25 +10,30 @@
   %div.p-4
     = link_to product_path(product), data: {turbo: false} do
       .h-12.mt-1.text-lg.font-bold.text-gray-800.dark:text-gray-100.hover:text-gray-500
-        = product.name
+        - if product.name.present?
+          = product.name 
+          - if product.product_code.present?
+            %span.text-sm (#{product.product_code})
+        - else 
+          = product.product_code
     -# %div.cursor-pointer.bg-green-600.text-white.p-1.mx-1.rounded.hover:bg-green-800{ data: {"action": "click->filter#open", "modal-content": product.description, "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
     -#     = heroicon 'information-circle', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
     -#   %div.cursor-pointer.bg-green-600.text-white.py-1.px-1.mx-1.rounded.hover:bg-green-800{ data: {"action": "click->filter#open", "modal-content": product.specification, "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
     -#     = heroicon 'newspaper', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
     %div.flex.justify-center.my-4
-      %div.cursor-pointer.text-blue-600.mx-1.rounded.hover:text-blue-800{ data: {action: "click->filter#open", "modal-content": product.description, "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
+      %div.cursor-pointer.text-blue-600.mx-1.rounded.hover:text-blue-800{ data: {action: "click->filter#open", "modal-content": generate_description(product), "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
         = heroicon 'information-circle', variant: :solid , options: {class: "w-8 h-8 inline-block"}
-      %div.cursor-pointer.text-white.mx-1.pt-1.rounded.hover:bg-grey-300{ data: {action: "click->filter#open", "modal-content": product.specification, "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
+      %div.cursor-pointer.text-white.mx-1.pt-1.rounded.hover:bg-grey-300{ data: {action: "click->filter#open", "modal-content": generate_specification(product), "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
         = inline_svg "paper.svg", class: "w-6 h-6 inline-block"
         
-    %div.flex.items-center.mt-2
-      %span.text-yellow-400.text-sm
-        - ratings = product&.product_ratings
-        = (1..5).map { |i| ratings >= i ? "★" : "☆" }.join(' ')
-      %span.text-gray-600.dark:text-gray-400.text-sm.ml-2
-        = "#{ratings.to_f} (#{product&.review_count} reviews)"
-      -# %div.underline.cursor-pointer{"data-action": "click->filter#openReviews", "data-product-id": product.id, "data-modal-type": "reviews"}
-      -#   Details
+    -# %div.flex.items-center.mt-2
+    -#   %span.text-yellow-400.text-sm
+    -#     - ratings = product&.product_ratings
+    -#     = (1..5).map { |i| ratings >= i ? "★" : "☆" }.join(' ')
+    -#   %span.text-gray-600.dark:text-gray-400.text-sm.ml-2
+    -#     = "#{ratings.to_f} (#{product&.review_count} reviews)"
+    -#   %div.underline.cursor-pointer{"data-action": "click->filter#openReviews", "data-product-id": product.id, "data-modal-type": "reviews"}
+    -#     Details
     %div.mt-6
       %span.text-lg.font-bold.text-red-500.price{data: {amount: product.price}}
         = number_to_currency(product.price, precision: 0, unit: "Rs. ")
