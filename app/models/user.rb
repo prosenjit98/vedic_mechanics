@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable, :authentication_keys => [:login]
+  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2], :authentication_keys => [:login]
   has_many :orders
   has_one :cart
   has_many :reviews
@@ -40,7 +40,22 @@ class User < ApplicationRecord
     addresses.default.first
   end
 
+  def self.from_google(u)
+    create_with(uid: u[:uid], provider: 'google', first_name: u[:first_name], last_name: u[:last_name], password: Devise.friendly_token[0, 20], phone_number: set_code).find_or_create_by!(email: u[:email])
+  end
+
   private 
+
+  def self.set_code
+    generate_unique_code
+  end
+
+  def self.generate_unique_code
+    loop do
+      code = Array.new(10) { rand(0..9) }.join
+      break code unless User.exists?(phone_number: code)
+    end
+  end
 
   def set_external_user_id
     self.external_user_id = self.external_user_id || SecureRandom.uuid

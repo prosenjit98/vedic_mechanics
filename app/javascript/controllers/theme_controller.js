@@ -7,8 +7,9 @@ export default class extends Controller {
     const bodyElement = document.body;
 
     // Apply dark mode based on localStorage
-    if (localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // if (localStorage.getItem('theme') === 'dark' || 
+    //     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (localStorage.getItem('theme') === 'dark'){
       bodyElement.classList.add('dark');
       console.log('dark mode on ======   for local storage =============================');
     } else {
