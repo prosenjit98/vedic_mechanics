@@ -36,7 +36,7 @@ module ProductsHelper
   private
 
   def product_description product
-    ingredients = Ingredient.where(name: product.product_code)
+    ingredients = Ingredient.where("name ilike ?", "%#{product.product_code}%")
     content_tag(:div) do
       if ingredients.present?
         ingredients.map do |ingredient|
