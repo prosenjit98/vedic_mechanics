@@ -6,7 +6,7 @@ class Admin::CategoriesController < Admin::BaseController
 
   def index
     @categories = Category.all
-    @mother_categories = Category.parent_categories
+    @mother_categories = Category.parent_categories.order(position: :asc)
   end
 
   def show

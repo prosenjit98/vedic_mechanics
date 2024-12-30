@@ -23,7 +23,7 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :product_variants
   has_rich_text :specification
 
-  validates :name, presence: true
+  # validates :name, presence: true
   validates :product_code, presence: true
   validates :original_price, presence: true, numericality: { greater_than_or_equal_to: 0 }
   validates :approx_delivery_cost, presence: true,  numericality: { greater_than_or_equal_to: 0 }

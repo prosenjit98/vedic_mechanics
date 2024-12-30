@@ -40,6 +40,7 @@ export default class extends Controller {
     } else if (contentType === "specification") {
       this.contentTarget.innerHTML = `<strong>Specifications:</strong> <p>${content}</p>`;
     }
+    window.showHideElement()
   }
 
   openReviews(event) {

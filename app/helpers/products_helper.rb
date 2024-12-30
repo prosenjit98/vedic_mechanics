@@ -49,9 +49,12 @@ module ProductsHelper
   def ingredients(product)
     content_tag(:div) do
       if product.ingredients.present?
-        content_tag(:h3, "About ingredients: ", class: "font-semibold text-lg mt-2") + 
+        content_tag(:h3, "Ingredients: ", class: "font-semibold text-md mt-2") + 
         product.ingredients.map do |ingredient|
-          content_tag(:div, ingredient.description.to_s)
+          content_tag(:div, class: 'parent my-2') do
+            content_tag(:span, ingredient.name, class: 'child_link cursor-pointer  bg-green-100 text-green-800 text-xs font-medium me-2 px-2.5 py-0.5 rounded dark:bg-green-900 dark:text-green-300') +
+            content_tag(:div, ingredient.description.to_s, class: 'hidden child my-4')
+          end
         end.join.html_safe
       end
     end

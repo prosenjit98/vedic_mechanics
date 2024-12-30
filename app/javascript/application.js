@@ -52,6 +52,20 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", showHideElement)
+document.addEventListener("turbo:load", showHideElement)
+document.addEventListener("turbo:frame-load", showHideElement)
+
+function showHideElement(){
+  document.querySelectorAll(".child_link").forEach((ele) => {
+    ele.addEventListener('click', ()=> {
+      const target = ele.closest('.parent').querySelector('.child');
+      if(target){
+        target.classList.toggle("hidden")
+      }
+    })
+  })
+}
 
 function initializeNiceSelect(){
   var selectElements = document.querySelectorAll("select.selectable");
@@ -104,3 +118,4 @@ document.addEventListener("turbo:frame-load", () => {
 
 document.addEventListener("DOMContentLoaded", initializeCarousels);
 window.initializeNiceSelect = initializeNiceSelect
+window.showHideElement = showHideElement

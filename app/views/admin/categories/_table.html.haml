@@ -2,7 +2,8 @@
   %div.text-gray-800.font-medium.uppercase.bg-gray-50.px-4.py-2.rounded-md.shadow-sm
     Categories
     = turbo_frame_tag "categories" do
-      = render partial: 'admin/categories/new_category', collection: @mother_categories, as: :category
+      .group{ data: { controller: "sortable"}}
+        = render partial: 'admin/categories/new_category', collection: @mother_categories, as: :category
 
 :javascript
   function toggleAccordion(id) {
