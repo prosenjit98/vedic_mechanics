@@ -2,9 +2,15 @@ import { Controller } from "@hotwired/stimulus"
 // import { initFlowbite } from "flowbite";
 
 export default class extends Controller {
-  static targets = ["filterinput", "container", "content"];
+  static targets = ["filterinput", "container", "content", "header"];
 
   connect() {
+    const $targetEl = document.getElementById('product_details_mod');
+    const instanceOptions = {
+      id: 'product_details_mod'
+    };
+
+    this.modal = new Modal($targetEl, {}, instanceOptions);
     this.filterinputTargets.forEach(input => {
       input.addEventListener("click", () => {
         // Remove the class from all labels
@@ -30,17 +36,18 @@ export default class extends Controller {
   }
 
   open(event) {
-    console.log("Open modal");
-    this.containerTarget.classList.remove("hidden");
     const contentType = event.currentTarget.dataset.modalType;
     const content = event.currentTarget.dataset.modalContent || "No content available.";
 
     if (contentType === "description") {
-      this.contentTarget.innerHTML = `<strong>Description:</strong> <p>${content}</p>`;
+      this.headerTarget.innerHTML = "Description"
+      this.contentTarget.innerHTML = `<p class="my-4">${content}</p>`;
     } else if (contentType === "specification") {
-      this.contentTarget.innerHTML = `<strong>Specifications:</strong> <p>${content}</p>`;
+      this.headerTarget.innerHTML = "Specifications"
+      this.contentTarget.innerHTML = `<p class="my-4">${content}</p>`;
     }
-    window.showHideElement()
+    this.modal.show();
+    window.showHideElement();
   }
 
   openReviews(event) {
@@ -60,6 +67,6 @@ export default class extends Controller {
   }
 
   close() {
-    this.containerTarget.classList.add("hidden");
+    this.modal.hide();
   }
 }
