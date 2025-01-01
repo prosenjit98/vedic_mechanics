@@ -1,0 +1,14 @@
+.container
+  %h4 New Ratings From User
+  %p
+    %span.label Name:
+    = @user.full_name
+  %p
+    %span.label Email:
+    = @user.email
+  %p
+    %span.label Message:
+    = @site_ratings&.comment
+  %p.reference-id
+    %strong Ratings:
+    = @site_ratings.rate

@@ -2,14 +2,22 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="site-ratings"
 export default class extends Controller {
-  static targets = ["popup", 'good', 'bad']
+  static targets = ["popup", 'good', 'bad', 'commentHeading', "commentSection"]
 
   connect() {
-    
+    this.commentSectionTarget.classList.add('hidden');
+  }
+
+  smileClicked(event){
+    const rate = event.currentTarget.dataset.rate;
+    this.commentSectionTarget.classList.remove('hidden');
+    const rateInput = document.getElementById('rate')
+    rateInput.value = rate
   }
 
   submitRating(event) {
-    const rate = event.currentTarget.dataset.rate;
+    const rate = document.getElementById('rate')?.value
+    const comment = document.getElementById('comment')?.value
     const externalUserId = localStorage.getItem("externalUserId")
 
     const $targetEl = document.getElementById('thank-model');
@@ -18,6 +26,8 @@ export default class extends Controller {
       override: true
     };
     const modal = new Modal($targetEl, {}, instanceOptions);
+    this.commentSectionTarget.classList.add('hidden');
+    if(!rate) return
 
     fetch("/site_ratings", {
       method: "POST",
@@ -25,7 +35,7 @@ export default class extends Controller {
         "Content-Type": "application/json",
         "X-CSRF-Token": document.querySelector('meta[name="csrf-token"]').content,
       },
-      body: JSON.stringify({ rate, external_user_id: externalUserId }),
+      body: JSON.stringify({ rate, comment, external_user_id: externalUserId }),
     })
       .then((response) => response.json())
       .then((data) => {
