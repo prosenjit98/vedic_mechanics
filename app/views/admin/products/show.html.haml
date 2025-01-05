@@ -25,6 +25,8 @@
         %h1.text-3xl.font-bold.mb-4= @product.name
         %p.text-gray-600.mb-2= "Description: #{@product.description}"
         %p.text-gray-600.mb-2= "Price: ₹#{number_to_currency(@product.price, unit: '')}"
+        %p.text-gray-600.mb-2= "Per Unit cost: ₹#{number_to_currency(@product.unit_cost, unit: '')}"
+        %p.text-gray-600.mb-2= "Uniq per batch: #{@product.units_per_batch}"
         %p.text-gray-600.mb-2= "Stock Quantity: #{@product.stock_quantity}"
         %p.text-gray-600.mb-2= "Discount: #{@product.discount * 100}%"
         %p.text-gray-600.mb-2= "Original Price: ₹#{number_to_currency(@product.original_price, unit: '')}"

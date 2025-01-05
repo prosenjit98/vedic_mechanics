@@ -57,14 +57,28 @@ document.addEventListener("turbo:load", showHideElement)
 document.addEventListener("turbo:frame-load", showHideElement)
 
 function showHideElement(){
-  document.querySelectorAll(".child_link").forEach((ele) => {
-    ele.addEventListener('click', ()=> {
-      const target = ele.closest('.parent').querySelector('.child');
-      if(target){
-        target.classList.toggle("hidden")
+  document.querySelectorAll(".ingredient-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      // Reset styles for all links
+      document.querySelectorAll(".ingredient-link").forEach((item) => {
+        item.classList.remove("active");
+      });
+  
+      // Highlight the clicked link
+      link.classList.add("active");
+  
+      // Hide all details
+      const allDetails = document.querySelectorAll(".ingredient-details");
+      allDetails.forEach((detail) => detail.classList.add("hidden"));
+  
+      // Show the clicked ingredient's detail
+      const targetId = link.dataset.id;
+      const targetDetail = document.getElementById(`ingredient-${targetId}`);
+      if (targetDetail) {
+        targetDetail.classList.toggle("hidden");
       }
-    })
-  })
+    });
+  });
 }
 
 function initializeNiceSelect(){

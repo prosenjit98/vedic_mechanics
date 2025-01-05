@@ -62,6 +62,37 @@ class Product < ApplicationRecord
     reviews&.average(:rating)&.round(1) || 0
   end
 
+  def units_per_batch
+    if unit_cost.present? && price.present?
+      (price / unit_cost).to_i
+    else
+      1
+    end
+  end
+
+  def get_parent_categories id = nil
+    names = []
+    first_category = categories.first 
+    unless id.nil?
+      categories.each do |category|
+        parent = category.parent_category
+        while parent&.parent_category.present?
+          parent = parent.parent_category
+        end
+        if parent&.id&.to_s == id
+          first_category = category
+        end
+      end
+    end
+
+    names << first_category.name
+    parent = first_category.parent_category
+    if parent.present?
+      names << parent.name
+    end
+    names
+  end
+
   def review_count 
     reviews.count
   end

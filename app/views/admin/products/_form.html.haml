@@ -21,6 +21,10 @@
       %label.block.text-sm.font-medium.text-gray-700 MRP
       %div.mt-1
         = f.number_field :original_price, step: 0.01, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
+    .col-span-1
+      %label.block.text-sm.font-medium.text-gray-700 Per Unit Selling Cost
+      %div.mt-1
+        = f.number_field :unit_cost, step: 0.01, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
     
     .col-span-1
       %label.block.text-sm.font-medium.text-gray-700 Approx delivery cost

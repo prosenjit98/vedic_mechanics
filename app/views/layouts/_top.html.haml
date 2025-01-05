@@ -35,7 +35,8 @@
                 %h3 Learn
               %div{"data-popper-arrow" => ""}
         -# = active_link_to '', active: [[''], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "rate-section",  "data-popover-offset": "5" do
-        = render 'layouts/site_ratings'
+        - if current_user.present?
+          = render 'layouts/site_ratings'
         = render 'layouts/language_dropdown'
         = render 'layouts/currency_dropdown'
         - unless current_user.present?

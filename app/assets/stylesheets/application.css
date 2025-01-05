@@ -118,3 +118,14 @@ select.selectable {
 .hidden_radio:checked{
   opacity: 0;
 }
+
+.ingredient-link {
+  transition: all 0.3s ease;
+}
+
+.ingredient-link.active {
+  background-color: #38a169; /* More green */
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}

@@ -162,3 +162,10 @@
 .dark .border-green-bottom {
   border-bottom: 0.5px solid #1bbb3b;
 }
+
+.garamond {
+  font-family: 'Garamond', serif;
+}
+.baskerVilla {
+  font-family: 'Baskerville', sans-serif;
+}
