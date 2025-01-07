@@ -11,7 +11,7 @@ class Admin::ProductsController < Admin::BaseController
 
   def show
     @product = Product.find_by_id(params[:id])
-    breadcrumbs.add @product.name
+    breadcrumbs.add @product.name || @product&.product_code
   end
   
   def new

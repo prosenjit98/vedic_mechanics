@@ -18,7 +18,7 @@
                     .grid.grid-cols-1.gap-4.mx-4.my-4
                       .flex.justify-between
                         %div 
-                          %h3.font-semibold.text-gray-600.text-sm= item.product.name
+                          %h3.font-semibold.text-gray-600.text-sm= item.product&.name || item.product&.product_code
                           %p.text-base.font-normal.text-gray-500.text-xs 
                             %span (price: 
                             %span.price{data: {amount: item.product.price}} #{item.product.price.round(2)} * #{item.quantity}

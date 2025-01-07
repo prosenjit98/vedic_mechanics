@@ -167,5 +167,9 @@
   font-family: 'Garamond', serif;
 }
 .baskerVilla {
-  font-family: 'Baskerville', sans-serif;
+  font-family: 'Didot', 'Bodoni MT', serif;
+}
+.color_text{
+  background-color: #fff5f5;
+  color: #8a3a20;
 }

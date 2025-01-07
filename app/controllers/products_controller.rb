@@ -50,7 +50,7 @@ class ProductsController < ApplicationController
     @similar_products_variants = ProductVariant.where(variant_id: @variants.ids) if @product.present?
     @rating_percentage = @product.reviews.rating_percentage
     breadcrumbs.add "Products", products_path
-    breadcrumbs.add @product.name
+    breadcrumbs.add @product&.name || @product.product_code
   end
 
   # GET /products/new

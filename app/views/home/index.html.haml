@@ -53,7 +53,7 @@
               %div.p-4
                 = link_to product_path(product), data: {turbo: false} do
                   .h-12.mt-1.text-lg.font-bold.text-gray-800.dark:text-gray-100.hover:text-gray-500
-                    = product.name
+                    = product&.name || product&.product_code
                 %div.flex.items-center.mt-2
                   %span.text-yellow-400.text-sm
                     - ratings = product&.product_ratings
