@@ -87,7 +87,7 @@ class Product < ApplicationRecord
 
     names << first_category.name
     parent = first_category.parent_category
-    if parent.present?
+    if parent.present? && parent.parent_category.present?
       names << parent.name
     end
     names
