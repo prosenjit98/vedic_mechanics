@@ -127,7 +127,7 @@ class Order < ApplicationRecord
     user = self.user
     line_items = [["<b>Item</b>", "<b>Unit Cost</b>", "<b>Quantity</b>", "<b>Amount</b>"]]
     self.order_items.each do |oi|
-      line_items << [oi.product&.name || oi.product&.product_code, "#{oi.product.price.to_f.round(2) }", oi.quantity, "#{oi.price.to_f.round(2)}"]
+      line_items << [oi.product.name_or_code, "#{oi.product.price.to_f.round(2) }", oi.quantity, "#{oi.price.to_f.round(2)}"]
     end
 
     line_items << [nil, nil, "<b>Total</b>", "#{self.total_with_gst.to_f.round(2)}"]

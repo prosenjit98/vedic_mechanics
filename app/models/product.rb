@@ -63,8 +63,8 @@ class Product < ApplicationRecord
   end
 
   def units_per_batch
-    if unit_cost.present? && price.present?
-      (price / unit_cost).to_i
+    if unit_cost.present? && original_price.present?
+      (original_price / unit_cost).to_i
     else
       1
     end
@@ -91,6 +91,10 @@ class Product < ApplicationRecord
       names << parent.name
     end
     names
+  end
+
+  def name_or_code
+    self.name.present? ? self.name : self.product_code
   end
 
   def review_count 

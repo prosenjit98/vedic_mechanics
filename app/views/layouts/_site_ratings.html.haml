@@ -6,21 +6,23 @@
       .px-3.py-2.bg-gray-100.border-b.border-gray-200.rounded-t-lg.dark:border-gray-600.dark:bg-gray-700.text-center
         %h3.font-semibold.text-gray-900.dark:text-white Please Express
       .px-3.py-2
-        -# %div.text-md.font-semibold Express your thought
         .flex.mt-4.justify-around
-          %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "3"}
-            = inline_svg "smiling_face.svg", class: "w-8 h-8"
-            .text-md.text-green-600
-              -# Good
-              %b{"data-site-ratings-target": 'good'}= "#{@rating_hash["excellent"]}%"
-          %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "1"}
-            = inline_svg "sad.svg", class: "w-8 h-8"
-            .text-md.text-red-500
-              -# Bad
-              %b{"data-site-ratings-target": 'bad'}= "#{@rating_hash["bad"]}%"
-        %div.mt-2{"data-site-ratings-target": 'commentSection'}
-          %div{"data-site-ratings-target": 'commentHeading'}
-          = hidden_field_tag :rate
-          = text_area_tag :comment,"", {placeholder: "Write your thoughts here...", class: "w-full text-sm text-gray-900 bg-gray-50 rounded-lg border"}
-          %button.w-full.mt-2.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:ring-blue-300.font-medium.rounded-lg.text-xs.px-5.me-2.mb-2.dark:bg-blue-600.dark:hover:bg-blue-700.focus:outline-none.dark:focus:ring-blue-800{:class => "py-2", :type => "button", "data-action" => "click->site-ratings#submitRating"} Submit
+          - unless current_user.present?
+            %div.text-md.font-semibold.mb-4 Please login to review our website.
+          - else 
+            %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "3"}
+              = inline_svg "smiling_face.svg", class: "w-8 h-8"
+              .text-md.text-green-600
+                -# Good
+                %b{"data-site-ratings-target": 'good'}= "#{@rating_hash["excellent"]}%"
+            %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "1"}
+              = inline_svg "sad.svg", class: "w-8 h-8"
+              .text-md.text-red-500
+                -# Bad
+                %b{"data-site-ratings-target": 'bad'}= "#{@rating_hash["bad"]}%"
+          %div.mt-2{"data-site-ratings-target": 'commentSection'}
+            %div{"data-site-ratings-target": 'commentHeading'}
+            = hidden_field_tag :rate
+            = text_area_tag :comment,"", {placeholder: "Write your thoughts here...", class: "w-full text-sm text-gray-900 bg-gray-50 rounded-lg border"}
+            %button.w-full.mt-2.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:ring-blue-300.font-medium.rounded-lg.text-xs.px-5.me-2.mb-2.dark:bg-blue-600.dark:hover:bg-blue-700.focus:outline-none.dark:focus:ring-blue-800{:class => "py-2", :type => "button", "data-action" => "click->site-ratings#submitRating"} Submit
       %div{"data-popper-arrow" => ""}

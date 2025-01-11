@@ -3,7 +3,7 @@
     .flex 
       %div= "#{index + 1}. "
       %div.flex.justify-center.flex-grow
-        .text-md.text-gray-800.dark:text-gray-100.flex-grow= item.product&.name || item.product&.product_code
+        .text-md.text-gray-800.dark:text-gray-100.flex-grow= item.product&.name_or_code
         %div
           %span.text-l.font-bold.price{data: {amount: item.product.price}}= "#{number_to_currency(item.product.price, precision: 0, unit: "Rs. ")} x #{item.quantity}"
   %div 

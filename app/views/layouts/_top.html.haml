@@ -35,8 +35,7 @@
                 %h3 Learn
               %div{"data-popper-arrow" => ""}
         -# = active_link_to '', active: [[''], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "rate-section",  "data-popover-offset": "5" do
-        - if current_user.present?
-          = render 'layouts/site_ratings'
+        = render 'layouts/site_ratings'
         = render 'layouts/language_dropdown'
         = render 'layouts/currency_dropdown'
         - unless current_user.present?
@@ -102,13 +101,17 @@
         .relative.mt-4.md:mt-0.hidden(data-root-target= 'searchBar')
           = render 'products/search'
         .flex.items-center.pt-1(data-root-target= 'categoryBar')
-          %div.p-1.border-2.rounded.border-green-500.mr-4.hover:border-green-800.ml-5{"data-action" => "click->root#showSearch"}
+          %div.p-1.border-2.rounded.border-green-500.mr-4.hover:border-green-800.ml-5{"data-action" => "click->root#showSearch", 'popover-target': "search_bar",  "data-popover-offset": "5" }
             = heroicon 'magnifying-glass', variant: :solid, options: {class: "w-4 h-4 inline-block text-green-500 hover:text-green-700"}
+          #search_bar.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+            .px-3.py-2
+              %h3 Please search or select from categories
+            %div{"data-popper-arrow" => ""}
           %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse.text-sm
             - Category.parent_categories.order(position: :asc).each do |category|
               %li
                 - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
-                = link_to category.name, market_places_path(parent_category: category.id), class: "text-gray-900 dark:text-white hover:underline #{active_class}"
+                = link_to category.name.humanize, market_places_path(parent_category: category.id), class: "text-gray-900 dark:text-white hover:underline #{active_class}"
           
           
             -# %li

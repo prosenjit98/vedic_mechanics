@@ -11,9 +11,9 @@ class MarketPlacesController < ApplicationController
     @products = Product.all.includes(:reviews)
     @products = @products.by_search(params[:search]) if params[:search].present?
     @products = @products.order(price: params[:price]) if params[:price].present?
-    @products = @products.by_category(params[:category_id]) if params[:category_id].present?
-    if params[:parent_category].present?
-      _category = Category.find(params[:parent_category])
+    # @products = @products.by_category(params[:category_id]) if params[:category_id].present?
+    if params[:parent_category].present? || params[:category_id].present?
+      _category = Category.find(params[:category_id] || params[:parent_category])
       ids = [_category.all_subcategories.pluck(:id)] + [_category.id]
       @products = @products.by_category([ids].flatten)
     end

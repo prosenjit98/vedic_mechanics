@@ -69,7 +69,7 @@
               - order.order_items.each do |item|
                 %tr
                   %td.px-6.py-1= image_tag(item.product.product_images.last, size: "40x40", alt: "Product img...")
-                  %td.px-6.py-1= item.product&.name || item.product&.product_code
+                  %td.px-6.py-1= item.product&.name_or_code
                   %td.px-6.py-1= item.quantity
                   %td.px-6.py-1.price{data: {amount: "#{item.price}"}}= item.price
                   %td 

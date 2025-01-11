@@ -62,7 +62,7 @@
                     .col-span-2
                       = image_tag(order_item.product.product_images.last, size: "60x60", alt: "Edit Entry")
                     .col-span-4 
-                      %h2= order_item.product&.name || order_item.product&.product_code
+                      %h2= order_item.product&.name_or_code
                       %p Qnt: #{order_item.quantity}
                     .col-span-3 
                       %p.price{data: {amount: order_item.price}} ₹#{order_item.price}
