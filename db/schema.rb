@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
+ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -81,6 +81,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.index ["reset_password_token"], name: "index_admin_users_on_reset_password_token", unique: true
   end
 
+  create_table "app_configurations", force: :cascade do |t|
+    t.string "key"
+    t.string "value"
+    t.json "meta"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "cart_items", force: :cascade do |t|
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
@@ -107,6 +115,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "parent_category_id"
+    t.integer "position"
+    t.index ["parent_category_id", "position"], name: "index_category_on_parent_and_position", unique: true
+  end
+
+  create_table "concerns", force: :cascade do |t|
+    t.string "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "contacts", force: :cascade do |t|
@@ -117,6 +134,13 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["msg_rf_id"], name: "index_contacts_on_msg_rf_id", unique: true
+  end
+
+  create_table "ingredients", force: :cascade do |t|
+    t.text "name"
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -170,6 +194,31 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.datetime "captured_at"
   end
 
+  create_table "product_categories", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "category_id", null: false
+    t.index ["category_id"], name: "index_product_categories_on_category_id"
+    t.index ["product_id"], name: "index_product_categories_on_product_id"
+  end
+
+  create_table "product_concerns", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "concern_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["concern_id"], name: "index_product_concerns_on_concern_id"
+    t.index ["product_id"], name: "index_product_concerns_on_product_id"
+  end
+
+  create_table "product_ingredients", force: :cascade do |t|
+    t.bigint "product_id", null: false
+    t.bigint "ingredient_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["ingredient_id"], name: "index_product_ingredients_on_ingredient_id"
+    t.index ["product_id"], name: "index_product_ingredients_on_product_id"
+  end
+
   create_table "product_variants", force: :cascade do |t|
     t.bigint "variant_id", null: false
     t.bigint "product_id", null: false
@@ -185,7 +234,6 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.text "description"
     t.decimal "price"
     t.integer "stock_quantity"
-    t.bigint "category_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "discount", default: 0.0
@@ -195,7 +243,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.integer "vendor_id"
     t.string "hsn"
     t.jsonb "variant"
-    t.index ["category_id"], name: "index_products_on_category_id"
+    t.datetime "deleted_at"
+    t.string "product_code"
+    t.float "unit_cost"
+    t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
   create_table "questions", force: :cascade do |t|
@@ -238,6 +289,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.integer "order_id"
     t.index ["product_id"], name: "index_reviews_on_product_id"
     t.index ["user_id"], name: "index_reviews_on_user_id"
+  end
+
+  create_table "site_ratings", force: :cascade do |t|
+    t.integer "rate"
+    t.string "external_user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.string "comment"
   end
 
   create_table "taggings", force: :cascade do |t|
@@ -296,6 +355,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "external_user_id"
+    t.string "provider"
+    t.string "uid"
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["external_user_id"], name: "index_users_on_external_user_id"
@@ -324,9 +385,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_09_25_120547) do
   add_foreign_key "order_items", "orders"
   add_foreign_key "order_items", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "product_categories", "categories"
+  add_foreign_key "product_categories", "products"
+  add_foreign_key "product_concerns", "concerns"
+  add_foreign_key "product_concerns", "products"
+  add_foreign_key "product_ingredients", "ingredients"
+  add_foreign_key "product_ingredients", "products"
   add_foreign_key "product_variants", "products"
   add_foreign_key "product_variants", "variants"
-  add_foreign_key "products", "categories"
   add_foreign_key "questions", "products"
   add_foreign_key "questions", "users"
   add_foreign_key "replies", "questions"
