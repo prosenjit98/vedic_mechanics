@@ -3,13 +3,13 @@
     %span.text-sm.p-0
       = heroicon 'chevron-right', variant: :solid, options: {class: "w-4 h-4 inline-block text-green-500 hover:text-green-700"}
     - if category[:children].any? && index_h == 0
-      %span.flex-grow.text-sm.p-0= category[:name].humanize
+      %span.flex-grow.text-sm.p-0= category[:name]
       %button.flex.items-center
         %svg.h-6.w-6.text-gray-400.ml-2.dark:text-gray-500{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 20 20', fill: 'currentColor' }
           %path{ d: 'M6 8l4 4 4-4' }
     - else
       .flex.items-center.flex-grow.justify-between.cursor-pointer{data: {sidebar_target: "checkbox", filter_target: "filterinput" }}
-        %label.flex-grow.ms-2.text-sm.text-gray-800.dark:text-gray-300.checkbox_label_2.cursor-pointer{:for => "category_#{category[:id]}", class: "#{params[:category_id] == category[:id].to_s ? 'text-green-800' : ''}"}= category[:name].humanize
+        %label.flex-grow.ms-2.text-sm.text-gray-800.dark:text-gray-300.checkbox_label_2.cursor-pointer{:for => "category_#{category[:id]}", class: "#{params[:category_id] == category[:id].to_s ? 'text-green-800' : ''}"}= category[:name]
         = radio_button_tag 'category_id', category[:id], params[:category_id] == category[:id].to_s, id: "category_#{category[:id]}", class: "w-0 h-0 text-green-600 bg-gray-700 border-gray-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-0 hidden_radio"
         -# = check_box_tag 'category_id[]', category[:id], checked: params[:category_id]&.include?(category[:id].to_s), id: "category_#{category[:id]}", class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600", data: {sidebar_target: "checkbox", filter_target: "filterinput" }
 

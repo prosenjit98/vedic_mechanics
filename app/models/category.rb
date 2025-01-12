@@ -7,7 +7,7 @@ class Category < ApplicationRecord
 
   before_validation :initialize_position
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true
   validates :position, uniqueness: { scope: [:parent_category_id], message: "must be unique within the same parent" }
 
   scope :search_by_name, -> (name) { where('name ILIKE ?', "%#{name}%") }

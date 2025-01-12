@@ -74,14 +74,14 @@ module ProductsHelper
       # Last item, no link
       content_tag(:li, aria: { current: "page" }) do
         content_tag(:div, class: "flex items-center") do
-          arrow_svg + content_tag(:span, item[:name].humanize, class: "ms-1 text-md font-medium text-gray-500 md:ms-2 dark:text-gray-400")
+          arrow_svg + content_tag(:span, item[:name], class: "ms-1 text-md font-medium text-gray-500 md:ms-2 dark:text-gray-400")
         end
       end
     else
       # Intermediate items, with link
       content_tag(:li) do
         content_tag(:div, class: "flex items-center") do
-          arrow_svg + link_to(item[:name].humanize, item[:url], class: "ms-1 text-md font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white")
+          arrow_svg + link_to(item[:name], item[:url], class: "ms-1 text-md font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white")
         end
       end
     end
