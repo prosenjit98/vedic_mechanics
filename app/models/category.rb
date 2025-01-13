@@ -19,6 +19,16 @@ class Category < ApplicationRecord
     end
   end
 
+  def top_parent_categories
+    target_parent = nil
+    parent = self.parent_category
+    while parent.present?
+      target_parent = parent
+      parent = parent.parent_category
+    end
+    target_parent
+  end
+
   def self.to_nested_hash(categories = Category.where(parent_category_id: nil))
     categories.map do |category|
       {

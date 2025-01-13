@@ -8,7 +8,7 @@
       .px-3.py-2
         .flex.mt-4.justify-around
           - unless current_user.present?
-            %div.text-md.font-semibold.mb-4 Please login to review our website.
+            %div.text-md.font-semibold.mb-4 Please Login to express yourself.
           - else 
             %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "3"}
               = inline_svg "smiling_face.svg", class: "w-8 h-8"
