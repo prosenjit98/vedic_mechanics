@@ -2,15 +2,15 @@
   -# - if product.discount.present?
   -#   %span.absolute.top-0.left-0.bg-red-500.text-white.px-2.py-1.text-xs.font-bold.uppercase
   -#     Save #{product.discount}%
-  %div.relative.mt-8
+  %div.relative.mt-4
     = render 'products/image_gallery', { product: product }
     -# = link_to product_path(product), data: {turbo: false} do
     -#   - if product.product_images.attached?
     -#     = image_tag product.product_images.first, class: "w-full h-52 object-contain object-center mt-8 hover:opacity-75"
   %div.p-4
     -# = link_to product_path(product), data: {turbo: false} do
-    .text-sm.mt-1= product.get_parent_categories(params[:parent_category])&.reverse&.join(" > ")
-    .h-12.mt-1.text-lg.font-bold.text-gray-800.dark:text-gray-100.hover:text-gray-500
+    .text-sm.mt-1= product.display_category.present? ? product.display_category : product.get_parent_categories(params[:parent_category])&.reverse&.join(" > ")
+    .h-8.mt-1.text-lg.font-bold.text-gray-800.dark:text-gray-100.hover:text-gray-500
       %i.text-sm.font-normal Name/Code:
       - if product.name.present?
         = product.name 
@@ -37,7 +37,7 @@
     -#     = "#{ratings.to_f} (#{product&.review_count} reviews)"
     -#   %div.underline.cursor-pointer{"data-action": "click->filter#openReviews", "data-product-id": product.id, "data-modal-type": "reviews"}
     -#     Details
-    %div.mt-5
+    %div.mt-2
       - if product.unit_cost.present?
         %span.text-lg.font-bold.text-red-500.price{data: {amount: product.unit_cost}}
           = number_to_currency(product.unit_cost, precision: 0, unit: "Rs. ")

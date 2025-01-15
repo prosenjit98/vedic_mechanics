@@ -8,7 +8,19 @@
       .px-3.py-2
         .flex.mt-4.justify-around
           - unless current_user.present?
-            %div.text-md.font-semibold.mb-4 Please Login to express yourself.
+            %div.text-md.font-semibold.mb-1
+              %div Please Login to express yourself.
+              %div.flex.justify-around.mt-1
+                %div.flex.flex-col.justify-center.items-center
+                  = inline_svg "smiling_face.svg", class: "w-8 h-8"
+                  .text-md.text-green-600
+                    %b{"data-site-ratings-target": 'good'}= "#{@rating_hash["excellent"]}%"
+                %div.flex.flex-col.justify-center.items-center
+                  = inline_svg "sad.svg", class: "w-8 h-8"
+                  .text-md.text-red-500
+                    %b{"data-site-ratings-target": 'bad'}= "#{@rating_hash["bad"]}%"
+              = link_to new_user_session_path, data: { turbo_frame: 'global_modal_tag'} do
+                %div.text-center.w-full.mt-2.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:ring-blue-300.font-medium.rounded-lg.text-xs.px-5.me-2.mb-2.py-2.dark:bg-blue-600 login
           - else 
             %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "3"}
               = inline_svg "smiling_face.svg", class: "w-8 h-8"
