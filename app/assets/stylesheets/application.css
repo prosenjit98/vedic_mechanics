@@ -140,7 +140,7 @@ select.selectable {
   background-color: var(--new_primary_bg_color);
 }
 .lhs_background {
-  background-color: var(--new_secondary_bg_color);
+  background-color: #b87333;
 }
 .new_body_background {
   background-color: #f5d99d;

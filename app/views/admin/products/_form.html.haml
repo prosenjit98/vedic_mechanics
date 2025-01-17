@@ -45,8 +45,8 @@
       %div.mt-1
         = f.select :category_ids, options_for_select(@categories.map{|c| ["#{c.name} #{c.top_parent_categories.present? ? "(#{c.top_parent_categories.name})" : ''}", c.id]}, @product.category_ids), {prompt: "Select Category"}, {class: "selectable w-full border-gray-300 rounded-md shadow-sm", multiple: true}
         -# = f.collection_select :category_id, Category.all, :id, :name, prompt: "Select Category", class: "form-select block w-full border-gray-300 rounded-md shadow-sm"
-    .col-span-1 display_category
-      %label.block.text-sm.font-medium.text-gray-700 Category
+    .col-span-1 
+      %label.block.text-sm.font-medium.text-gray-700 Display category
       %div.mt-1
         = f.text_field :display_category, class: "form-input block w-full border-gray-300 rounded-md shadow-sm",  required: true
     
