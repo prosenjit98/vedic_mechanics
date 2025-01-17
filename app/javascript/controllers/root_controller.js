@@ -10,10 +10,14 @@ export default class extends Controller {
   ensureExternalUserId() {
     let externalUserId
     if(this.hasUserTarget){
-      console.log(this.userTarget.dataset)
       externalUserId = this.userTarget.dataset.externalId
       if(externalUserId != undefined) {
-        localStorage.setItem("externalUserId", externalUserId)
+        let pre_externalUserId = localStorage.getItem("externalUserId");
+        this.updateCartStorage(externalUserId)
+        if(pre_externalUserId != externalUserId){
+          localStorage.setItem("externalUserId", externalUserId)
+          this.updateCartStorage(externalUserId)
+        }
       }
     }else{
       externalUserId = localStorage.getItem("externalUserId")
@@ -26,6 +30,24 @@ export default class extends Controller {
       this.updateHref(externalUserId)
     }
 
+  }
+
+  updateCartStorage(externalUserId){
+    fetch(`/carts/get_cart_details?external_user_id=${externalUserId}`)
+    .then(response => response.json())
+    .then(data => {
+      if(data?.cart_items?.length > 0){
+        localStorage.setItem("cart", JSON.stringify(data.cart_items))
+      }else{
+        localStorage.removeItem("cart")
+      }
+      // let el = document.getElementById('cart-count-id')
+      // const controller = this.application.getControllerForElementAndIdentifier(el, 'cart')
+      // controller.updateCartCount();
+      })
+    .catch(error => {
+      console.error('Error:', error);
+    })
   }
 
   updateHref(externalUserId) {

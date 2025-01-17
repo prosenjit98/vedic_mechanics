@@ -41,4 +41,4 @@
       = link_to "Next", market_places_url(@query_params.except!(:page).merge!({page: @pagy.next})), data: { turbo_stream: true }, class: "bg-white dark:bg-gray-700 rounded px-6 py-1 border shadow"
   -# .flex.mt-12.items-center.justify-center.space-x-4.w-full
   -#   != pagy_nav(@pagy, anchor_string: 'data-turbo-stream="true"')
-  %p.text-center.mt-8.text-gray-500!= pagy_info @pagy
+  %p.text-center.mt-8!= pagy_info @pagy

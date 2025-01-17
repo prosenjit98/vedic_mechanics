@@ -164,5 +164,6 @@ export default class extends Controller {
 
   updateCartPopoverCard(data) {
     this.cartDetailsTarget.innerHTML = data.html || "No products in the cart";
+    
   }
 }

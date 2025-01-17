@@ -26,6 +26,10 @@
   --form_input_border_color: #350882; /* Medium grey for form input borders */
   --form_input_focus_border_color: #2dceff; /* Orange for focused input borders */
   --required_color: #d32f2f; /* Strong red for required asterisk */
+  --new_primary_bg_color: #6b4423;
+  --new_secondary_bg_color: #c68e17;
+  --new_primary_color: #355E3B;
+  --new_secondary_color: #87a96b;
 }
 
 .dark:root {
@@ -115,6 +119,9 @@ select.selectable {
   text-decoration: underline;
   color: var(--primary_bg_color);
 }
+.hidden_radio{
+  border: 0
+}
 .hidden_radio:checked{
   opacity: 0;
 }
@@ -128,4 +135,13 @@ select.selectable {
   color: white;
   text-decoration: none;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.top_bar_background {
+  background-color: var(--new_primary_bg_color);
+}
+.lhs_background {
+  background-color: var(--new_secondary_bg_color);
+}
+.new_body_background {
+  background-color: #f5d99d;
 }

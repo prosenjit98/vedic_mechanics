@@ -120,7 +120,7 @@ class CartsController < ApplicationController
     @cart_items = @cart&.cart_items
     cart_html = render_to_string(partial: "carts/cart_details", locals: { cart_items: @cart_items, cart: @cart })
 
-    render json: { html: cart_html }
+    render json: { html: cart_html, cart_items: @cart_items&.map{|e| {product_id: e.id, quantity: e.quantity} } }
   end
 
   private
