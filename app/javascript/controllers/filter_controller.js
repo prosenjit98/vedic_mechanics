@@ -14,8 +14,6 @@ export default class extends Controller {
     this.filterinputTargets.forEach(input => {
       input.addEventListener("click", () => {
         // Remove the class from all labels
-        console.log({input})
-        console.log({"id": input.id})
         document.querySelectorAll(".checkbox_label_2").forEach((label) => {
           label.classList.remove("text-green-600", "font-bold");
         });
@@ -41,10 +39,10 @@ export default class extends Controller {
 
     if (contentType === "description") {
       this.headerTarget.innerHTML = "Description"
-      this.contentTarget.innerHTML = `<p class="my-4">${content}</p>`;
+      this.contentTarget.innerHTML = `<p class="my-2">${content}</p>`;
     } else if (contentType === "specification") {
       this.headerTarget.innerHTML = "Specifications"
-      this.contentTarget.innerHTML = `<p class="my-4">${content}</p>`;
+      this.contentTarget.innerHTML = `<p class="my-2">${content}</p>`;
     }
     this.modal.show();
     window.showHideElement();

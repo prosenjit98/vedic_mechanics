@@ -10,6 +10,10 @@ module.exports = {
     './app/views/**/*.{erb,haml,html,slim}'
   ],
   theme: {
+    colors: {
+      'willow': "#87A96B",
+      'meadow': "#355E3B"
+    },
     extend: {
       fontFamily: {
         sans: ['Google Sans', ...defaultTheme.fontFamily.sans],

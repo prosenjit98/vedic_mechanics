@@ -23,13 +23,13 @@ module ProductsHelper
 
   def generate_description product
     content_tag(:div) do
-      content_tag(:div, product.description) + product_description(product)
+      content_tag(:div, product.description, class: 'pb-1') + product_description(product)
     end
   end
 
   def generate_specification product
     content_tag(:div) do
-      content_tag(:div, product.specification.to_s) + ingredients(product)
+      content_tag(:div, product.specification.to_s, class: 'pb-1') + ingredients(product)
     end
   end
 

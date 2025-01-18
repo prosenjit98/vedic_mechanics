@@ -95,14 +95,14 @@
                         = button_to destroy_user_session_path, method: :delete, data: {turbo: false, 'turbo-link': false} do
                           = heroicon 'arrow-up-tray', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
                           %span Log Out
-  %nav.new_body_background.dark:bg-gray-700{style: 'background-color: #fff2d8;'}
+  %nav.dark:bg-gray-700.lhs_background
     .max-w-screen-xl.px-4.py-3.mx-auto
       .grid.grid-cols-1
         .relative.mt-4.md:mt-0.hidden(data-root-target= 'searchBar')
           = render 'products/search'
         .flex.items-center.pt-1(data-root-target= 'categoryBar')
-          %div.p-1.border-2.rounded.border-green-500.mr-4.hover:border-green-800.ml-5{"data-action" => "click->root#showSearch", 'popover-target': "search_bar",  "data-popover-offset": "5" }
-            = heroicon 'magnifying-glass', variant: :solid, options: {class: "w-4 h-4 inline-block text-green-500 hover:text-green-700"}
+          %div.p-1.border-2.rounded.border-yellow-100.mr-4.hover:border-yellow-200.ml-5{"data-action" => "click->root#showSearch", 'popover-target': "search_bar",  "data-popover-offset": "5" }
+            = heroicon 'magnifying-glass', variant: :solid, options: {class: "w-4 h-4 inline-block text-yellow-100 hover:text-yellow-300 cursor-pointer"}
           #search_bar.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
             .px-3.py-2
               %h3 Please search or select from categories
@@ -111,7 +111,7 @@
             - Category.parent_categories.order(position: :asc).each do |category|
               %li
                 - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
-                = link_to category.name, market_places_path(parent_category: category.id), class: "text-gray-900 dark:text-white hover:underline #{active_class}"
+                = link_to category.name, market_places_path(parent_category: category.id), class: "text-yellow-100 dark:text-white hover:underline #{active_class}"
           
           
             -# %li

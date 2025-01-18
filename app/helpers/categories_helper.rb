@@ -6,6 +6,17 @@ module CategoriesHelper
       parents << parent.name
       parent = parent.parent_category
     end
-    parents.join(" < ")
+    parents.reverse.join(" > ")
+  end
+
+  def get_hierarchy(category)
+    categories = []
+    categories << category.name
+    parent = category.parent_category
+    while parent.present?
+      categories << parent.name
+      parent = parent.parent_category
+    end
+    categories.reverse.join(" > ")
   end
 end
