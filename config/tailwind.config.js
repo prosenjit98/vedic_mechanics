@@ -12,7 +12,8 @@ module.exports = {
   theme: {
     colors: {
       'willow': "#87A96B",
-      'meadow': "#355E3B"
+      'meadow': "#355E3B",
+      'frost-green': "#67E6A8",
     },
     extend: {
       fontFamily: {

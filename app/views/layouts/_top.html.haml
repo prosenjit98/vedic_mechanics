@@ -20,8 +20,8 @@
             %div.relative
               = heroicon 'shopping-cart', options: { class: "w-5 h-5" }
               %div.absolute.cart-count#cart-count-id(data-cart-target="count") 0
-          #cart-details.absolute.z-10.invisible.inline-block.w-64.text-sm.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
-            .px-3.py-2.bg-gray-100.border-b.border-gray-200.rounded-t-lg.dark:border-gray-600.dark:bg-gray-700
+          #cart-details.absolute.z-10.invisible.inline-block.w-64.text-sm.text-gray-500.transition-opacity.duration-300.bg-frost-green.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+            .px-3.py-2.border-b.border-gray-200.rounded-t-lg.dark:border-gray-600.dark:bg-gray-700
               %h3.font-semibold.text-gray-900.dark:text-white Cart
             .px-3.py-2
               %p(data-cart-target="cartDetails") Fetching details....
@@ -30,7 +30,7 @@
           .block
             = heroicon 'information-circle', variant: :solid , options: {class: "w-6 h-6"}
             
-            #learn-section.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+            #learn-section.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-frost-green.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
               .px-3.py-2
                 %h3 Learn
               %div{"data-popper-arrow" => ""}
@@ -43,7 +43,7 @@
             .block.py-2.px-3.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
               = link_to new_user_session_path, data: { turbo_frame: 'global_modal_tag', 'popover-target': "user-login",  "data-popover-offset": "5" } do
                 = inline_svg "key.svg", class: "w-6 h-6 fill-white dark:fill-gray-200 hover:bg-green-500 hover:fill-white", id: "my-svg"
-              #user-login.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+              #user-login.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-frost-green.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
                 .px-3.py-2
                   %h3 Access
                 %div{"data-popper-arrow" => ""}
@@ -68,7 +68,7 @@
                     = heroicon 'user-circle', variant: :solid, options: { class: "w-6 h-6 mr-1" }
                     %div= current_user.first_name
                     = heroicon 'chevron-down', variant: :solid, options: { class: "w-4 h-4 ml-1 mt-1" }
-                #dropdown-user.z-50.hidden.my-4.text-base.list-none.bg-white.dark:bg-gray-800.divide-y.divide-gray-100.dark:divide-gray-600.rounded-lg.shadow
+                #dropdown-user.z-50.hidden.my-4.text-base.list-none.bg-frost-green.dark:bg-gray-800.divide-y.divide-gray-100.dark:divide-gray-600.rounded-lg.shadow
                   .px-4.py-3{role: "none"}
                     %p.text-sm.text-gray-900.dark:text-gray-200{role: "none"}
                       = current_user.full_name
