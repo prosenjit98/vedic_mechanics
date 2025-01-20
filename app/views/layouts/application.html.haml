@@ -13,9 +13,9 @@
     = javascript_importmap_tags
     -# %script{:src => "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit", :type => "text/javascript"}
 
-  %body.new_body_background.dark:bg-gray-900.no-scrollbar(data-controller="cart root currency")
+  %body.body_background_2.dark:bg-gray-900.no-scrollbar(data-controller="cart root currency")
     = render 'layouts/top'
-    %main.no-scrollbar.new_body_background.dark:bg-gray-900.text-gray-900.dark:text-gray-100.min-h-screen.max-h-fit{"data-root-target": "user", "data-external-id": current_user&.external_user_id}
+    %main.no-scrollbar.body_background_2.dark:bg-gray-900.text-gray-900.dark:text-gray-100.min-h-screen.max-h-fit{"data-root-target": "user", "data-external-id": current_user&.external_user_id}
       .mt-28.no-scrollbar
         -# .breadcrumbs
         -#   = breadcrumbs.render(format: :inline, separator: ">")
