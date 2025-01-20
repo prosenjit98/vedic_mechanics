@@ -26,7 +26,7 @@
   %tbody
     - @products.each do |product|
       %tr.bg-white.border-b.hover:bg-gray-200
-        %td.w-4.p-4= product.id
+        %td.w-4.p-4= link_to product.id, admin_product_path(product)
         %th.px-6.py-4.text-gray-900.whitespace-nowrap{:scope => "row"}= link_to product.name, admin_product_path(product)
         %th.px-6.py-4= product.product_code
         %td.px-6.py-4= product.categories.pluck(:name)&.to_sentence
