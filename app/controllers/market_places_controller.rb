@@ -23,6 +23,7 @@ class MarketPlacesController < ApplicationController
     @products = @products.popular_product if params[:popular].present?
     @products = @products.by_concern(params[:concern]) if params[:concern].present?
     @products = @products.by_ingredient(params[:ingredient]) if params[:ingredient].present?
+    @products = @products.order(display_category: :asc)
     @pagy, @products = pagy(@products, items: 20)
     @query_params = request.query_parameters
   end
