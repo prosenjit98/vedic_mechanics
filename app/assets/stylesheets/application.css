@@ -119,7 +119,7 @@ select.selectable {
   position: absolute;
 }
 .active {
-  font-weight: bold;
+  /* font-weight: bold; */
   text-decoration: underline;
   color: #fcf8c6;
 }
