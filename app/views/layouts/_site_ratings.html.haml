@@ -9,10 +9,10 @@
         - else
           %h3.font-semibold.text-gray-900.dark:text-white Please Express
       .px-3.py-2
-        .flex.mt-4.justify-around
+        .flex.mt-2.justify-around
           - unless current_user.present?
             %div.text-md.font-semibold.mb-1
-              %div Please Login to express yourself.
+              -# %div Please Login to express yourself.
               %div.flex.justify-around.mt-1
                 %div.flex.flex-col.justify-center.items-center
                   = inline_svg "smiling_face.svg", class: "w-8 h-8"

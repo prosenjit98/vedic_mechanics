@@ -115,7 +115,7 @@
             - Category.parent_categories.order(position: :asc).each do |category|
               %li
                 - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
-                = link_to category.name, market_places_path(parent_category: category.id), class: "text-yellow-100 dark:text-white hover:underline #{active_class}"
+                = link_to category.name, market_places_path(parent_category: category.id), class: "primary_color dark:text-white hover:underline #{active_class}"
           
           
             -# %li

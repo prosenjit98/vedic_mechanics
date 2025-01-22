@@ -9,4 +9,9 @@ namespace :category do
       end
     end
   end
+
+  task :update_currency => [ :environment ] do
+    # CurrencyConversionJob.set(wait_until: Date.tomorrow.beginning_of_day).perform_later
+    ScheduleRateUpdateJob.set(wait: 1.minute).perform_later
+  end
 end
