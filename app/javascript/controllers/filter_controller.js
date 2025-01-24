@@ -15,13 +15,13 @@ export default class extends Controller {
       input.addEventListener("click", () => {
         // Remove the class from all labels
         document.querySelectorAll(".checkbox_label_2").forEach((label) => {
-          label.classList.remove("text-yellow-100");
+          label.classList.remove("text-white");
         });
   
         // Find the corresponding label and add the class
         const label = input.querySelector('.checkbox_label_2');
         if (label) {
-          label.classList.add("text-yellow-100");
+          label.classList.add("text-white");
         }
       });
       input.addEventListener("change", this.submitForm.bind(this));
