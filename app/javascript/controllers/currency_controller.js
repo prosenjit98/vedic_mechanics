@@ -1,16 +1,16 @@
 import { Controller } from "@hotwired/stimulus";
 
 export default class extends Controller {
-  static targets = ["menu"];
+  // static targets = ["menu"]; #have to retrieved with currency dropdown
   connect() {
     this.loadSavedCurrency();
-    document.addEventListener("currency:update", this.loadSavedCurrency.bind(this));
+    // document.addEventListener("currency:update", this.loadSavedCurrency.bind(this)); #have to retrieved with currency dropdown
   }
 
   loadSavedCurrency() {
     const savedCurrency = localStorage.getItem("preferredCurrency") || "INR";
     this.applyCurrency(savedCurrency);
-    this.highlightSelectedCurrency(savedCurrency);
+    // this.highlightSelectedCurrency(savedCurrency); #have to retrieved with currency dropdown
   }
 
   applyCurrency(currency) {

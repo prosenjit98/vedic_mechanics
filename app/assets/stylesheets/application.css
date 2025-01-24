@@ -64,7 +64,7 @@ body.verdana {
 }
 
 .primary_color {
-  color: var(--primary_bg_color);
+  color: #03543f;
 }
 
 .secondary_color {
