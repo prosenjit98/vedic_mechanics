@@ -48,13 +48,13 @@ export default class extends Controller {
       let formattedPrice = "";
       switch (currency) {
         case "INR":
-          formattedPrice = `₹${amount.toFixed(2)}`;
+          formattedPrice = `₹${amount.toFixed(0)}`;
           break;
         case "USD":
-          formattedPrice = `$${amount.toFixed(2)}`;
+          formattedPrice = `$${amount.toFixed(0)}`;
           break;
         case "EUR":
-          formattedPrice = `€${amount.toFixed(2)}`;
+          formattedPrice = `€${amount.toFixed(0)}`;
           break;
       }
       element.textContent = formattedPrice;
