@@ -64,7 +64,11 @@ body.verdana {
 }
 
 .primary_color {
-  color: #03543f;
+  color: #0a5d0b;
+}
+
+.white_text{
+  color: #fff !important;
 }
 
 .secondary_color {

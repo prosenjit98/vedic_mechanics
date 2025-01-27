@@ -37,27 +37,29 @@
     -#     = "#{ratings.to_f} (#{product&.review_count} reviews)"
     -#   %div.underline.cursor-pointer{"data-action": "click->filter#openReviews", "data-product-id": product.id, "data-modal-type": "reviews"}
     -#     Details
-    %div.mt-2
-      - if product.unit_cost.present?
-        %span.font-bold.text-red-500.price{data: {amount: product.unit_cost&.round}}
-          = number_to_currency(product.unit_cost&.round, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
-        %span.text-sm.text-gray-600 x #{product.units_per_batch}(min qty) = 
-        %span.font-bold.text-red-500.price.p-0{data: {amount: product.price&.round}}
-          = number_to_currency(product.price, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
-        - if product.discount > 0
-          %span.text-sm.text-gray-600.dark:text-gray-400.line-through.price.p-0{data: {amount: product.original_price&.round}}
-            = number_to_currency(product.original_price, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
-      - else
-        %span.font-bold.text-red-500.price{data: {amount: product.price&.round}}
-          = number_to_currency(product.price, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
-        - if product.discount > 0
-          %span.text-sm.text-gray-600.dark:text-gray-400.line-through.ml-2.price{data: {amount: product.original_price&.round}}
-            = number_to_currency(product.original_price.round, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
-    %button.mt-4.w-full.inline-block.bg-gradient-to-r.from-blue-500.to-indigo-900.text-white.px-4.py-2.rounded-lg.text-center.shadow-lg.hover:from-indigo-900.hover:to-blue-700.focus:outline-none.focus:ring.focus:ring-blue-200.focus:ring-opacity-50.transition-transform.transform.hover:scale-105{'data-action': "click->cart#addToCart", 'data-product-id': "#{product.id}"}
-      = heroicon 'plus', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
-      = heroicon 'shopping-cart', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
-      -# Add to Cart
-      -# = heroicon 'arrow-right-end-on-rectangle', variant: :micro , options: {class: "w-5 h-5 inline-block ml-2"} 
+    %div.mt-2.flex.justify-between.items-center
+      %div.flex-grow.w-full
+        - if product.unit_cost.present?
+          %span.font-bold.text-red-500.price{data: {amount: product.unit_cost&.round}}
+            = number_to_currency(product.unit_cost&.round, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
+          %span.text-sm.text-gray-600 x #{product.units_per_batch}(min qty) = 
+          %span.font-bold.text-red-500.price.p-0{data: {amount: product.price&.round}}
+            = number_to_currency(product.price, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
+          - if product.discount > 0
+            %span.text-sm.text-gray-600.dark:text-gray-400.line-through.price.p-0{data: {amount: product.original_price&.round}}
+              = number_to_currency(product.original_price, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
+        - else
+          %span.font-bold.text-red-500.price{data: {amount: product.price&.round}}
+            = number_to_currency(product.price, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
+          - if product.discount > 0
+            %span.text-sm.text-gray-600.dark:text-gray-400.line-through.ml-2.price{data: {amount: product.original_price&.round}}
+              = number_to_currency(product.original_price.round, precision: 0, unit: "Rs. ", strip_insignificant_zeros: true)
+      %button.inline-block.bg-gradient-to-r.from-blue-500.to-indigo-900.text-white.px-4.py-2.rounded-lg.text-center.shadow-lg.hover:from-indigo-900.hover:to-blue-700.focus:outline-none.focus:ring.focus:ring-blue-200.focus:ring-opacity-50.transition-transform.transform.hover:scale-105{'data-action': "click->cart#addToCart", 'data-product-id': "#{product.id}"}
+        .flex
+          = heroicon 'plus', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
+          = heroicon 'shopping-cart', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
+        -# Add to Cart
+        -# = heroicon 'arrow-right-end-on-rectangle', variant: :micro , options: {class: "w-5 h-5 inline-block ml-2"} 
     %div.hidden
       = render 'products/review_question', {product: product}
     .absolute.z-10.invisible.inline-block.px-3.py-1.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.tooltip{role: "tooltip", id: "description-#{product.id}"}
