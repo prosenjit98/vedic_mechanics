@@ -14,6 +14,7 @@ module.exports = {
       'willow': "#87A96B",
       'meadow': "#355E3B",
       'frost-green': "#67E6A8",
+      'slogan-yellow': '#fdf6b2'
     },
     extend: {
       fontFamily: {

@@ -125,7 +125,7 @@ select.selectable {
 .active {
   /* font-weight: bold; */
   text-decoration: underline;
-  color: #ffffff;
+  color: #fdf6b2;
 }
 .hidden_radio{
   border: 0
