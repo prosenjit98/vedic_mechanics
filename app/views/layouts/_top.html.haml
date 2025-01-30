@@ -157,15 +157,30 @@
       .p-4.md:p-5.text-center.flex.justify-center.flex-col.items-center
         = heroicon 'hand-thumb-up', variant: :solid, options: { class: "w-24 h-24 fill-green-700" }
         .mb-5.text-lg.font-normal.text-gray-500.dark:text-gray-400 Thank you for sharing your thoughts; your feedback means the world to us.
+
 :javascript
   function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      {
-        pageLanguage: 'en', // Replace 'en' with your website's default language
-        includedLanguages: 'en,hi,gu,mr', // Replace with the languages you want to support
-        layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
-      },
-      'google_translate_element'
-    );
+    if (!document.getElementById("google_translate_script")) { // Prevent duplicate script loading
+      var script = document.createElement("script");
+      script.id = "google_translate_script";
+      script.type = "text/javascript";
+      script.src = "//translate.google.com/translate_a/element.js?cb=initializeGoogleTranslate";
+      document.body.appendChild(script);
+    } else {
+      initializeGoogleTranslate(); // If script already exists, just initialize the widget
+    }
   }
-%script{:src => "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit", :type => "text/javascript"}
+
+  function initializeGoogleTranslate() {
+    if (!document.getElementById("google_translate_element").hasChildNodes()) {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,hi,gu,mr',
+          layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+        },
+        'google_translate_element'
+      );
+    }
+  }
+  document.addEventListener("turbo:load", googleTranslateElementInit);
