@@ -15,7 +15,7 @@
     - product.product_images.each_with_index do |image, index|
       - if product.is_image?(image)
         .hidden.bg-white.dark:bg-gray-700.duration-700.ease-in-out{"data-carousel-item" => ""}
-          = image_tag image, alt: product.name, class: "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 absolute block object-contain w-full h-full"
+          = image_tag image, alt: product.name, class: "absolute object-contain w-full h-full", "data-action" => "click->gallery#open", "data-type" => "image"
       - elsif product.is_video?(image)
         .hidden.bg-white.dark:bg-gray-700.duration-700.ease-in-out{"data-carousel-item" => ""}
           = video_tag image, controls: true, class: "-translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 absolute block object-contain w-full h-full"
@@ -45,5 +45,3 @@
   button[aria-current=false]{
     background-color: #b1fab2 !important;
   }
-
-

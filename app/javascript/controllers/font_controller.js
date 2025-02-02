@@ -13,7 +13,7 @@ export default class extends Controller {
   loadSavedFont() {
     const savedFont = localStorage.getItem("preferredFont") || "google-sans";
     this.applyFont(savedFont);
-    this.highlightSelectedFont(savedFont);
+    // this.highlightSelectedFont(savedFont);
   }
 
   applyFont(font) {

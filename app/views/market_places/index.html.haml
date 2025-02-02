@@ -1,4 +1,4 @@
-= form_tag market_places_path, :method => 'get', :class => "filter-form", data: { controller: "filter", turbo_stream: true, turbo: true } do
+= form_tag market_places_path, :method => 'get', :class => "filter-form", data: { controller: "filter gallery", turbo_stream: true, turbo: true } do
   .grid.grid-cols-9.gap-0.pr-4.py-8.no-scrollbar
     .col-span-9.lg:col-span-2
       = render 'products/filters'
@@ -40,3 +40,8 @@
     -# #p-description.absolute.z-10.invisible.inline-block.px-3.py-2.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.tooltip{role: "tooltip"}
     -#   Tooltip content
     -#   .tooltip-arrow{data: "popper-arrow"}
+  #mediaModal.hidden.fixed.inset-0.bg-black.bg-opacity-80.flex.items-center.justify-center.z-50{"data-gallery-target" => "modal"}
+    .relative.bg-white.dark:bg-gray-800.rounded-lg.p-4.shadow-lg.max-h-full{class: 'w-2/3 h-3/5'}
+      %button.absolute.top-2.right-2.text-white.text-lg.font-bold.cursor-pointer{"data-action" => "click->gallery#close"} ✕
+      .flex.items-center.justify-center.w-full.h-full
+        #mediaContent.h-full{"data-gallery-target" => "modalContent"}

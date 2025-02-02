@@ -9,24 +9,22 @@
     -#     = image_tag product.product_images.first, class: "w-full h-52 object-contain object-center mt-8 hover:opacity-75"
   %div.p-4
     -# = link_to product_path(product), data: {turbo: false} do
-    .text-sm.mt-1= product.display_category.present? ? product.display_category : product.get_parent_categories(params[:parent_category])&.reverse&.join(" > ")
-    .h-8.mt-1.font-bold.text-gray-800.dark:text-gray-100.hover:text-gray-500
-      %i.text-sm.font-normal Name/Code:
-      - if product.name.present?
-        = product.name 
-        - if product.product_code.present?
-          %span.text-sm (#{product.product_code})
-      - else 
-        = product.product_code
-    -# %div.cursor-pointer.bg-green-600.text-white.p-1.mx-1.rounded.hover:bg-green-800{ data: {"action": "click->filter#open", "modal-content": product.description, "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
-    -#     = heroicon 'information-circle', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
-    -#   %div.cursor-pointer.bg-green-600.text-white.py-1.px-1.mx-1.rounded.hover:bg-green-800{ data: {"action": "click->filter#open", "modal-content": product.specification, "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
-    -#     = heroicon 'newspaper', variant: :solid , options: {class: "w-5 h-5 inline-block "} 
-    %div.flex.justify-center
-      %div.cursor-pointer.text-blue-600.mx-1.rounded.hover:text-blue-800{ data: {action: "click->filter#open", "modal-content": generate_description(product), "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
-        = heroicon 'information-circle', variant: :solid , options: {class: "w-8 h-8 inline-block"}
-      %div.cursor-pointer.text-white.mx-1.pt-1.rounded.hover:bg-grey-300{ data: {action: "click->filter#open", "modal-content": generate_specification(product), "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
-        = inline_svg "paper.svg", class: "w-6 h-6 inline-block"
+    .flex.justify-between.items-center
+      .flex-grow.w-full
+        .text-sm.mt-1= product.display_category.present? ? product.display_category : product.get_parent_categories(params[:parent_category])&.reverse&.join(" > ")
+        .h-8.mt-1.font-bold.text-gray-800.dark:text-gray-100.hover:text-gray-500
+          %i.text-sm.font-normal Name/Code:
+          - if product.name.present?
+            = product.name 
+            - if product.product_code.present?
+              %span.text-sm (#{product.product_code})
+          - else 
+            = product.product_code
+      %div.flex.justify-center
+        %div.cursor-pointer.text-blue-600.mx-1.rounded.hover:text-blue-800{ data: {action: "click->filter#open", "modal-content": generate_description(product), "modal-type": "description", "tooltip-target": "description-#{product.id}"}}
+          = heroicon 'information-circle', variant: :solid , options: {class: "w-8 h-8 inline-block"}
+        %div.cursor-pointer.text-white.mx-1.pt-1.rounded.hover:bg-grey-300{ data: {action: "click->filter#open", "modal-content": generate_specification(product), "modal-type": "specification", "tooltip-target": "specification-#{product.id}"}}
+          = inline_svg "paper.svg", class: "w-6 h-6 inline-block"
     
         
     -# %div.flex.items-center.mt-2
