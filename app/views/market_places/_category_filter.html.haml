@@ -3,7 +3,7 @@
     %span.text-sm.p-0
       = heroicon 'chevron-right', variant: :solid, options: {class: "w-4 h-4 inline-block text-white hover:text-green-700"}
     - if category[:children].any? && index_h == 0
-      %span.flex-grow.text-sm.p-0.primary_color= category[:name]
+      %span.flex-grow.text-sm.p-0.text-slogan-yellow= category[:name]
       %button.flex.items-center
         %svg.h-6.w-6.text-yellow-100.ml-2.dark:text-gray-500{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 20 20', fill: 'currentColor' }
           %path{ d: 'M6 8l4 4 4-4' }

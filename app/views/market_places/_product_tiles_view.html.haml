@@ -17,7 +17,7 @@
           - if product.name.present?
             = product.name 
             - if product.product_code.present?
-              %span.text-sm (#{product.product_code})
+              %span (#{product.product_code})
           - else 
             = product.product_code
       %div.flex.justify-center
