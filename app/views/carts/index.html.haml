@@ -21,8 +21,8 @@
                     %div.mt-2
                       %span.text-l.font-bold.text-red-500.dark:text-red-450.price{data: {amount: item.product.price}}
                         = number_to_currency(item.product.price, precision: 0, unit: "Rs. ")
-                      %span.text-sm.text-gray-600.line-through.ml-3.md:ml-2.dark:text-gray-300.price{data: {amount: item.product.original_price}}
-                        = number_to_currency(item.product.original_price, precision: 0, unit: "Rs. ")
+                      -# %span.text-sm.text-gray-600.line-through.ml-3.md:ml-2.dark:text-gray-300.price{data: {amount: item.product.original_price}}
+                      -#   = number_to_currency(item.product.original_price, precision: 0, unit: "Rs. ")
 
                 %div.flex.items-center.justify-start.md:justify-center.col-span-1
                   %button.px-2.py-1.bg-gray-200.rounded-lg.hover:bg-gray-300.dark:bg-gray-800.dark:text-gray-100(data-action="click->cart#decrement" data-item-id="#{item.id}" data-quantity="#{item.quantity}" data-price="#{item.product.price}" data-product-id="#{item.product.id}") -
@@ -43,9 +43,9 @@
             %div.flex.justify-between.text-lg.font-semibold.text-gray-900.dark:text-gray-300
               %span Sub total
               %span.price{data: {amount: @cart.total_price}}= number_to_currency(@cart.total_price, precision: 0, unit: "Rs. ")
-            %div.flex.justify-between.text-lg.font-semibold.text-red-500
-              %span You saved
-              %span.price{data: {amount: @cart.total_saved}}= number_to_currency(@cart.total_saved, precision: 0, unit: "Rs. ")
+            -# %div.flex.justify-between.text-lg.font-semibold.text-red-500
+            -#   %span You saved
+            -#   %span.price{data: {amount: @cart.total_saved}}= number_to_currency(@cart.total_saved, precision: 0, unit: "Rs. ")
             %hr.h-px.my-4.bg-gray-200.border-1.dark:bg-gray-700
             %div.flex.justify-between.text-sm.text-black-500
               %span GST(18%)

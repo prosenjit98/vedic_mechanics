@@ -207,3 +207,11 @@ select.selectable {
 .goog-te-gadget{
   font-size: 0 !important;
 }
+.z-1000{
+  z-index: 1000;
+}
+.ingredient-details {
+  max-height: 300px; 
+  min-height: 150px;
+  overflow-y: auto;
+}

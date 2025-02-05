@@ -21,8 +21,8 @@
           != pagy_nav(@pagy)
 
 
-    %div.hidden.fixed.inset-0.bg-gray-800.bg-opacity-50.z-50.flex.items-center.justify-center{ id: "product_details_mod", "data-filter-target": "container" }
-      %div.bg-frost-green.rounded-lg.shadow-lg.w-full.max-w-3xl.overflow-auto{style: 'max-height: 60%;'}
+    %div.hidden.fixed.inset-0.bg-gray-800.bg-opacity-50.flex.items-center.justify-center.z-1000{ id: "product_details_mod", "data-filter-target": "container" }
+      %div.bg-frost-green.rounded-lg.shadow-lg.w-full.max-w-3xl.overflow-hidden{style: 'max-height: 60%;'}
         %div.p-4.flex.justify-between.items-center.border-b
           %h3.text-xl.font-semibold.text-gray-900{"data-filter-target": "header"} Details
           .text-gray-400.hover:text-gray-600{"data-action": "click->filter#close"}
@@ -30,9 +30,9 @@
               %path{ d: "M6 18L18 6M6 6l12 12", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2" }
 
         %div.px-6.py-2
-          %p.text-gray-700.text-sm{"data-filter-target": "content"} Default description text.
-        .flex.items-center.p-4.md:p-5.border-t.border-gray-200.rounded-b.dark:border-gray-600
-          %button.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:outline-none.focus:ring-blue-300.font-medium.rounded-lg.text-sm.px-5.text-center.dark:bg-blue-600.dark:hover:bg-blue-700.dark:focus:ring-blue-800{:class => "py-2.5", "data-action": "click->filter#close", :type => "button"} Close
+          %div.text-gray-700.text-sm{"data-filter-target": "content"} Default description text.
+        -# .flex.items-center.p-4.md:p-5.border-t.border-gray-200.rounded-b.dark:border-gray-600
+        -#   %button.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:outline-none.focus:ring-blue-300.font-medium.rounded-lg.text-sm.px-5.text-center.dark:bg-blue-600.dark:hover:bg-blue-700.dark:focus:ring-blue-800{:class => "py-2.5", "data-action": "click->filter#close", :type => "button"} Close
 
 
         -# %div.flex.justify-end.p-4.border-t
@@ -41,7 +41,7 @@
     -#   Tooltip content
     -#   .tooltip-arrow{data: "popper-arrow"}
   #mediaModal.hidden.fixed.inset-0.bg-black.bg-opacity-80.flex.items-center.justify-center.z-50{"data-gallery-target" => "modal"}
-    .relative.bg-white.dark:bg-gray-800.rounded-lg.p-4.shadow-lg.max-h-full{class: 'w-1/2 h-3/5'}
+    .relative.rounded-lg.p-4.shadow-lg.max-h-full{class: 'w-1/2 h-3/5'}
       %button.absolute.top-2.right-2.text-white.text-lg.font-bold.cursor-pointer{"data-action" => "click->gallery#close"} ✕
       .flex.items-center.justify-center.w-full.h-full
         #mediaContent.h-full{"data-gallery-target" => "modalContent"}

@@ -11,10 +11,10 @@
             .grid.grid-col-1.md:grid-cols-2.gap-4.p-4
               %div 
                 = f.label :email, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100 dark:text-gray-100"
-                = f.email_field :email, autofocus: true, autocomplete: "email",placeholder: "name@company.com",required: "", class: "bg-gray-50 dark:bg-gray-700 border border-gray-300 text-gray-900 dark:text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                = f.email_field :email, autofocus: true, autocomplete: "email",required: "", class: "bg-gray-50 dark:bg-gray-700 border border-gray-300 text-gray-900 dark:text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               %div 
                 = f.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
-                = f.number_field :phone_number, autocomplete: "phone number", placeholder: "9836908790", required: "", class: "bg-gray-50 dark:bg-gray-700 border border-gray-300 text-gray-900 dark:text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                = f.number_field :phone_number, autocomplete: "phone number", required: "", class: "bg-gray-50 dark:bg-gray-700 border border-gray-300 text-gray-900 dark:text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               %div 
                 = f.label :first_name, class: "block mb-2 text-sm font-medium text-gray-900 dark:text-gray-100"
                 = f.text_field :first_name, autocomplete: "first_name",required: "", class: "bg-gray-50 dark:bg-gray-700 border border-gray-300 text-gray-900 dark:text-gray-100 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
