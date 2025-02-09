@@ -23,7 +23,7 @@
   / Slider indicators
   .absolute.z-30.flex.space-x-3.rtl:space-x-reverse.px-1.py-1.rounded.indicator{:class => "-bottom-4 -translate-x-1/2 left-1/2 dark:bg-gray-100/50"}
     - product.product_images.each_with_index do |image, index|
-      %button.w-2.h-2.rounded-full.bg-red-500{"aria-current" => index == 0 ? "true" : "false", "aria-label" => "Slide #{index + 1}", "data-carousel-slide-to" => "0", "data-tabs-target" => "indicator", :type => "button"}
+      %button.w-2.h-2.rounded-full.bg-red-500.cursor-pointer{"aria-current" => index == 0 ? "true" : "false", "aria-label" => "Slide #{index + 1}", "data-carousel-slide-to" => "0", "data-tabs-target" => "indicator", :type => "button"}
 
   / Slider controls
   %button.prev-btn.absolute.top-0.start-0.z-30.flex.items-center.justify-center.h-full.cursor-pointer.group.focus:outline-none{"data-carousel-prev" => "", :type => "button", "data-action" => "click->tabs#prevBtn", "data-tabs-target" => "prev"}
