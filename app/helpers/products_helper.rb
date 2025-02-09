@@ -23,7 +23,7 @@ module ProductsHelper
 
   def generate_description product
     content_tag(:div, class: 'ingredient-details') do
-      content_tag(:div, product.description, class: 'pb-1') + product_description(product)
+      content_tag(:div, product.description, class: 'pb-4') + product_description(product)
     end
   end
 
@@ -48,7 +48,7 @@ module ProductsHelper
 
   def ingredients(product)
     if product.ingredients.present?
-      content_tag(:div) do
+      content_tag(:div, class: 'max-h-80') do
         # Ingredient names at the top
         content_tag(:div, class: 'ingredient-names flex flex-wrap mb-4') do
           product.ingredients.map do |ingredient|
@@ -62,7 +62,7 @@ module ProductsHelper
           content_tag(:div, 
                       content_tag(:h3, "Details for #{ingredient.name}: ", class: "font-semibold text-md mt-2") + 
                       content_tag(:p, ingredient.description.to_s, class: 'mt-1'),
-                      class: 'ingredient-details hidden my-4',
+                      class: 'ingredient-details hidden my-4 pb-4',
                       id: "ingredient-#{ingredient.id}")
         end.join.html_safe
       end

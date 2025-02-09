@@ -211,7 +211,7 @@ select.selectable {
   z-index: 1000;
 }
 .ingredient-details {
-  max-height: 300px; 
+  max-height: 33%; 
   min-height: 150px;
   overflow-y: auto;
 }

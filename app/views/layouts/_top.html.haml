@@ -111,7 +111,7 @@
             .px-3.py-2
               %h3 Please search or select from categories
             %div{"data-popper-arrow" => ""}
-          %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse.text-sm
+          %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse
             - Category.parent_categories.order(position: :asc).each do |category|
               %li
                 - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
