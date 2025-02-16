@@ -111,9 +111,9 @@
             .px-3.py-2
               %h3 Please search or select from categories
             %div{"data-popper-arrow" => ""}
-          %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse
+          %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse.no-scrollbar.overflow-x-auto
             - Category.parent_categories.order(position: :asc).each do |category|
-              %li
+              %li.whitespace-nowrap.lg:whitespace-normal
                 - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
                 = link_to category.name, market_places_path(parent_category: category.id), class: "primary_color font-bold dark:text-white hover:underline #{active_class}"
           

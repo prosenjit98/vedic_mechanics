@@ -22,6 +22,9 @@ module.exports = {
         verdana: ['Verdana', 'sans-serif'],
         gillsans: ['"Gill Sans"', 'sans-serif']
       },
+      width: {
+        '22p': '22%',
+      }
     },
   },
   plugins: [

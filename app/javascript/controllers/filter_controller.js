@@ -14,6 +14,7 @@ export default class extends Controller {
     this.filterinputTargets.forEach(input => {
       input.addEventListener("click", () => {
         // Remove the class from all labels
+        console.log("0000000000")
         document.querySelectorAll(".checkbox_label_2").forEach((label) => {
           label.classList.remove("slogan-yellow");
         });
@@ -22,6 +23,12 @@ export default class extends Controller {
         const label = input.querySelector('.checkbox_label_2');
         if (label) {
           label.classList.add("slogan-yellow");
+        }
+
+        // close mobile drawer if open
+        const mobileFilter = document.getElementById("mobile_drawer_close");
+        if (mobileFilter) {
+          mobileFilter.click();
         }
       });
       input.addEventListener("change", this.submitForm.bind(this));
