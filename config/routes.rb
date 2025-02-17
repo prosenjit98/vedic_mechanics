@@ -7,6 +7,11 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
+    resources :rewards do 
+      collection do 
+        post :add_users
+      end
+    end
     resources :vendors
     root to: 'dash_board#index'
     resources :orders, only: [:index, :show, :update] do

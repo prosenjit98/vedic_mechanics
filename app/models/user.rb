@@ -9,12 +9,17 @@ class User < ApplicationRecord
   has_many :replies
   has_many :addresses
   has_many :payments
+  has_many :user_rewards
+  has_many :rewards, through: :user_rewards
 
 
   before_validation :set_external_user_id
   validates :phone_number, presence: true, uniqueness: true, length: { is: 10 }
 
   attr_writer :login
+
+  after_create :send_admin_signup_notification
+
   def login
     @login || self.email || self.phone_number
   end
@@ -45,6 +50,10 @@ class User < ApplicationRecord
   end
 
   private 
+  
+  def send_admin_signup_notification
+    AdminMailer.new_user_signup(self).deliver_later
+  end
 
   def self.set_code
     generate_unique_code

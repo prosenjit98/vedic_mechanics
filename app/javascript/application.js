@@ -52,6 +52,16 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+function scrollToActiveLink() {
+  const activeElement = document.querySelector(".primary_color.active"); // Select the active link
+  if (activeElement) {
+    activeElement.scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+  }
+}
+document.addEventListener("DOMContentLoaded", scrollToActiveLink);
+document.addEventListener("turbo:load", scrollToActiveLink);
+document.addEventListener("turbo:frame-load", scrollToActiveLink);
+
 document.addEventListener("DOMContentLoaded", showHideElement)
 document.addEventListener("turbo:load", showHideElement)
 document.addEventListener("turbo:frame-load", showHideElement)

@@ -46,6 +46,10 @@
           = heroicon 'archive-box-arrow-down',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 
           %span.ms-4 Vendor
       %li
+        = active_link_to admin_rewards_path,active: [['admin/rewards'], []], class_active: 'admin-nav-active' ,class: "flex items-center px-6 py-2 text-gray-800 hover:bg-green-200 group hover:text-green-900"  do
+          = heroicon 'gift',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 
+          %span.ms-4 Reward
+      %li
         = active_link_to banner_admin_settings_path,active: [['admin/settings'], []], class_active: 'admin-nav-active' ,class: "flex items-center px-6 py-2 text-gray-800 hover:bg-green-200 group hover:text-green-900"  do
           = heroicon 'cog-6-tooth',variant: :solid , options: {class: "flex-shrink-0 w-5 h-5 text-gray-500 transition.duration-75 group-hover:text-green-900"} 
           %span.ms-4 Settings
