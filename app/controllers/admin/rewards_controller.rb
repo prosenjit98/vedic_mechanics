@@ -77,6 +77,6 @@ class Admin::RewardsController < Admin::BaseController
 
     # Only allow a list of trusted parameters through.
     def reward_params
-      params.require(:reward).permit(:id, :name, :description, :validity, :is_active, :points, user_ids: [])
+      params.require(:reward).permit(:id, :name, :description, :validity, :is_active, :points, :image, user_ids: [])
     end
 end

@@ -87,9 +87,14 @@
                           %span Orders
                     %li
                       .block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600
-                        = link_to orders_path do
-                          = heroicon 'heart', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
-                          %span Wishlist
+                        = link_to rewards_path, data: { turbo_frame: 'global_modal_tag', turbo: true} do
+                          = heroicon 'gift', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
+                          %span Rewards
+                    -# %li
+                    -#   .block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600
+                    -#     = link_to orders_path do
+                    -#       = heroicon 'heart', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
+                    -#       %span Wishlist
                     %li
                       .block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600
                         = button_to destroy_user_session_path, method: :delete, data: {turbo: false, 'turbo-link': false} do

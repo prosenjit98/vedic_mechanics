@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   resources :replies
   resources :questions
   resources :reviews
+  resources :rewards
   resources :addresses do
     collection do
       get :new_order_address

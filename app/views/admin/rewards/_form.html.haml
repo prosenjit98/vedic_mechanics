@@ -24,6 +24,10 @@
       %div.mt-1
         = f.number_field :points, class: "form-input block w-full border-gray-300 rounded-md shadow-sm"
     .col-span-1
+      %label.block.text-sm.font-medium.text-gray-700 Image
+      %div.mt-1
+        = f.file_field :image, class: "block w-full form-input text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 focus:outline-none"
+    .col-span-1
       -# %input#default-checkbox.w-4.h-4.text-blue-600.bg-gray-100.border-gray-300.rounded-sm.focus:ring-blue-500.dark:focus:ring-blue-600.dark:ring-offset-gray-800.focus:ring-2.dark:bg-gray-700.dark:border-gray-600{:type => "checkbox", :value => ""}/
       -# %label.ms-2.text-sm.font-medium.text-gray-900.dark:text-gray-300 Default checkbox
       = f.check_box :is_active, class: "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
