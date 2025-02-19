@@ -12,9 +12,9 @@
       .py-1.px-8.text-center.baskerVilla.text-xl.w-full.color_text.fixed.z-40{class: "lg:w-4/5"} Inspired By Nature, Guided By Tradition
       .lg:hidden{ data: { responsive_target: "mobile" } }
         %button.fixed.z-40.text-white.bg-green-700.hover:bg-green-900.focus:ring-4.focus:ring-green-300.font-medium.rounded-lg.text-xs.px-3.py-3.ml-2.dark:bg-green-600.dark:hover:bg-green-700.focus:outline-none.dark:focus:ring-green-800{"aria-controls" => "mobile-filter", :class => "py-2.5 -left-4", "data-drawer-show" => "mobile-filter", "data-drawer-target" => "mobile-filter", :type => "button"}
-          = heroicon 'arrow-right-circle', variant: :solid, options: {class: "w-10 h-10 inline-block"}
+          = heroicon 'arrow-right-circle', variant: :solid, options: {class: "w-10 md:w-6 h-10 md:h-6 inline-block"}
         = render 'mobile_drawer'
-      %div.container.mx-auto.px-4.pt-8.md:pt-0.mt-4
+      %div.container.mx-auto.px-4.pt-8.md:pt-2.lg:pt-0.mt-4
         = turbo_frame_tag "products_list", src: market_places_url(page: params[:page], category_id: params[:category_id], product_id: params[:product_id], concern: params[:concern], ingredient: params[:ingredient], parent_category: params[:parent_category], format: :turbo_stream), loading: "lazy", data: {turbo_action: "advance"} do
           %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-4#products_placeholder
             - 3.times do
