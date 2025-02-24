@@ -23,5 +23,6 @@ class ApplicationController < ActionController::Base
     @concerns = Concern.all
     @ingredients = Ingredient.all
     @rating_hash = SiteRating.rate_percentages
+    @banner_massage = AppConfiguration.find_by(key: "banner_massage")
   end
 end

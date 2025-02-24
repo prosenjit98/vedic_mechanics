@@ -17,11 +17,23 @@ class Admin::SettingsController < Admin::BaseController
     breadcrumbs.add "other settings", other_settings_admin_settings_path
     @settings = AppConfiguration.find_by(key: "initial_category")
     @settings = AppConfiguration.new(key: "initial_category") if @settings.nil?
+    @banner_massage = AppConfiguration.find_by(key: "banner_massage")
+    @banner_massage = AppConfiguration.new(key: "banner_massage") if @banner_massage.nil?
     @parents = Category.left_joins(:products).group(:id).having('COUNT(products.id) = 0').order(:name)
-    if params[:app_configuration].present? && params[:app_configuration][:initial_category].present?
-      @settings.value = params[:app_configuration][:initial_category]
-      if @settings.save
-        redirect_to other_settings_admin_settings_path
+    @errors = false
+    if params[:app_configuration].present?
+      params[:app_configuration].each do |key, value|
+        @settings = AppConfiguration.find_by(key: value['key'])
+        @settings = AppConfiguration.new(key: value['key']) if @settings.nil?
+        @settings.value = value['value']
+        unless @settings.save
+          @errors = true
+        end
+      end
+      unless @errors
+        redirect_to other_settings_admin_settings_path, notice: "Settings updated"
+      else
+        redirect_to other_settings_admin_settings_path, alert: "Settings not updated"
       end
     end
   end
