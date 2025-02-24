@@ -30,7 +30,7 @@ class ProductsController < ApplicationController
       categories = Category.search_by_name(params[:query])
       categories = categories.flat_map(&:all_subcategories)
 
-      matching_products_by_name = Product.where('name ILIKE ? OR product_code ILIKE ?', "%#{params[:query]}%", "%#{params[:query]}%")
+      matching_products_by_name = Product.where('name ILIKE ? OR product_code ILIKE ? OR display_category ILIKE ?', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
       matching_products_by_category = Product.by_category(categories&.pluck(:id))
       matching_products_by_tags = Product.tagged_with(matching_tags.map(&:name), any: true)
 
