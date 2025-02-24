@@ -1,6 +1,6 @@
 module ProductsHelper
   def breadcrumb(items)
-    content_tag(:nav, class: "flex", aria: { label: "Breadcrumb" }) do
+    content_tag(:nav, class: "flex justify-center md:justify-start", aria: { label: "Breadcrumb" }) do
       content_tag(:ol, class: "inline-flex items-center space-x-1 md:space-x-2 rtl:space-x-reverse") do
         items.each_with_index.map do |item, index|
           breadcrumb_item(item, index, items.size)

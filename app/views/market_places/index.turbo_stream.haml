@@ -1,11 +1,14 @@
 -# remove placeholders
 = turbo_stream.remove("products_placeholder")
 -#  append @products to the #article_list turbo_frame
+-# = turbo_stream.update('breadcrumb') do
+-#   %div.fixed.z-40.w-full= categories_breadcrumb(params[:category_id] || params[:parent_category])
 = turbo_stream.update("products_list") do
-  %div.mb-2.mt-10= categories_breadcrumb(params[:category_id] || params[:parent_category])
-  %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4
-    - @products.each do |product|
-      = render 'product_tiles_view', {product: product}
+  %div.fixed.z-40.w-full.top-52.md:top-44.py-2.body_background_2= categories_breadcrumb(params[:category_id] || params[:parent_category])
+  %div.mt-12
+    %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4.pt-8
+      - @products.each do |product|
+        = render 'product_tiles_view', {product: product}
   :javascript
     parent_hidden_field = document.getElementById('parent_category')
     parent_category_id = "#{params[:parent_category]}"
