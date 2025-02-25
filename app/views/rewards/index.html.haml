@@ -21,6 +21,7 @@
                   %div.bg-white.border.rounded-lg.shadow-lg.dark:bg-gray-800.dark:border-gray-700
                     = image_tag reward.image, class: 'w-full h-48 object-content rounded-t-lg'
                     %div.p-4
+                      %h3.text-xl.font-semibold.text-gray-900.dark:text-white= "Reward Point: #{reward.points}"
                       %h3.text-xl.font-semibold.text-gray-900.dark:text-white= reward.name
                       %p.text-gray-700.dark:text-gray-300.mt-2= reward.description
                       %div.mt-4.text-sm.text-gray-600.dark:text-gray-400

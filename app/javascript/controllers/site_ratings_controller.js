@@ -2,7 +2,7 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="site-ratings"
 export default class extends Controller {
-  static targets = ["popup", 'good', 'bad', 'commentHeading', "commentSection"]
+  static targets = ["popup", 'good', 'bad', 'commentHeading', "commentSection", "commentInput"]
 
   connect() {
     this.commentSectionTarget.classList.add('hidden');
@@ -13,6 +13,8 @@ export default class extends Controller {
     this.commentSectionTarget.classList.remove('hidden');
     const rateInput = document.getElementById('rate')
     rateInput.value = rate
+    if(rate == 1) this.commentInputTarget.placeholder = "Please suggest how can we improve"
+    else this.commentInputTarget.placeholder = "Please suggest how can you make it better"
   }
 
   submitRating(event) {

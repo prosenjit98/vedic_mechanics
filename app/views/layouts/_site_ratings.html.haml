@@ -9,8 +9,8 @@
         - else
           %h3.font-semibold.text-gray-900.dark:text-white Please Express
       .px-3.py-2
-        .flex.mt-2.justify-around
-          - unless current_user.present?
+        - unless current_user.present?
+          .flex.mt-2.justify-around
             %div.text-md.font-semibold.mb-1.w-full
               -# %div Please Login to express yourself.
               %div.flex.justify-around.mt-1
@@ -24,7 +24,8 @@
                     %b{"data-site-ratings-target": 'bad'}= "#{@rating_hash["bad"]}%"
               = link_to new_user_session_path, data: { turbo_frame: 'global_modal_tag'} do
                 %div.text-center.w-full.mt-2.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:ring-blue-300.font-medium.rounded-lg.text-xs.px-5.me-2.mb-2.py-2.dark:bg-blue-600 login
-          - else 
+        - else
+          .flex.mt-2.justify-around
             %div.flex.flex-col.justify-center.items-center{"data-action" => "click->site-ratings#smileClicked", "data-rate" => "3"}
               = inline_svg "smiling_face.svg", class: "w-8 h-8"
               .text-md.text-green-600
@@ -38,6 +39,6 @@
           %div.mt-2{"data-site-ratings-target": 'commentSection'}
             %div{"data-site-ratings-target": 'commentHeading'}
             = hidden_field_tag :rate
-            = text_area_tag :comment,"", {placeholder: "Write your thoughts here...", class: "w-full text-sm text-gray-900 bg-gray-50 rounded-lg border"}
+            = text_area_tag :comment,"", {placeholder: "Please suggest how can you improve", class: "w-full text-sm text-gray-900 bg-gray-50 rounded-lg border", "data-site-ratings-target": 'commentInput'}
             %button.w-full.mt-2.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:ring-blue-300.font-medium.rounded-lg.text-xs.px-5.me-2.mb-2.dark:bg-blue-600.dark:hover:bg-blue-700.focus:outline-none.dark:focus:ring-blue-800{:class => "py-2", :type => "button", "data-action" => "click->site-ratings#submitRating"} Submit
       %div{"data-popper-arrow" => ""}

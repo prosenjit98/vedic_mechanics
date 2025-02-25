@@ -23,4 +23,4 @@
           %label.block.text-sm.font-medium.text-gray-700{ for: "organisation_name" } Display Message for user *
           %p.text-xs.text-gray-500 Type a message that you want to display message
         %div 
-          = text_field_tag "app_configuration[banner_massage][value]", @banner_massage&.value, class: 'focus:ring-green-500 w-full rounded focus:border-green-500'
+          = text_area_tag "app_configuration[banner_massage][value]", @banner_massage&.value, class: 'focus:ring-green-500 w-full rounded focus:border-green-500'

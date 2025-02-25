@@ -24,5 +24,5 @@
         #flash.flash.hidden{"data-controller": 'toast', "data-toast-target": 'toast'}
           = render 'layouts/flash_message'
     = render 'layouts/footer'
-    .hidden.lg:block.fixed.bottom-0.left-0.color_text.px-2.py-1.text-sm.rounded{style: "width: 22%;"}= @banner_massage.present? ? @banner_massage.value : "This is auto-translated, please forgive any mistakes"
+    .hidden.lg:block.fixed.bottom-0.left-0.color_text.px-2.py-1.text-sm.rounded{style: "width: 22%;"}= @banner_massage.present? ? @banner_massage.value.gsub("\n", "<br>").html_safe : "This is auto-translated, please forgive any mistakes"
 -#     #google_translate_element
