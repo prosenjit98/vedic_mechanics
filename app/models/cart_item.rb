@@ -9,7 +9,8 @@ class CartItem < ApplicationRecord
 
   def update_cart_price
     total_price = self.cart.cart_items.joins(:product).sum('products.price * cart_items.quantity')
-    self.cart.update(total_price: total_price)
+    total_price_with_gst = self.cart.cart_items.joins(:product).sum('products.price * cart_items.quantity * (1 + products.gst/100)')
+    self.cart.update(total_price: total_price, price_with_gst: total_price_with_gst)
   end
 
   def test

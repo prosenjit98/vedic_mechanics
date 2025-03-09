@@ -23,7 +23,7 @@ class Admin::ProductsController < Admin::BaseController
   def create
     @product = Product.new(product_params)
     if @product.save
-      redirect_to [:admin, @product], notice: "Product was successfully created."
+      redirect_to admin_products_path, notice: "Product was successfully created."
     else
       render :new, alert: "There was an error creating the product."
     end
@@ -42,7 +42,7 @@ class Admin::ProductsController < Admin::BaseController
     respond_to do |format|
       if @product.update(product_params)
         format.turbo_stream { render turbo_stream: turbo_stream.replace(@product, partial: "admin/products/product", locals: {product: @product}) }
-        format.html { redirect_to admin_products_path(@product), notice: "Product was successfully updated." }
+        format.html { redirect_to admin_products_path, notice: "Product was successfully updated." }
       end
     end
   end
@@ -84,7 +84,7 @@ class Admin::ProductsController < Admin::BaseController
     params[:product][:concern_ids].reject!(&:blank?) if params[:product][:concern_ids].present?
     params[:product][:ingredient_ids].reject!(&:blank?) if params[:product][:ingredient_ids].present?
     params[:product][:categories_ids].reject!(&:blank?) if params[:product][:categories_ids].present?
-    params.require(:product).permit(:name, :product_code, :unit_cost, :price, :description, :tag_list, :display_category, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id], category_ids: [],concern_ids: [], ingredient_ids: [])
+    params.require(:product).permit(:name, :product_code, :gst, :unit_cost, :price, :description, :tag_list, :display_category, :vendor_id, :hsn, :specification, :stock_quantity, :original_price, :discount, :mfg_cost,:approx_delivery_cost, product_images: [], product_variants_attributes: [:product_id, :variant_id, :value, :id], category_ids: [],concern_ids: [], ingredient_ids: [])
   end
 
   def add_breadcrumbs

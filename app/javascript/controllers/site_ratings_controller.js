@@ -14,7 +14,7 @@ export default class extends Controller {
     const rateInput = document.getElementById('rate')
     rateInput.value = rate
     if(rate == 1) this.commentInputTarget.placeholder = "Please suggest how can we improve"
-    else this.commentInputTarget.placeholder = "Please suggest how can you make it better"
+    else this.commentInputTarget.placeholder = "Please suggest how can we improve further"
   }
 
   submitRating(event) {

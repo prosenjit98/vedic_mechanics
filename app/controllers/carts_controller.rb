@@ -46,6 +46,8 @@ class CartsController < ApplicationController
     begin
       @cart = Cart.active.find_by(external_user_id: cart_product_params[:external_user_id])
       @cart = Cart.new(cart_params) unless @cart.present?
+      @cart.user_id = current_user.id if current_user.present?
+      @cart.external_user_id = current_user.external_user_id if current_user.present?
       if @cart.save
         @cart_prod = @cart.cart_items.find_by(product_id: cart_product_params[:product_id])
         if @cart_prod.present?
@@ -84,7 +86,7 @@ class CartsController < ApplicationController
       shipping_address = current_user.addresses.where(id: order_params[:shipping_address_id])
       shipping_address.update(is_default: true)
     when :place_order
-      @payment = current_user.payments.new(amount: @cart.total_price * 1.18, payment_method: 'online', status: 'pending', cart_id: @cart.id)
+      @payment = current_user.payments.new(amount: @cart.price_with_gst, payment_method: 'online', status: 'pending', cart_id: @cart.id)
       if @payment.save
         redirect_to next_wizard_path(payment_id: @payment.id) and return
       else

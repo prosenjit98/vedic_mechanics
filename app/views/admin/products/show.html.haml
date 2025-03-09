@@ -32,6 +32,7 @@
         %p.text-gray-600.mb-2= "Original Price: ₹#{number_to_currency(@product.original_price, unit: '')}"
         %p.text-gray-600.mb-2= "Manufacturing Cost: ₹#{number_to_currency(@product.mfg_cost, unit: '')}"
         %p.text-gray-600.mb-2= "Approx Delivery Cost: ₹#{number_to_currency(@product.approx_delivery_cost, unit: '')}"
+        %p.text-gray-600.mb-2= "GST: #{@product.gst}"
         - if @product.vendor_id.present?
           %p.text-gray-600.mb-2= "Vendor ID: #{@product.vendor_id}"
         - else
