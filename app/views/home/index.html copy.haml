@@ -1,8 +1,8 @@
 %section#home.bg-cover.bg-center{:style => "background-image: url(#{asset_path 'bannerpic_1.jpeg'}); height: 100vh;"}
   .bg-black.bg-opacity-50.h-full.flex.items-center.justify-center
     .text-center.text-white
-      %h1.text-4xl.md:text-6xl.font-bold Welcome to Machinery Co.
-      %p.mt-4.text-lg.md:text-xl Premium quality Machineryfound here
+      %h1.text-4xl.md:text-6xl.font-bold Welcome to #{ENV["app_name"]}
+      %p.mt-4.text-lg.md:text-xl Premium quality Machinery found here
       %a.mt-8.inline-block.bg-blue-700.hover:bg-blue-800.text-white.px-6.py-2.rounded{:href => "#products"} Explore Our Products
 
 %section.py-16
@@ -77,15 +77,15 @@
         %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100 Are there any side effects of spirulina?
         %p.text-lg.text-gray-600.dark:text-gray-300 Spirulina is generally safe for most people, but some may experience mild side effects such as nausea or an upset stomach. It is recommended to start with a small dose and gradually increase it.
       .bg-white.dark:bg-gray-800.p-6.rounded-lg.shadow-lg{data: {aos: "fade-up", aos_duration: "2500"}}
-        %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100 Where can I buy Machinery co. products?
-        %p.text-lg.text-gray-600.dark:text-gray-300 Machinery co. products can be purchased through our official website, as well as through various online and offline retailers.
+        %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100 Where can I buy #{ENV["app_name"]} products?
+        %p.text-lg.text-gray-600.dark:text-gray-300 #{ENV["app_name"]} products can be purchased through our official website, as well as through various online and offline retailers.
 
 %section#testimonials.py-16
   .max-w-screen-xl.mx-auto.px-4.text-center.text-gray-900.dark:text-gray-100
     %h2.text-3xl.font-bold.mb-8 Customer Testimonials
     .grid.grid-cols-1.md:grid-cols-2.gap-8
       .bg-white.dark:bg-gray-800.p-4.rounded.shadow
-        %p "I've been using spirulina from Machinery co. for a few months now, and I feel more energetic and healthier than ever!"
+        %p "I've been using spirulina from #{ENV["app_name"]} for a few months now, and I feel more energetic and healthier than ever!"
         %p.mt-4.text-right - Avijit Gupta
       .bg-white.dark:bg-gray-800.p-4.rounded.shadow
         %p "The quality of the spirulina powder is outstanding. It's a great addition to my daily smoothie."
@@ -94,7 +94,7 @@
 %section#about-us.py-16.new_body_background.dark:bg-gray-900
   .max-w-screen-xl.mx-auto.px-4.text-center.text-gray-900.dark:text-gray-100
     %h2.text-3xl.font-bold.mb-8 About Us
-    %p Machinery co. is dedicated to providing the highest quality spirulina products. Our mission is to promote health and wellness through natural, sustainable solutions. Our spirulina is cultivated using environmentally friendly methods, ensuring that our products are both healthy for you and kind to the planet.
+    %p #{ENV["app_name"]} is dedicated to providing the highest quality spirulina products. Our mission is to promote health and wellness through natural, sustainable solutions. Our spirulina is cultivated using environmentally friendly methods, ensuring that our products are both healthy for you and kind to the planet.
 
 %section#contact.py-16.form-section.bg-white
   .max-w-screen-xl.mx-auto.px-4.flex.flex-col.md:flex-row.items-center.text-gray-900.dark:text-gray-100
