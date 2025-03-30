@@ -47,7 +47,7 @@ Rails.application.routes.draw do
   end
   # normal_user_routes
 
-  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks'}
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations'}
   resources :users, only: [:show, :edit, :update] do 
     member do
       get :edit_password
