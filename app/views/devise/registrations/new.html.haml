@@ -30,7 +30,7 @@
                     = f.text_field :last_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5"
                 %div 
                   = f.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900"
-                  = f.text_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5", placeholder: "9932235011", required: true
+                  = f.number_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5", placeholder: "9932235011", required: true
                 %div
                   = f.label :email, class: "block mb-2 text-sm font-medium text-gray-900"
                   = f.email_field :email, autocomplete: "email",placeholder: "name@company.com",required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"

@@ -5,7 +5,7 @@ class ContactsController < ApplicationController
 
   def create
     @contact = Contact.new(contact_params)
-    if @contact.save
+    if verify_recaptcha(model: @contact) && @contact.save
       respond_to do |format|
         format.turbo_stream 
         format.html { redirect_to new_contact_path, notice: "Your message has been sent." }
