@@ -75,7 +75,7 @@ class Admin::CategoriesController < Admin::BaseController
     end
 
     def set_parents
-      @parents = Category.left_joins(:products).group(:id).having('COUNT(products.id) = 0').distinct.order(:name)
+      @parents = Category.active.left_joins(:products).active.group(:id).having('COUNT(products.id) = 0').distinct.order(:name)
       @parents = @parents.where.not(id: @category.id) if @category.present?
     end
     
@@ -83,6 +83,6 @@ class Admin::CategoriesController < Admin::BaseController
       breadcrumbs.add "Categories", admin_categories_path
     end
     def category_params
-      params.require(:category).permit(:name, :description, :parent_category_id)
+      params.require(:category).permit(:name, :description, :parent_category_id, :is_active)
     end
 end

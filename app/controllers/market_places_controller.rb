@@ -2,7 +2,7 @@ class MarketPlacesController < ApplicationController
   before_action :set_nav_filter
 
   def index
-    @categories = params[:parent_category].present? ? Category.to_nested_hash(Category.where(id: params[:parent_category])) : Category.to_nested_hash
+    @categories = params[:parent_category].present? ? Category.to_nested_hash(Category.where(id: params[:parent_category]).active) : Category.to_nested_hash
     if params[:product_id].present?
       _product = Product.find(params[:product_id])
       _category = _product.top_parent_category
