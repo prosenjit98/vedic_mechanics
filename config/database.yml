@@ -79,6 +79,6 @@ test:
 #
 production:
   <<: *default
-  database: vedic_mechanics_production
-  username: herbals
-  password: <%= ENV["HERBALS_DATABASE_PASSWORD"] %>
+  database: preciagrotech_production
+  username: vedic
+  password: vedic

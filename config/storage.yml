@@ -5,6 +5,7 @@ test:
 local:
   service: Disk
   root: <%= Rails.root.join("storage") %>
+  #root: /var/www/shared_storage
 
 amazon:
   service: S3
@@ -13,6 +14,11 @@ amazon:
   region: <%= ENV['DO_REGION'] %>
   bucket: <%= ENV['BUCKET_NAME'] %>
   endpoint: <%= ENV['DO_ENDPOINT'] %>
+
+shared:
+  service: Disk
+  root: /var/www/shared_storage
+
 
 # Remember not to checkin your GCS keyfile to a repository
 # google:
