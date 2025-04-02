@@ -10,11 +10,12 @@ class Category < ApplicationRecord
   validates :name, presence: true
   validates :position, uniqueness: { scope: [:parent_category_id], message: "must be unique within the same parent" }
 
-  scope :search_by_name, -> (name) { where('name ILIKE ?', "%#{name}%") }
-  scope :parent_categories, -> { where(parent_category_id: nil) }
+  scope :search_by_name,      -> (name) { where('name ILIKE ?', "%#{name}%") }
+  scope :parent_categories,   -> { where(parent_category_id: nil) }
+  scope :active,              -> { where(is_active: true) }
 
   def all_subcategories
-    child_categories.includes(:child_categories).flat_map do |subcategory|
+    child_categories.active.includes(:child_categories).flat_map do |subcategory|
       [subcategory] + subcategory.all_subcategories
     end
   end
@@ -29,12 +30,12 @@ class Category < ApplicationRecord
     target_parent
   end
 
-  def self.to_nested_hash(categories = Category.where(parent_category_id: nil))
+  def self.to_nested_hash(categories = Category.where(parent_category_id: nil).active)
     categories.map do |category|
       {
         id: category.id,
         name: category.name,
-        children: to_nested_hash(category.child_categories),
+        children: to_nested_hash(category.child_categories.active),
         products: category.products.own_products.pluck([:id, :name]).to_h
       }
     end

@@ -18,6 +18,9 @@
         = f.label :parent_category, class: "block mb-2 text-sm font-medium text-gray-900"
         = f.select :parent_category_id, options_for_select(@parents.collect{|e| [get_hierarchy(e), e.id]}, @category.parent_category_id),{include_blank: true}, class: 'selectable focus:ring-green-500 focus:border-green-500  text-sm font-small'
       %div.px-6.py-4.flex-1
+        = f.check_box :is_active, class: "w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded-sm focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+        %label.text-sm.font-medium.text-gray-700{:for => "is_active"} Is Active?
+      %div.px-6.py-4.flex-1
         = f.submit "Update", class: "text-white bg-green-500 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center"
         = link_to "cancel", "" , class: "text-sm ml-4 text-sm border border-gray-200  hover:bg-gray-300 rounded-xl py-2 px-6 text-gray-500"
 
