@@ -21,9 +21,9 @@
   --secondary_color: #e9ff6e;  /* Machinery-related orange, symbolizing warning and caution */
   --primary_text_color: #ffffff; /* Light text for dark backgrounds */
   --secondary_text_color: #333333; /* Dark grey for text on light backgrounds */
-  --form_bg_color: #290862; /* Dark grey for form section background */
-  --form_input_bg_color: #460aae; /* Slightly lighter grey for form input backgrounds */
-  --form_input_border_color: #350882; /* Medium grey for form input borders */
+  --form_bg_color: #0a5d0b; /* Dark grey for form section background */
+  --form_input_bg_color: #478e48; /* Slightly lighter grey for form input backgrounds */
+  --form_input_border_color: #013d02; /* Medium grey for form input borders */
   --form_input_focus_border_color: #2dceff; /* Orange for focused input borders */
   --required_color: #d32f2f; /* Strong red for required asterisk */
   --new_primary_bg_color: #6b4423;

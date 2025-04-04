@@ -4,8 +4,8 @@
       .mb-8.md:mb-0.text-center.md:text-left{:class => "md:w-1/2"}
         %h2.text-3xl.font-bold.mb-4.text-white Have any questions?
         %h3.text-5xl.font-extrabold.mb-4.dark:text-white.text-gray-900.text-transparent.bg-clip-text.bg-gradient-to-r.from-green-400.to-blue-500 Contact us.
-        %p.text-lg.mb-4.dark:text-gray-400.text-gray-600 Want to understand more about Spirulina Products?
-        %p.text-lg.dark:text-gray-400.text-gray-600 Get in touch with us, and one of our experts will reach out to you.
+        %p.text-lg.mb-4.dark:text-gray-400.text-white Want to understand more about Products?
+        %p.text-lg.dark:text-gray-400.text-white Get in touch with us, and one of our experts will reach out to you.
       %div{:class => "md:w-1/2"}
         = turbo_frame_tag "contact_form" do
           = form_with model: @contact do |f|
