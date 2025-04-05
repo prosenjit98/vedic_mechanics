@@ -60,7 +60,8 @@
                 %li.border-blue.p-2.my-2.rounded-lg
                   .grid.grid-cols-12.gap-4
                     .col-span-2
-                      = image_tag(order_item.product.product_images.last, size: "60x60", alt: "Edit Entry")
+                      - image = item.product.product_images.present? ? item.product.product_images.last : ''
+                      = image_tag(image, size: "60x60", alt: "Edit Entry")
                     .col-span-4 
                       %h2= order_item.product&.name_or_code
                       %p Qnt: #{order_item.quantity}

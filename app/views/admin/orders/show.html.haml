@@ -8,7 +8,8 @@
           %li.p-2.my-2.border-b
             .grid.grid-cols-12.gap-4
               .col-span-2
-                = image_tag(order_item.product.product_images.last, size: "40x40", alt: "Product Image...")
+                - image = item.product.product_images.present? ? item.product.product_images.last : ''
+                = image_tag(image, size: "40x40", alt: "Product Image...")
               .col-span-4 
                 %p.text-gray-500.text-xs Product name
                 = link_to (order_item.product&.name_or_code) , admin_product_path(order_item), class: "hover:text-green-500"

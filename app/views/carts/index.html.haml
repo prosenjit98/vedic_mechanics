@@ -13,7 +13,8 @@
             - @cart_items.each do |item|
               %div.grid.grid-cols-1.md:grid-cols-7.items-center.bg-white.dark:bg-gray-800.px-2.py-4.rounded.gap-2
                 %div.flex.items-start.md:items-center.col-span-3
-                  = image_tag item.product.product_images.first, alt: item.product.name, class: "w-16 h-16 object-contain mb-2 md:mb-0 md:mr-4"
+                  - image = item.product.product_images.present? ? item.product.product_images.first : ''
+                  = image_tag image, alt: item.product.name, class: "w-16 h-16 object-contain mb-2 md:mb-0 md:mr-4"
                   %div.pl-20.md:pl-0
                     %h2.text-lg.font-bold.text-gray-800.dark:text-gray-100
                       = item.product&.name_or_code
