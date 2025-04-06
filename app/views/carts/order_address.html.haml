@@ -8,7 +8,7 @@
         .flex-grow.bg-white.ml-4.rounded.dark:bg-gray-800
           = turbo_frame_tag "order_address" do
             .flex.justify-between
-              %div.p-4.text-blue-500.text-md.md:text-2xl.bold Address Information
+              %div.p-4.text-blue-500.text-md.md:text-2xl.bold Please select delivery address
               %div.self-center
                 = link_to 'Add Address', new_order_address_addresses_path, class: "text-sm md:text-md px-5 text-center py-2 text-white bg-blue-500 hover:bg-blue-600 mx-4 rounded-lg", style: "text-wrap: nowrap;"
 
@@ -31,7 +31,7 @@
                   .flex.flex-row-reverse
                     = link_to 'Back', previous_wizard_path, class: "text-sm px-5 text-center py-2 text-blue dark:text-gray-700 bg-gray-100 hover:bg-gray-300 mx-4 rounded-lg"
                     - if current_user.addresses.count > 0
-                      = f.submit "Save", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center py-2"
+                      = f.submit "Next", class: "text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 text-center py-2"
 
 
 
