@@ -14,7 +14,12 @@
                 Name
                 %span.required.text-red-500 *
               = f.text_field :name, required: true, class: "mt-1 p-3 block w-full rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 focus:border-green-500 focus:ring focus:ring-green-300 focus:ring-opacity-50 transition-all duration-300"
-
+            .relative.mb-4
+              %label.block.mb-2.text-sm.font-medium.text-gray-900{ for: 'country_code' } Phone number
+              .flex
+                = f.select :country_code, options_for_select( ISO3166::Country.countries.map { |c| ["#{c.iso_short_name} (#{c.country_code})", "#{c.country_code}"] }, selected: "91"),{}, class: "inline-flex w-1/4 items-center rounded-l-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm text-gray-900 focus:border-green-500 dark:border-gray-600"
+                = f.telephone_field :phone_number, placeholder: "1234567890", class: "rounded-r-lg flex-grow border border-green-300 p-2.5 text-sm focus:border-green-500 focus:ring-blue-500"
+            
             %div.mb-4
               = f.label :email, class: "text-lg dark:text-gray-200 text-gray-900" do
                 Email
@@ -31,32 +36,37 @@
               = f.submit "Send Message", class: "mt-4 inline-block bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-full shadow-lg hover:from-blue-500 hover:to-green-500 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition-transform transform hover:scale-105"
   %section.company-info.bg-white.dark:bg-gray-900.rounded-lg.shadow-lg.p-8.transition-colors.duration-300
     %div.text-center.mb-8
-      %h2.text-4xl.font-extrabold.dark:text-white.text-gray-900 Company Information
+      %h2.text-4xl.font-extrabold.dark:text-white.text-gray-900 Our Contact Details
       %hr.w-24.mx-auto.border-b-4.border-green-500.mt-4
 
     %div.mb-6
-      %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
-        %i.fas.fa-building.text-green-500.mr-2
-        Company Name
-      %p.text-lg.dark:text-gray-400.text-gray-600.pl-8= ENV["app_name"]
+      -# %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
+      -#   %i.fas.fa-building.text-green-500.mr-2
+      -#   Company Name
+      %p.text-2xl.font-bold.dark:text-gray-400.text-gray-600.pl-8.mb-2= ENV["app_name"]
+      %div.text-lg.dark:text-gray-400.text-gray-600.pl-8
+        %p Preci Agro Tech 
+        %p Abu Road, 
+        %p Rajasthan 307510, Bharat
+      %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 
+        Email: 
+        %b nutrivediic@gmail.com
+      %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 
+        Contact Number: 
+        %b 9999470505 / 9810195966
+    %a{ href: "https://wa.me/9999470505?text=Hello%20I%20would%20like%20to%20know%20more%20about%20your%20services", target: "_blank", style: "text-decoration: none; padding: 10px 15px; background: #25D366; color: white; border-radius: 5px;" }
+      Chat on WhatsApp
 
-    %div.mb-6
-      %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
-        %i.fas.fa-envelope.text-green-500.mr-2
-        Email
-      %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 nutrivediic@gmail.com
-
-    %div.mb-6
-      %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
-        %i.fas.fa-map-marker-alt.text-green-500.mr-2
-        Location
-      %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 Preci Agro Tech Abu Road, Rajasthan 307510, Bharat
-
-    %div.mb-6
-      %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
-        %i.fas.fa-phone-alt.text-green-500.mr-2
-        Contact Number
-      %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 9999470505 / 9810195966
+    -# %div.mb-6
+    -#   %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
+    -#     %i.fas.fa-envelope.text-green-500.mr-2
+    -#     Email
+    -#   %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 preciagrotech@gmail.com
+    -# %div.mb-6
+    -#   %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2
+    -#     %i.fas.fa-phone-alt.text-green-500.mr-2
+    -#     Contact Number
+    -#   %p.text-lg.dark:text-gray-400.text-gray-600.pl-8 9999470505 / 9810195966
 
     -# %div
     -#   %h3.text-xl.font-semibold.dark:text-gray-300.text-gray-800.flex.items-center.mb-2

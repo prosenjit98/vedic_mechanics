@@ -7,8 +7,13 @@
     %span.label Email:
     = @contact.email
   %p
+    %span.label Phone No:
+    = "#{@contact.country_code} #{@contact.phone_number}"
+  %p
     %span.label Message:
     = @contact.message
+
+    
   %p.reference-id
     %strong Reference ID:
     = @contact.msg_rf_id

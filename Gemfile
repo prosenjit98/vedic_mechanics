@@ -93,3 +93,4 @@ gem "acts_as_paranoid"
 gem 'omniauth-google-oauth2'
 gem "omniauth-rails_csrf_protection"
 gem 'recaptcha', require: 'recaptcha/rails'
+gem 'countries'
