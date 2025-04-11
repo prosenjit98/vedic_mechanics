@@ -5,7 +5,8 @@ export default class extends Controller {
   static targets = ["popup", 'good', 'bad', 'commentHeading', "commentSection", "commentInput"]
 
   connect() {
-    this.commentSectionTarget.classList.add('hidden');
+    if(this.hasCommentSectionTarget)
+      this.commentSectionTarget.classList.add('hidden');
   }
 
   smileClicked(event){

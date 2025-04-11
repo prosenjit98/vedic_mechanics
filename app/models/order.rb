@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   enum shipping_mode: {COD: 1, online: 2}
   enum status: {initiate: 1, processed: 2, shipped: 3, delivered: 4, returned: 5, cancelled: 6}
 
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
   has_one :refund
   belongs_to :payment, optional: true

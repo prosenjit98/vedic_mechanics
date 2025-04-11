@@ -164,6 +164,9 @@ export default class extends Controller {
 
   updateCartPopoverCard(data) {
     this.cartDetailsTarget.innerHTML = data.html || "No products in the cart";
-    
+    if(data.cart_items?.length === 0){
+      localStorage.setItem("cart", JSON.stringify([]))
+      this.updateCartCount()
+    }
   }
 }

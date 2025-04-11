@@ -93,6 +93,13 @@ class CartsController < ApplicationController
         redirect_to wizard_path, alert: @payment.errors.full_messages.to_sentence and return
       end
     when :payment
+      @payment = @cart.payment
+      if @payment.update(payment_params)
+        @payment.authorize!
+        redirect_to next_wizard_path(payment_id: @payment.id) and return
+      else
+        redirect_to wizard_path, alert: @payment.errors.full_messages.to_sentence
+      end
       # default_address = current_user.default_address
       # current_user.orders.create(status: 'initiate', total_price: @cart.total_price, total_with_gst: @cart.total_price * 1.18, shipping_address_id: default_address.id, billing_address: default_address.id)
     when :review
@@ -147,5 +154,9 @@ class CartsController < ApplicationController
 
     def cart_product_params
       params.require(:cart).permit(:user_id, :total_price, :external_user_id, :product_id, :quantity, :price)
+    end
+
+    def payment_params
+      params.require(:payment).permit(:payment_proof)
     end
 end
