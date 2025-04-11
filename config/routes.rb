@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
+    resources :payments
     resources :rewards do 
       collection do 
         post :add_users

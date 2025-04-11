@@ -3,15 +3,17 @@ class Payment < ApplicationRecord
   enum payment_method: {cod: 1, online: 2}
   enum status: {pending: 1, authorized: 2, captured: 3, error: 4}
   has_one :order
+  has_one_attached :payment_proof
   belongs_to :user
   belongs_to :cart, optional: true
   before_validation :set_payment_reference
-  after_create :create_razorpay_order
+  # after_create :create_razorpay_order
 
   # define aasm state for column status
   aasm column: 'status', enum: true do
     state :pending, initial: true
-    state :authorized, after_enter: :capture_payment
+    # state :authorized, after_enter: :capture_payment
+    state :authorized
     state :captured, after_enter: :should_complete_transaction?
     state :error
 
@@ -57,7 +59,8 @@ class Payment < ApplicationRecord
     Razorpay::Payment.fetch(raz_payment_id)
   end
 
-  def capture_payment
+  def 
+    capture_payment
     razorpay_payment = fetch_payment(self.razorpay_payment_id)
     if razorpay_payment.status == "authorized"
       # razorpay_payment.capture({ amount: 10000 })
