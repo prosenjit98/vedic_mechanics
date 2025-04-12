@@ -3,7 +3,7 @@ class Admin::PaymentsController < Admin::BaseController
 
   # GET /payments or /payments.json
   def index
-    @payments = Payment.all
+    @payments = Payment.all.order(created_at: :desc)
   end
 
   # GET /payments/1 or /payments/1.json
