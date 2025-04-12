@@ -1,0 +1,9 @@
+<h2>New Payment received for the user</h2>
+<p>Email: <%= @user.email %></p>
+<p>Name: <%= @user.full_name %></p>
+<p>Phone No: <%= @user.phone_number %></p>
+
+<p>
+  <a href="<%=ENV['BASE_URL']%>/admin/payments/<%=@payment.id%>/edit">Show</a>
+</p>
+
