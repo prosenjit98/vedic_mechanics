@@ -56,15 +56,19 @@
                         %li.mb-4.ml-6
                           %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
                             = heroicon 'check', options: { class: "w-6 h-6"} 
-                          %h3.text-lg.font-semibold.text-gray-900 Claim Back and Wait
+                          %h3.text-lg.font-semibold.text-gray-900 Wait for Confirmation
                           %p.text-sm.text-gray-500
-                            Sit back and relax! Our team will review your submission and notify you once it's verified.
-                    .p-6
-                      %label.block.text-sm.font-medium.text-gray-700.mb-2 Upload Supporting Document
-                      = f.file_field :payment_proof, class: 'block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none', accept: "image/*,application/pdf"
+                            -# Sit back and relax! Our team will review your submission and notify you once it's verified.
+                            Please give us some time to verify and we will send order confirmation through WhatsApp 
+                      %a{ href: @whatsapp_link, target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg" }
+                        Send WhatsApp Payment Link
                   %div
                     .shadow-md.rounded-lg
                       = image_tag 'payment_qr.jpeg', class: "w-full h-80 object-contain"
+              .grid.grid-cols-1
+                .p-6
+                  %label.block.text-sm.font-medium.text-gray-700.mb-2 Upload Supporting Document
+                  = f.file_field :payment_proof, class: 'block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none', accept: "image/*,application/pdf"
 
               .grid.grid-col-1.p-4
                 .flex.flex-row-reverse

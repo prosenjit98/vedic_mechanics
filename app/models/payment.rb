@@ -13,7 +13,7 @@ class Payment < ApplicationRecord
   aasm column: 'status', enum: true do
     state :pending, initial: true
     # state :authorized, after_enter: :capture_payment
-    state :authorized
+    state :authorized, after_enter: :send_payment_mail
     state :captured, after_enter: :should_complete_transaction?
     state :error
 
@@ -28,6 +28,10 @@ class Payment < ApplicationRecord
     event :invalidate do
       transitions from: [:pending, :authorized, :captured], to: :error
     end
+  end
+
+  def send_payment_mail
+    PaymentMailer.payment_confirmation(self).deliver_now
   end
 
     # Creates a Razorpay order if the payment method is "online" by calling Razorpay::Order.create with the specified amount, currency, and receipt. Updates the model columns with the Razorpay order ID if the order is successfully created.
