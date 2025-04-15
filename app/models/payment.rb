@@ -22,7 +22,7 @@ class Payment < ApplicationRecord
     end
 
     event :capture do
-      transitions from: :authorized, to: :captured
+      transitions from: [:pending, :authorized], to: :captured
     end
 
     event :invalidate do
