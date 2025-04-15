@@ -133,7 +133,8 @@ export default class extends Controller {
   updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || []
     const count = cart.reduce((total, item) => total + item.quantity, 0)
-    this.countTarget.innerText = count
+    this.countTargets.forEach(target => target.innerText = count)
+    // this.countTarget.innerText = count
   }
 
   showToast() {
