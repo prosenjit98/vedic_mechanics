@@ -22,8 +22,8 @@ class CartsController < ApplicationController
     when :place_order
     when :payment
       @payment = @cart.payment
-      @upi_link = "upi://pay?pa=merchant@upi&pn=NutriVedic&am=#{@payment.amount}&cu=INR"
-      message = "Hi! Pay ₹#{@payment.amount} for your order via UPI: #{@upi_link}"
+      @upi_link = "upi://pay?pa=nutrivedic@axl&pn=NutriVedic&am=#{@payment.amount.round(2)}&cu=INR"
+      message = "Hi! Pay ₹#{@payment.amount.round(2)} for your order via UPI: #{@upi_link}"
 
       @whatsapp_link = "https://wa.me/919999470505?text=#{URI.encode_www_form_component(message)}"
     when :review
