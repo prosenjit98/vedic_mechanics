@@ -36,6 +36,10 @@
                     %span.price{data: {amount: @cart.price_with_gst.to_f}}= number_to_currency(@cart.price_with_gst.to_f, unit: "Rs. ")
               .grid.grid-cols-1
                 .grid.grid-cols-1.md:grid-cols-2
+                  %div
+                    %h2.text-xl.ml-4.font-bold.mb-6.text-gray-800 Please proceed
+                    .shadow-md.rounded-lg
+                      = image_tag 'payment_qr.png', class: "w-full h-80 object-contain"
                   %div 
                     .max-w-2xl.mx-auto.p-6.bg-white
                       %h2.text-2xl.font-bold.mb-6.text-gray-800 Payment Guide
@@ -44,37 +48,44 @@
                         %li.mb-4.ml-6
                           %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
                             = heroicon 'check', options: { class: "w-6 h-6"} 
-                          %h3.text-lg.font-semibold.text-gray-900 Scan QR and Make Payment
+                          -# %h3.text-lg.font-semibold.text-gray-900 Scan QR and Make Payment
                           %p.mb-4.text-sm.text-gray-500
-                            Open your preferred UPI app, scan the QR code displayed on the screen, and complete the payment.
-                        %li.mb-4.ml-6
-                          %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.round-full
-                            = heroicon 'check', options: { class: "w-6 h-6"}
-                          %h3.text-lg.font-semibold.text-gray-900 Upload Payment Screenshot
-                          %p.mb-4.text-sm.text-gray-500
-                            After successful payment, take a screenshot of the confirmation and upload it using the form provided.
+                            Please send payment confirmation by 
+                            %a.font-bold{ href: "https://wa.me/919999470505?text=Hello%20This%20is%20my%20payment%20confirmation", target: "_blank", style: "text-decoration: underline; font-w color: #25D366;" } 
+                              whatsapp
                         %li.mb-4.ml-6
                           %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
                             = heroicon 'check', options: { class: "w-6 h-6"} 
-                          %h3.text-lg.font-semibold.text-gray-900 Wait for Confirmation
+                          %p.mb-4.text-sm.text-gray-500 OR
+                        %li.mb-4.ml-6
+                          %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.round-full
+                            = heroicon 'check', options: { class: "w-6 h-6"}
+                          -# %h3.text-lg.font-semibold.text-gray-900 Payment By Whatsapp Link
+                          %p.mb-4.text-sm.text-gray-500
+                            If you are comfortable with link. click on following link and after payment confirm.
+                            %a{ href: @whatsapp_link, target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg" }
+                              Send WhatsApp Payment Link
+                        %li.mb-4.ml-6
+                          %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
+                            = heroicon 'check', options: { class: "w-6 h-6"} 
+                          -# %h3.text-lg.font-semibold.text-gray-900 Wait for Confirmation
                           %p.text-sm.text-gray-500
                             -# Sit back and relax! Our team will review your submission and notify you once it's verified.
-                            Please give us some time to verify and we will send order confirmation through WhatsApp 
-                      %a{ href: @whatsapp_link, target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg" }
-                        Send WhatsApp Payment Link
-                  %div
-                    .shadow-md.rounded-lg
-                      = image_tag 'payment_qr.png', class: "w-full h-80 object-contain"
-              .grid.grid-cols-1
-                .p-6
-                  %label.block.text-sm.font-medium.text-gray-700.mb-2 Upload Supporting Document
-                  = f.file_field :payment_proof, class: 'block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none', accept: "image/*,application/pdf"
+                            Thanks, Please allow us to verify and we will set order confirmation on whatsapp
+                      -# %a{ href: @whatsapp_link, target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 rounded-lg" }
+                      -#   Send WhatsApp Payment Link
+                  
+              -# .grid.grid-cols-1
+              -#   .p-6
+              -#     %label.block.text-sm.font-medium.text-gray-700.mb-2 Upload Supporting Document
+              -#     = f.file_field :payment_proof, class: 'block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer focus:outline-none', accept: "image/*,application/pdf"
 
               .grid.grid-col-1.p-4
                 .flex.flex-row-reverse
                   = link_to 'Back', previous_wizard_path, class: "text-sm px-5 text-center py-2 text-blue bg-gray-100 hover:bg-gray-300 mx-4 rounded-lg"
-                  %button.bg-green-600.hover:bg-green-700.text-white.font-medium.py-2.px-6.rounded-lg#proceed-btn
-                    Proceed Now
+                  = link_to 'Next', next_wizard_path(payment_id: @payment.id), class: "text-sm bg-green-600 px-5 text-center py-2 text-blue bg-gray-100 hover:bg-gray-300 mx-4 rounded-lg"
+                  -# %button.bg-green-600.hover:bg-green-700.text-white.font-medium.py-2.px-6.rounded-lg#proceed-btn
+                  -#   Proceed Now
 
 :javascript
   document.addEventListener('DOMContentLoaded', function () {
