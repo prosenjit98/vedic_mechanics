@@ -38,25 +38,23 @@
                 .grid.grid-cols-1.md:grid-cols-2
                   %div
                     %h2.text-xl.ml-4.font-bold.mb-6.text-gray-800 Please proceed
-                    .shadow-md.rounded-lg
+                    .rounded-lg
                       = image_tag 'payment_qr.png', class: "w-full h-80 object-contain"
-                  %div 
-                    .max-w-2xl.mx-auto.p-6.bg-white
-                      %h2.text-2xl.font-bold.mb-6.text-gray-800 Payment Guide
-
+                    %div
+                      .max-w-2xl.mx-auto.p-6.bg-white
+                        %ol.relative.border-gray-200
+                          %li.mb-4.ml-6
+                            %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
+                              = heroicon 'check', options: { class: "w-6 h-6"} 
+                            -# %h3.text-lg.font-semibold.text-gray-900 Scan QR and Make Payment
+                            %p.text-sm.text-gray-500
+                              Please send payment confirmation by 
+                              %a{ href: "https://wa.me/919999470505?text=Hello%20This%20is%20my%20payment%20confirmation", target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-2 rounded-lg" } 
+                                whatsapp
+                  %div.md:border-l.md:pl-4
+                    .max-w-2xl.mx-auto.p-6.bg-white.md:mt-40
+                      .flex.justify-center.mb-4.text-sm.text-gray-500.font-bold.text-xl.md:hidden OR
                       %ol.relative.border-l.border-gray-200
-                        %li.mb-4.ml-6
-                          %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
-                            = heroicon 'check', options: { class: "w-6 h-6"} 
-                          -# %h3.text-lg.font-semibold.text-gray-900 Scan QR and Make Payment
-                          %p.mb-4.text-sm.text-gray-500
-                            Please send payment confirmation by 
-                            %a.font-bold{ href: "https://wa.me/919999470505?text=Hello%20This%20is%20my%20payment%20confirmation", target: "_blank", style: "text-decoration: underline; font-w color: #25D366;" } 
-                              whatsapp
-                        %li.mb-4.ml-6
-                          %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.rounded
-                            = heroicon 'check', options: { class: "w-6 h-6"} 
-                          %p.mb-4.text-sm.text-gray-500 OR
                         %li.mb-4.ml-6
                           %span.flex.absolute.-left-3.justify-center.items-center.w-6.h-6.bg-blue-100.round-full
                             = heroicon 'check', options: { class: "w-6 h-6"}
@@ -83,7 +81,7 @@
               .grid.grid-col-1.p-4
                 .flex.flex-row-reverse
                   = link_to 'Back', previous_wizard_path, class: "text-sm px-5 text-center py-2 text-blue bg-gray-100 hover:bg-gray-300 mx-4 rounded-lg"
-                  = link_to 'Next', next_wizard_path(payment_id: @payment.id), class: "text-sm bg-green-600 px-5 text-center py-2 text-blue bg-gray-100 hover:bg-gray-300 mx-4 rounded-lg"
+                  = link_to 'Next', next_wizard_path(payment_id: @payment.id), class: "text-sm bg-green-600 px-5 text-center py-2 text-white bg-gray-100 hover:bg-gray-300 mx-4 rounded-lg"
                   -# %button.bg-green-600.hover:bg-green-700.text-white.font-medium.py-2.px-6.rounded-lg#proceed-btn
                   -#   Proceed Now
 

@@ -8,6 +8,7 @@ class CartsController < ApplicationController
 
   # GET /carts or /carts.json
   def index
+    cookies[:return_to_url] = request.url unless current_user
     @cart = Cart.active.find_by(external_user_id: params[:external_id])
     @cart_items = @cart&.cart_items
   end

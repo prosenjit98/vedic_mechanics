@@ -25,4 +25,28 @@ class ApplicationController < ActionController::Base
     @rating_hash = SiteRating.rate_percentages
     @banner_massage = AppConfiguration.find_by(key: "banner_massage")
   end
+
+  def after_sign_in_path_for(resource)
+    # request.referrer
+    cookies_path = cookies[:return_to_url]
+    cookies[:return_to_url] = nil
+    cookies_path || request.referrer || root_path
+  end
+
+  private
+  def storable_location?
+    request.get? &&
+      is_navigational_format? &&
+      !devise_controller? &&
+      !request.xhr? &&
+      !request.fullpath.start_with?("/users/auth")
+  end
+
+  def store_user_location!
+    store_location_for(:user, request.fullpath)
+  end
+
+  # def after_sign_in_path_for(resource_or_scope)
+  #   stored_location_for(resource_or_scope) || super
+  # end
 end
