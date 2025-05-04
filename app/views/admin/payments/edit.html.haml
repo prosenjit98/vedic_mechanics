@@ -59,6 +59,10 @@
               - if @payment.payment_proof.attached?
                 = image_tag @payment.payment_proof, class: "w-full h-52 object-contain"
           = f.hidden_field :status, value: 'captured'
+        %p.text-sm.text-gray-500
+          - if @payment.user&.phone_number.present?
+            %a{ href: "https://wa.me/#{@payment.user&.phone_number}?text=Hi", target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-2 rounded-lg" } 
+              Contact with user
         - if (!@payment.captured?)
           %button.text-white.bg-green-500.hover:bg-green-800.focus:ring-4.focus:outline-none.focus:ring-green-300.font-medium.rounded-lg.text-sm.px-5.my-4.text-center{class: "py-2.5", type: "submit"} Complete Payment
         = link_to "Back", admin_payments_path, class: 'px-5'
