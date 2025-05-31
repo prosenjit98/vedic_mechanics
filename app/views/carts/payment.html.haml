@@ -58,7 +58,8 @@
                             -# %h3.text-lg.font-semibold.text-gray-900 Scan QR and Make Payment
                             %p.text-sm.text-gray-500
                               Please send payment confirmation by 
-                              %a{ href: "https://wa.me/919999470505?text=Hello%20This%20is%20my%20payment%20confirmation", target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-2 rounded-lg" } 
+                              - whatsapp_link_1 = @whatsapp_link_1&.value.present? ? URI.encode_www_form_component(@whatsapp_link_1) : "Hello%20This%20is%20my%20payment%20confirmation"
+                              %a{ href: "https://wa.me/919999470505?text=#{whatsapp_link_1}", target: "_blank", class: "inline-flex items-center bg-green-500 hover:bg-green-600 text-white font-bold py-2 px-4 mt-2 rounded-lg" } 
                                 whatsapp
                   %div.md:border-l.md:pl-4
                     %div

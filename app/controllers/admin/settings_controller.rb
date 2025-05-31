@@ -19,6 +19,10 @@ class Admin::SettingsController < Admin::BaseController
     @settings = AppConfiguration.new(key: "initial_category") if @settings.nil?
     @banner_massage = AppConfiguration.find_by(key: "banner_massage")
     @banner_massage = AppConfiguration.new(key: "banner_massage") if @banner_massage.nil?
+    @whatsapp_massage_1 = AppConfiguration.find_by(key: "whatsapp_massage_1")
+    @whatsapp_massage_1 = AppConfiguration.new(key: "whatsapp_massage_1") if @whatsapp_massage_1.nil?
+    @whatsapp_massage_2 = AppConfiguration.find_by(key: "whatsapp_massage_2")
+    @whatsapp_massage_2 = AppConfiguration.new(key: "whatsapp_massage_2") if @whatsapp_massage_2.nil?
     @parents = Category.left_joins(:products).group(:id).having('COUNT(products.id) = 0').order(:name)
     @errors = false
     if params[:app_configuration].present?
