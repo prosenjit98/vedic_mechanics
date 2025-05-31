@@ -27,6 +27,7 @@ class CartsController < ApplicationController
       message = "Hi! Pay ₹#{@payment.amount.round(2)} for your order via UPI: #{@upi_link}"
 
       @whatsapp_link = "https://wa.me/919999470505?text=#{URI.encode_www_form_component(message)}"
+      @whatsapp_link_1 = AppConfiguration.new(key: "whatsapp_massage_1")
     when :review
       @payment = Payment.find_by(id: params[:payment_id])
       @order = @payment&.order
@@ -98,6 +99,7 @@ class CartsController < ApplicationController
         redirect_to wizard_path, alert: @payment.errors.full_messages.to_sentence and return
       end
     when :payment
+      @whatsapp_link_1 = AppConfiguration.new(key: "whatsapp_massage_1")
       @payment = @cart.payment
       if @payment.update(payment_params)
         @payment.authorize!

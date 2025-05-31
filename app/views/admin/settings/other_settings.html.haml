@@ -3,6 +3,8 @@
 = form_with model: @settings, url: other_settings_admin_settings_path, scope: "app_configuration", method: "post", local: true do |f|
   = hidden_field_tag "app_configuration[initial_category][key]", 'initial_category'
   = hidden_field_tag "app_configuration[banner_massage][key]", 'banner_massage'
+  = hidden_field_tag "app_configuration[whatsapp_massage_1][key]", 'whatsapp_massage_1'
+  = hidden_field_tag "app_configuration[whatsapp_massage_2][key]", 'whatsapp_massage_2'
   %section.mx-auto.bg-white.p-6.mt-4.rounded
     .flex.justify-between.items-center.pb-6.border-b.border-gray-200
       %div 
@@ -24,3 +26,17 @@
           %p.text-xs.text-gray-500 Type a message that you want to display message
         %div 
           = text_area_tag "app_configuration[banner_massage][value]", @banner_massage&.value, class: 'focus:ring-green-500 w-full rounded focus:border-green-500'
+    .mt-6.space-y-6.border-b.border-gray-200.pb-6
+      .grid.grid-cols-1.md:grid-cols-2
+        %div 
+          %label.block.text-sm.font-medium.text-gray-700{ for: "whatsapp_massage_1" } Whatsapp message 1 *
+          %p.text-xs.text-gray-500 Type a message that you want to display message
+        %div 
+          = text_field_tag "app_configuration[whatsapp_massage_1][value]", @banner_massage&.value, class: 'focus:ring-green-500 w-full rounded focus:border-green-500'
+    .mt-6.space-y-6.border-b.border-gray-200.pb-6
+      .grid.grid-cols-1.md:grid-cols-2
+        %div 
+          %label.block.text-sm.font-medium.text-gray-700{ for: "whatsapp_massage_2" } Whatsapp message 2 *
+          %p.text-xs.text-gray-500 Type a message that you want to display message
+        %div 
+          = text_field_tag "app_configuration[whatsapp_massage_2][value]", @banner_massage&.value, class: 'focus:ring-green-500 w-full rounded focus:border-green-500'

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
+ActiveRecord::Schema[7.1].define(version: 2025_04_06_062346) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -93,7 +93,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.bigint "cart_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity"
-    t.decimal "price"
+    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["cart_id"], name: "index_cart_items_on_cart_id"
@@ -107,6 +107,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.string "external_user_id"
     t.integer "user_id"
     t.boolean "status", default: true
+    t.float "price_with_gst"
   end
 
   create_table "categories", force: :cascade do |t|
@@ -116,6 +117,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.datetime "updated_at", null: false
     t.integer "parent_category_id"
     t.integer "position"
+    t.boolean "is_active", default: true
     t.index ["parent_category_id", "position"], name: "index_category_on_parent_and_position", unique: true
   end
 
@@ -133,6 +135,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.string "msg_rf_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone_number"
+    t.string "country_code"
     t.index ["msg_rf_id"], name: "index_contacts_on_msg_rf_id", unique: true
   end
 
@@ -147,7 +151,7 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.bigint "order_id", null: false
     t.bigint "product_id", null: false
     t.integer "quantity"
-    t.decimal "price"
+    t.float "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["order_id"], name: "index_order_items_on_order_id"
@@ -165,8 +169,8 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.integer "payment_id"
     t.integer "shipping_mode"
     t.string "order_reference"
-    t.decimal "total_with_gst"
-    t.decimal "delivery_cost"
+    t.float "total_with_gst"
+    t.float "delivery_cost"
     t.datetime "expected_delivery_date"
     t.integer "length"
     t.integer "width"
@@ -175,11 +179,12 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.datetime "shipped_at"
     t.datetime "processed_at"
     t.datetime "delivered_at"
+    t.float "offer_discount", default: 0.0
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
   create_table "payments", force: :cascade do |t|
-    t.decimal "amount"
+    t.float "amount"
     t.integer "payment_method"
     t.integer "status", default: 1
     t.datetime "created_at", null: false
@@ -192,6 +197,13 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.string "razorpay_payment_id"
     t.string "razorpay_signature"
     t.datetime "captured_at"
+  end
+
+  create_table "price_conversions", force: :cascade do |t|
+    t.string "currency"
+    t.float "rate"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "product_categories", force: :cascade do |t|
@@ -232,20 +244,22 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
   create_table "products", force: :cascade do |t|
     t.string "name"
     t.text "description"
-    t.decimal "price"
+    t.float "price"
     t.integer "stock_quantity"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.float "discount", default: 0.0
     t.float "original_price"
-    t.decimal "mfg_cost"
-    t.decimal "approx_delivery_cost"
+    t.float "mfg_cost"
+    t.float "approx_delivery_cost"
     t.integer "vendor_id"
     t.string "hsn"
     t.jsonb "variant"
     t.datetime "deleted_at"
     t.string "product_code"
     t.float "unit_cost"
+    t.string "display_category"
+    t.float "gst", default: 0.0
     t.index ["deleted_at"], name: "index_products_on_deleted_at"
   end
 
@@ -291,6 +305,16 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.index ["user_id"], name: "index_reviews_on_user_id"
   end
 
+  create_table "rewards", force: :cascade do |t|
+    t.string "name"
+    t.string "description"
+    t.integer "points"
+    t.integer "validity"
+    t.boolean "is_active"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "site_ratings", force: :cascade do |t|
     t.integer "rate"
     t.string "external_user_id"
@@ -328,6 +352,15 @@ ActiveRecord::Schema[7.1].define(version: 2025_01_05_101559) do
     t.datetime "updated_at", null: false
     t.integer "taggings_count", default: 0
     t.index ["name"], name: "index_tags_on_name", unique: true
+  end
+
+  create_table "user_rewards", force: :cascade do |t|
+    t.integer "user_id"
+    t.integer "reward_id"
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "users", force: :cascade do |t|
