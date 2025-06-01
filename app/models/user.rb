@@ -1,7 +1,7 @@
 class User < ApplicationRecord
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
-  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable
+  devise :database_authenticatable, :registerable,:recoverable, :rememberable, :validatable, :omniauthable, omniauth_providers: [:google_oauth2], :authentication_keys => [:login]
   has_many :orders
   has_one :cart
   has_many :reviews
@@ -9,10 +9,28 @@ class User < ApplicationRecord
   has_many :replies
   has_many :addresses
   has_many :payments
+  has_many :user_rewards
+  has_many :rewards, through: :user_rewards
 
 
+  before_validation :set_external_user_id
+  validates :phone_number, presence: true, uniqueness: true, length: { is: 10 }
 
-  validates :phone_number, presence: true, uniqueness: true ,length: { is: 10 }
+  attr_writer :login
+
+  after_create :send_admin_signup_notification
+
+  def login
+    @login || self.email || self.phone_number
+  end
+
+  def self.find_for_database_authentication(warden_conditions)
+    conditions = warden_conditions.dup
+    login = conditions.delete(:login)
+    where(conditions).where(
+      ["lower(email) = :value OR phone_number = :value", { value: login.downcase }]
+    ).first
+  end
 
 
   def full_name
@@ -25,6 +43,31 @@ class User < ApplicationRecord
 
   def default_address
     addresses.default.first
+  end
+
+  def self.from_google(u)
+    create_with(uid: u[:uid], provider: 'google', first_name: u[:first_name], last_name: u[:last_name], password: Devise.friendly_token[0, 20], phone_number: set_code).find_or_create_by!(email: u[:email])
+  end
+
+  private 
+  
+  def send_admin_signup_notification
+    AdminMailer.new_user_signup(self).deliver_later
+  end
+
+  def self.set_code
+    generate_unique_code
+  end
+
+  def self.generate_unique_code
+    loop do
+      code = Array.new(10) { rand(0..9) }.join
+      break code unless User.exists?(phone_number: code)
+    end
+  end
+
+  def set_external_user_id
+    self.external_user_id = self.external_user_id || SecureRandom.uuid
   end
   
 

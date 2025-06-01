@@ -17,7 +17,7 @@
         %td= order_item.order
         %td= order_item.product
         %td= order_item.quantity
-        %td= order_item.price
+        %td.price{data: {amount: order_item.price}}= order_item.price
         %td= link_to 'Show', order_item
         %td= link_to 'Edit', edit_order_item_path(order_item)
         %td= link_to 'Destroy', order_item, method: :delete, data: { confirm: 'Are you sure?' }

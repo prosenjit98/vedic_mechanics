@@ -1,5 +1,6 @@
 class CartsController < ApplicationController
   include Wicked::Wizard
+  before_action :set_nav_filter
   before_action :authenticate_user!, only: [:checkout, :show]
   before_action :set_cart, only: %i[ edit destroy]
 
@@ -7,6 +8,7 @@ class CartsController < ApplicationController
 
   # GET /carts or /carts.json
   def index
+    cookies[:return_to_url] = request.url unless current_user
     @cart = Cart.active.find_by(external_user_id: params[:external_id])
     @cart_items = @cart&.cart_items
   end
@@ -21,6 +23,11 @@ class CartsController < ApplicationController
     when :place_order
     when :payment
       @payment = @cart.payment
+      @upi_link = "upi://pay?pa=nutrivedic@axl&pn=NutriVedic&am=#{@payment.amount.round(2)}&cu=INR"
+      message = "Hi! Pay ₹#{@payment.amount.round(2)} for your order via UPI: #{@upi_link}"
+
+      @whatsapp_link = "https://wa.me/919999470505?text=#{URI.encode_www_form_component(message)}"
+      @whatsapp_link_1 = AppConfiguration.new(key: "whatsapp_massage_1")
     when :review
       @payment = Payment.find_by(id: params[:payment_id])
       @order = @payment&.order
@@ -45,6 +52,8 @@ class CartsController < ApplicationController
     begin
       @cart = Cart.active.find_by(external_user_id: cart_product_params[:external_user_id])
       @cart = Cart.new(cart_params) unless @cart.present?
+      @cart.user_id = current_user.id if current_user.present?
+      @cart.external_user_id = current_user.external_user_id if current_user.present?
       if @cart.save
         @cart_prod = @cart.cart_items.find_by(product_id: cart_product_params[:product_id])
         if @cart_prod.present?
@@ -83,13 +92,21 @@ class CartsController < ApplicationController
       shipping_address = current_user.addresses.where(id: order_params[:shipping_address_id])
       shipping_address.update(is_default: true)
     when :place_order
-      @payment = current_user.payments.new(amount: @cart.total_price * 1.18, payment_method: 'online', status: 'pending', cart_id: @cart.id)
+      @payment = current_user.payments.new(amount: @cart.price_with_gst, payment_method: 'online', status: 'pending', cart_id: @cart.id)
       if @payment.save
         redirect_to next_wizard_path(payment_id: @payment.id) and return
       else
         redirect_to wizard_path, alert: @payment.errors.full_messages.to_sentence and return
       end
     when :payment
+      @whatsapp_link_1 = AppConfiguration.new(key: "whatsapp_massage_1")
+      @payment = @cart.payment
+      if @payment.update(payment_params)
+        @payment.authorize!
+        redirect_to next_wizard_path(payment_id: @payment.id) and return
+      else
+        redirect_to wizard_path, alert: @payment.errors.full_messages.to_sentence
+      end
       # default_address = current_user.default_address
       # current_user.orders.create(status: 'initiate', total_price: @cart.total_price, total_with_gst: @cart.total_price * 1.18, shipping_address_id: default_address.id, billing_address: default_address.id)
     when :review
@@ -114,6 +131,14 @@ class CartsController < ApplicationController
     product_path(product)
   end
 
+  def get_cart_details
+    @cart = Cart.active.find_by(external_user_id: params[:external_user_id] || current_user.external_user_id)
+    @cart_items = @cart&.cart_items
+    cart_html = render_to_string(partial: "carts/cart_details", locals: { cart_items: @cart_items, cart: @cart })
+
+    render json: { html: cart_html, cart_items: @cart_items&.map{|e| {product_id: e.id, quantity: e.quantity} } }
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_cart
@@ -136,5 +161,9 @@ class CartsController < ApplicationController
 
     def cart_product_params
       params.require(:cart).permit(:user_id, :total_price, :external_user_id, :product_id, :quantity, :price)
+    end
+
+    def payment_params
+      params.require(:payment).permit(:payment_proof)
     end
 end

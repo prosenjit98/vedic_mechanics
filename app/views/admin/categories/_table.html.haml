@@ -1,10 +1,14 @@
-%div.w-full.text-sm.text-left.rtl:text-right.text-gray-500
-  %div.text-sm.text-gray-700.uppercase.bg-gray-50.flex.font-semibold
-    %div.p-4.flex-1.text-center= "#id"
-    %div.px-6.py-3.flex-1.text-center Name
-    %div.px-6.py-3.flex-1.text-center Description
-    %div.px-6.py-3.flex-1.text-center Parent Cat.
-    %div.px-6.py-3.flex-1.text-center Action
-  = turbo_frame_tag "categories" do
-    - @categories.each do |category|
-      = render "category", category: category
+%div.w-full.text-sm.text-gray-700
+  %div.text-gray-800.font-medium.uppercase.bg-gray-50.px-4.py-2.rounded-md.shadow-sm
+    Categories
+    = turbo_frame_tag "categories" do
+      .group{ data: { controller: "sortable"}}
+        = render partial: 'admin/categories/new_category', collection: @mother_categories, as: :category
+
+:javascript
+  function toggleAccordion(id) {
+    const element = document.getElementById(id);
+    element.classList.toggle('hidden');
+    const icon = document.getElementById(`icon-${id}`);
+    icon.classList.toggle('rotate-180');
+  }

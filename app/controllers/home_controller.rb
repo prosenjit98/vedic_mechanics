@@ -1,7 +1,15 @@
 class HomeController < ApplicationController
   layout 'application'
+  before_action :set_nav_filter
   def index
-    @contact = Contact.new
+    initial_category = AppConfiguration.find_by(key: "initial_category")
+    unless params[:home].present? && initial_category.present?
+      redirect_to market_places_path(parent_category: initial_category.value)
+    else
+      @contact = Contact.new
+      @categories = Category.to_nested_hash
+      @new_products = Product.tagged_with('newest')
+    end
   end
 
   def privacy_policy

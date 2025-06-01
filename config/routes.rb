@@ -7,6 +7,13 @@ Rails.application.routes.draw do
   }
   
   namespace :admin do
+    resources :payments
+    resources :rewards do 
+      collection do 
+        post :add_users
+      end
+    end
+    resources :vendors
     root to: 'dash_board#index'
     resources :orders, only: [:index, :show, :update] do
       member do
@@ -16,13 +23,32 @@ Rails.application.routes.draw do
       collection do
       end
     end
-    resources :products
-    resources :categories  
+    resources :products do
+      member do
+        get :add_tags
+        patch :update_tags
+        delete :delete_image
+      end
+    end
+    resources :categories do
+      member do
+        patch :update_position 
+      end
+    end
     resources :users 
+    resources :concerns
+    resources :ingredients
+    resources :settings do
+      collection do 
+        match :banner, via: [:get, :post]
+        match :trending, via: [:get, :post]
+        match :other_settings, via: [:get, :post]
+      end
+    end
   end
   # normal_user_routes
 
-  devise_for :users 
+  devise_for :users, controllers: { omniauth_callbacks: 'users/omniauth_callbacks', registrations: 'users/registrations'}
   resources :users, only: [:show, :edit, :update] do 
     member do
       get :edit_password
@@ -32,6 +58,7 @@ Rails.application.routes.draw do
     end
   end
   root "home#index"
+  resources :market_places, only: :index
   resources :home do
     collection do
       get :privacy_policy
@@ -45,6 +72,7 @@ Rails.application.routes.draw do
   resources :replies
   resources :questions
   resources :reviews
+  resources :rewards
   resources :addresses do
     collection do
       get :new_order_address
@@ -63,6 +91,9 @@ Rails.application.routes.draw do
   end
   resources :cart_items
   resources :carts do 
+    collection do
+      get :get_cart_details
+    end
     member do
       get :checkout, as: :checkout_process
     end
@@ -74,7 +105,13 @@ Rails.application.routes.draw do
       patch :cancel
     end
   end
-  resources :products
+  resources :products do
+    collection do
+      get :search
+    end
+  end
   resources :reviews
+  resources :site_ratings, only: [:create]
+  resources :ingredients, only: [:index, :show]
   resources :contacts, only: [:new, :create]
 end

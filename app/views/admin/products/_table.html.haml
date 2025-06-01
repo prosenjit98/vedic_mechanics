@@ -6,6 +6,8 @@
       %th.px-6.py-3{:scope => "col"}
         Name
       %th.px-6.py-3{:scope => "col"}
+        Code
+      %th.px-6.py-3{:scope => "col"}
         Category
       %th.px-6.py-3{:scope => "col"}
         MRP
@@ -16,7 +18,7 @@
       %th.px-6.py-3{:scope => "col"}
         Selling price
       %th.px-6.py-3{:scope => "col"}
-        A.. delivery cost
+        Tags
       %th.px-6.py-3{:scope => "col"}
         Stock quantity
       %th.px-6.py-3{:scope => "col"}
@@ -24,17 +26,45 @@
   %tbody
     - @products.each do |product|
       %tr.bg-white.border-b.hover:bg-gray-200
-        %td.w-4.p-4= product.id
-        %th.px-6.py-4.text-gray-900.whitespace-nowrap{:scope => "row"}= product.name
-        %td.px-6.py-4= product.category&.name
+        %td.w-4.p-4= link_to product.id, admin_product_path(product)
+        %th.px-6.py-4.text-gray-900.whitespace-nowrap{:scope => "row"}= link_to product.name, admin_product_path(product)
+        %th.px-6.py-4= product.product_code
+        %td.px-6.py-4= product.categories.pluck(:name)&.to_sentence
         %td.px-6.py-4= product.original_price
         %td.px-6.py-4= product.mfg_cost
         %td.px-6.py-4= product.discount
         %td.px-8.py-4
           .bg-blue-100.text-blue-400.text-base.font-normal.rounded-lg.text-center
             = number_to_currency(product.price, precision: 0, unit: "₹ ")
-        %td.px-6.py-4= product.approx_delivery_cost
+        %td.px-6.py-4
+          = turbo_frame_tag "product-tag-#{product.id}" do
+            %div.relative
+              %div.hide-on-hover
+                - if product.tag_list.present?
+                  - product.tag_list.each do |tag|
+                    %span.bg-blue-100.text-blue-800.text-xs.font-medium.me-2.rounded.dark:bg-blue-900.dark:text-blue-300{:class => "px-2.5 py-0.5"}= tag
+                - else 
+                  %span No tag
+              %div.absolute.show-on-hover{class: 'top-0'}
+                = link_to "Add Tags", add_tags_admin_product_path(product), class: "bg-blue-300 p-1 rounded text-blue-800", data: {turbo: true}
         %td.px-6.py-4= product.stock_quantity
         %td.px-6.py-4
           = link_to "Edit", edit_admin_product_path(product), class: "font-medium text-green-500 hover:underline"
+          = link_to "Destroy", admin_product_path(product), data: { method: :destroy, confirm: 'Are you sure?', role: 'delete-link' }, class: "font-medium text-green-500 hover:underline"
+          -# = link_to "Destroy", admin_product_path(product), method: :delete, data: {turbo: false, 'turbo-link': false, confirm: 'Are you sure?'}, class: "font-medium text-green-500 hover:underline"
+:css
+  .show-on-hover {
+    opacity: 0;
+    transition: opacity .2s ease-in-out;
+  }
+  .show-on-hover:hover {
+    opacity: 1;
+  }
+  .hide-on-hover {
+    opacity: 1;
+    transition: opacity .2s ease-in-out;
+  }
+  .hide-on-hover:hover {
+    opacity: 0;
+  }
       

@@ -1,48 +1,81 @@
-%nav.primary-bg.border-gray-200.dark:border-gray-700.fixed.w-full.z-20.top-0.start-0
+%nav.top_bar_background.border-gray-200.dark:border-gray-700.fixed.w-full.top-0.start-0{style: 'z-index: 200;'}
   .flex.flex-wrap.items-center.justify-between.mx-auto.px-4.py-3
-    %a.flex.items-center.space-x-3.rtl:space-x-reverse{:href => "/"}
-      -# = image_tag 'chandra_herbal_logo.jpeg', class: "h-8"
-      %span.self-center.text-2xl.font-semibold.whitespace-nowrap.text-white.dark:text-gray-200 Machinery Co.
-    %button.inline-flex.items-center.p-2.ml-3.text-sm.text-gray-500.rounded-lg.md:hidden.hover:bg-gray-100.dark:text-gray-400.dark:hover:bg-gray-700{"aria-controls" => "navbar-multi-level", "aria-expanded" => "false", "data-collapse-toggle" => "navbar-multi-level", type: "button"}
-      %span.sr-only Open main menu
-      %svg.w-6.h-6{:fill => "currentColor", :viewBox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
-        %path{:fill-rule => "evenodd", :d => "M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z", :"clip-rule" => "evenodd"}
+    .flex.items-center.space-x-3.rtl:space-x-reverse
+      = image_tag 'Component.png', class: "h-16 rounded"
+      = image_tag 'satvik-icon.png', class: "h-16 rounded"
+      -# = image_tag "v_stamp.png", class: "h-16 rounded"
+      -# %span.self-center.text-2xl.font-semibold.whitespace-nowrap.text-white.dark:text-gray-200 Nutri Vedic
+    .flex
+      = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: "block py-2 px-3 text-white dark:text-gray-200 md:hidden rounded-lg hover:bg-green-500 hover:text-white", 'data-controller': 'root', 'data-root-target': 'link' do
+        .flex
+          -# %div.px-2 Cart
+          %div.relative
+            = heroicon 'shopping-cart', options: { class: "w-5 h-5" }
+            %div.absolute.cart-count#cart-count-id(data-cart-target="count") 0
+      %button.inline-flex.items-center.p-2.ml-3.text-sm.text-gray-500.rounded-lg.md:hidden.hover:bg-gray-100.dark:text-gray-400.dark:hover:bg-gray-700{"aria-controls" => "navbar-multi-level", "aria-expanded" => "false", "data-collapse-toggle" => "navbar-multi-level", type: "button"}
+        %span.sr-only Open main menu
+        %svg.w-6.h-6{:fill => "currentColor", :viewBox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+          %path{:fill-rule => "evenodd", :d => "M3 5a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 10a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1zM3 15a1 1 0 011-1h12a1 1 0 110 2H4a1 1 0 01-1-1z", :"clip-rule" => "evenodd"}
     #navbar-multi-level.hidden.w-full.md:block.md:w-auto
-      %ul.flex.flex-col.font-medium.p-4.md:p-0.mt-4.border.border-gray-100.rounded-lg.bg-gray-50.md:space-x-4.rtl:space-x-reverse.md:flex-row.md:mt-0.md:border-0.primary-bg
-        = active_link_to "Home", root_path, active: [['home'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-blue-500 hover:text-white'
-        = active_link_to 'Products', products_path, active: [['products'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-blue-500 hover:text-white'
-        = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-blue-500 hover:text-white', 'data-controller': 'root', 'data-root-target': 'link' do
+      %ul.flex.flex-wrap.font-medium.p-4.md:p-0.mt-4.border.border-gray-100.rounded-lg.bg-gray-50.md:space-x-4.rtl:space-x-reverse.md:flex-row.md:mt-0.md:border-0.top_bar_background
+        -# = active_link_to "Home", root_path(home: "home"), active: [['home'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
+        -# = active_link_to 'Learn', ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
+        -# = active_link_to 'About us', "#", active: [['#'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white'
+        = active_link_to carts_path, active: [['carts'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: "hidden md:block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white", 'data-controller': 'root', 'data-root-target': 'link', 'data-popover-target': "cart-details",  "data-popover-offset": "5", "data-action" => "mouseenter->cart#fetchCartDetails" do
           .flex
-            %div.px-2 Cart
+            -# %div.px-2 Cart
             %div.relative
               = heroicon 'shopping-cart', options: { class: "w-5 h-5" }
-              %div.absolute.cart-count(data-cart-target="count") 0
+              %div.absolute.cart-count#cart-count-id(data-cart-target="count") 0
+          #cart-details.absolute.z-10.invisible.inline-block.w-64.text-sm.text-gray-500.transition-opacity.duration-300.bg-frost-green.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+            .px-3.py-2.border-b.border-gray-200.rounded-t-lg.dark:border-gray-600.dark:bg-gray-700
+              %h3.font-semibold.text-gray-900.dark:text-white Cart
+            .px-3.py-2
+              %p(data-cart-target="cartDetails") Fetching details....
+            %div{"data-popper-arrow" => ""}
+        = active_link_to ingredients_path, active: [['ingredients'], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "learn-section",  "data-popover-offset": "5" do
+          .block
+            = heroicon 'information-circle', variant: :solid , options: {class: "w-6 h-6"}
+            
+            #learn-section.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-frost-green.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+              .px-3.py-2
+                %h3 Learn
+              %div{"data-popper-arrow" => ""}
+        -# = active_link_to '', active: [[''], []], wrap_tag: :li, class_active: 'public-nav-active', wrap_class: 'block py-2 px-3 text-white dark:text-gray-200 rounded-lg hover:bg-green-500 hover:text-white', 'data-popover-target': "rate-section",  "data-popover-offset": "5" do
+        = render 'layouts/site_ratings'
+        -# = render 'layouts/language_dropdown'
+        -# = render 'layouts/currency_dropdown'
         - unless current_user.present?
           %li 
-            .block.py-2.px-3.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-blue-500.hover:text-white
-              = link_to 'Sign in', new_user_session_path, data: { turbo_frame: 'global_modal_tag' }
-          %li{style: "line-height: 0.5rem;"}
-            %button#dark-mode-toggle.text-gray-800.hover:text-gray-400.dark:text-gray-200.hover:bg-blue-500.rounded-lg.px-2{ "data-controller": "theme"}
-              %span.dark:hidden
-                = heroicon 'moon', variant: :solid, options: { class: "w-6 h-6" }
-              %span.hidden.dark:inline
-                = heroicon 'sun', variant: :solid, options: { class: "w-6 h-6" }
+            .block.py-2.px-3.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
+              = link_to new_user_session_path, data: { turbo_frame: 'global_modal_tag', 'popover-target': "user-login",  "data-popover-offset": "5" } do
+                = inline_svg "key.svg", class: "w-6 h-6 fill-white dark:fill-gray-200 hover:bg-green-500 hover:fill-white", id: "my-svg"
+              #user-login.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-frost-green.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+                .px-3.py-2
+                  %h3 Access
+                %div{"data-popper-arrow" => ""}
+          -# %li{style: "line-height: 0.5rem;"}
+          -#   %button#dark-mode-toggle.text-gray-800.hover:text-gray-400.dark:text-gray-200.hover:bg-green-500.rounded-lg.px-2{ "data-controller": "theme"}
+          -#     %span.dark:hidden
+          -#       = heroicon 'moon', variant: :solid, options: { class: "w-6 h-6" }
+          -#     %span.hidden.dark:inline
+          -#       = heroicon 'sun', variant: :solid, options: { class: "w-6 h-6" }
         - else
-          %li.ml-3{style: "line-height: 0.5rem;"}
-            %button#dark-mode-toggle.text-white.hover:text-gray-100.dark:text-gray-200.hover:bg-blue-500.rounded-lg.px-2{ "data-controller": "theme"}
-              %span.dark:hidden
-                = heroicon 'moon', variant: :solid, options: { class: "w-6 h-6" }
-              %span.hidden.dark:inline
-                = heroicon 'sun', variant: :solid, options: { class: "w-6 h-6" }
-          %li
+          -# %li.ml-3{style: "line-height: 0.5rem;"}
+          -#   %button#dark-mode-toggle.text-white.hover:text-gray-100.dark:text-gray-200.hover:bg-green-500.rounded-lg.px-2{ "data-controller": "theme"}
+          -#     %span.dark:hidden
+          -#       = heroicon 'moon', variant: :solid, options: { class: "w-6 h-6" }
+          -#     %span.hidden.dark:inline
+          -#       = heroicon 'sun', variant: :solid, options: { class: "w-6 h-6" }
+          %li.w-full.md:w-max.mb-4.md:mb-0
             .flex.items-center
               .flex.items-center.ms-3
                 %div
-                  %button.flex.rounded-lg.focus:ring-4.focus:ring-orange-500.bg-white.dark:bg-gray-800.dark:text-gray-200.w-auto.h-10.p-2{"aria-expanded" => "false", "data-dropdown-toggle" => "dropdown-user", type: "button"}
+                  %button.flex.rounded-lg.focus:ring-4.focus:ring-orange-500.lhs_background.text-white.dark:bg-gray-800.dark:text-gray-200.w-auto.h-10.p-2{"aria-expanded" => "false", "data-dropdown-toggle" => "dropdown-user", type: "button"}
                     = heroicon 'user-circle', variant: :solid, options: { class: "w-6 h-6 mr-1" }
                     %div= current_user.first_name
                     = heroicon 'chevron-down', variant: :solid, options: { class: "w-4 h-4 ml-1 mt-1" }
-                #dropdown-user.z-50.hidden.my-4.text-base.list-none.bg-white.dark:bg-gray-800.divide-y.divide-gray-100.dark:divide-gray-600.rounded-lg.shadow
+                #dropdown-user.z-50.hidden.my-4.text-base.list-none.bg-frost-green.dark:bg-gray-800.divide-y.divide-gray-100.dark:divide-gray-600.rounded-lg.shadow
                   .px-4.py-3{role: "none"}
                     %p.text-sm.text-gray-900.dark:text-gray-200{role: "none"}
                       = current_user.full_name
@@ -61,11 +94,105 @@
                           %span Orders
                     %li
                       .block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600
-                        = link_to orders_path do
-                          = heroicon 'heart', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
-                          %span Wishlist
+                        = link_to rewards_path, data: { turbo_frame: 'global_modal_tag', turbo: true} do
+                          = heroicon 'gift', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
+                          %span Rewards
+                    -# %li
+                    -#   .block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600
+                    -#     = link_to orders_path do
+                    -#       = heroicon 'heart', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
+                    -#       %span Wishlist
                     %li
                       .block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600
-                        = button_to destroy_user_session_path, method: :delete do
+                        = button_to destroy_user_session_path, method: :delete, data: {turbo: false, 'turbo-link': false} do
                           = heroicon 'arrow-up-tray', variant: :solid, options: { class: "w-4 h-4 mr-1 inline-block" }
                           %span Log Out
+        %li 
+          .block.text-gray-100.dark:text-gray-300.rounded-lg.hover:bg-green-500.hover:text-white
+            #google_translate_element
+
+  %nav.dark:bg-gray-700.lhs_background
+    .max-w-screen-xl.px-4.py-3.mx-auto
+      .grid.grid-cols-1
+        .relative.mt-4.md:mt-0.hidden(data-root-target= 'searchBar')
+          = render 'products/search'
+        .flex.items-center.pt-1(data-root-target= 'categoryBar')
+          %div.p-1.border-2.rounded.border-yellow-100.mr-4.hover:border-yellow-200.ml-5{"data-action" => "click->root#showSearch", 'popover-target': "search_bar",  "data-popover-offset": "5" }
+            = heroicon 'magnifying-glass', variant: :solid, options: {class: "w-4 h-4 inline-block text-yellow-100 hover:text-yellow-300 cursor-pointer"}
+          #search_bar.absolute.z-10.invisible.inline-block.px-4.text-md.font-semibold.text-gray-500.transition-opacity.duration-300.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.dark:text-gray-400.dark:border-gray-600.dark:bg-gray-800{"data-popover" => "", :role => "tooltip"}
+            .px-3.py-2
+              %h3 Please search or select from categories
+            %div{"data-popper-arrow" => ""}
+          %ul.flex.flex-row.font-medium.mt-0.space-x-8.rtl:space-x-reverse.no-scrollbar.overflow-x-auto
+            - Category.parent_categories.active.order(position: :asc).each do |category|
+              %li.whitespace-nowrap
+                - active_class = params[:parent_category].to_i == category.id ? 'active' : ''
+                = link_to category.name, market_places_path(parent_category: category.id), class: "primary_color font-bold dark:text-white hover:underline #{active_class}"
+          
+          
+            -# %li
+              -# .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "category_dropdown"} By Category
+            -# %li
+            -#   .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "concern_dropdown"} By Concern
+            -# %li
+            -#   .text-gray-900.dark:text-white.hover:underline{ "data-dropdown-toggle": "ingredient_dropdown"} By Ingredient
+
+          -# .absolute.inset-y-0.start-0.flex.items-center.ps-3.pointer-events-none
+          -#   %svg.w-4.h-4.text-gray-500.dark:text-gray-400{"aria-hidden" => "true", :fill => "none", :viewbox => "0 0 20 20", :xmlns => "http://www.w3.org/2000/svg"}
+          -#     %path{:d => "m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
+          -#   %span.sr-only Search icon
+          -# %input#search-navbar.block.w-full.p-2.ps-10.text-sm.text-gray-900.border.border-gray-300.rounded-lg.bg-gray-50.focus:ring-blue-500.focus:border-blue-500.dark:bg-gray-700.dark:border-gray-600.dark:placeholder-gray-400.dark:text-white.dark:focus:ring-blue-500.dark:focus:border-blue-500{:placeholder => "Search...", :type => "text"}
+
+-# #category_dropdown.hidden.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700{style: "z-index: 200"}
+-#   .p-5.border.border-b-1.rounded-lg.rounded-t-none.border-gray-200.bg-white.dark:border-gray-700.dark:bg-gray-900
+-#     #sidebar
+-#       - if @categories.present?
+-#         - @categories.each do |category|
+-#           = render partial: 'products/category_filter', locals: { category: category, root_cat: true }
+#concern_dropdown.hidden.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700{style: "z-index: 200"}
+  - if @concerns.present?
+    %ul.py-2.text-sm.text-gray-700.dark:text-gray-200
+      - @concerns.each do |concern|
+        %li= link_to concern.name, market_places_path(concern: concern.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+#ingredient_dropdown.hidden.bg-white.divide-y.divide-gray-100.rounded-lg.shadow.dark:bg-gray-700{style: "z-index: 200"}
+  - if @ingredients.present?
+    %ul.py-2.text-sm.text-gray-700.dark:text-gray-200
+      - @ingredients.each do |ingredient|
+        %li= link_to ingredient.name, market_places_path(ingredient: ingredient.id), class: "block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+
+#thank-model.fixed.left-0.right-0.top-0.z-50.hidden.max-h-full.w-full.overflow-y-auto.overflow-x-hidden.p-4.md:inset-0{"aria-hidden" => "true", :class => "h-[calc(100%-1rem)]", :tabindex => "-1"}
+  .relative.max-h-full.w-full.max-w-2xl
+    .relative.rounded-lg.bg-white.shadow.dark:bg-gray-700
+      .flex.items-start.justify-between.rounded-t.border-b.p-5.dark:border-gray-600
+        %h3.text-xl.font-semibold.text-gray-900.dark:text-white.lg:text-2xl
+          Thank You
+      .p-4.md:p-5.text-center.flex.justify-center.flex-col.items-center
+        = heroicon 'hand-thumb-up', variant: :solid, options: { class: "w-24 h-24 fill-green-700" }
+        .mb-5.text-lg.font-normal.text-gray-500.dark:text-gray-400 Thank you for sharing your thoughts; your feedback means the world to us.
+
+:javascript
+  function googleTranslateElementInit() {
+    if (!document.getElementById("google_translate_script")) { // Prevent duplicate script loading
+      var script = document.createElement("script");
+      script.id = "google_translate_script";
+      script.type = "text/javascript";
+      script.src = "//translate.google.com/translate_a/element.js?cb=initializeGoogleTranslate";
+      document.body.appendChild(script);
+    } else {
+      initializeGoogleTranslate(); // If script already exists, just initialize the widget
+    }
+  }
+
+  function initializeGoogleTranslate() {
+    if (!document.getElementById("google_translate_element").hasChildNodes()) {
+      new google.translate.TranslateElement(
+        {
+          pageLanguage: 'en',
+          includedLanguages: 'en,hi,gu,mr',
+          layout: google.translate.TranslateElement.InlineLayout.HORIZONTAL
+        },
+        'google_translate_element'
+      );
+    }
+  }
+  document.addEventListener("turbo:load", googleTranslateElementInit);

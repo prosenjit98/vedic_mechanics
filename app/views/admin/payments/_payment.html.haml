@@ -1,0 +1,12 @@
+
+%div.bg-white.border-b.hover:bg-gray-50.flex
+  %div.w-4.p-4.flex-1= payment.id
+  %div.px-6.py-4.text-gray-900.whitespace-nowrap.flex-1=payment.user&.full_name
+  %div.px-6.py-4.flex-1= payment.user&.email
+  %div.px-6.py-4.flex-1= payment.user&.phone_number
+  %div.px-6.py-4.flex-1= payment.created_at.strftime("%d-%^b-%y")
+  %div.px-6.py-4.flex-1= payment.status
+  %div.px-6.py-4.flex-1
+    .flex.flex-row
+      = link_to edit_admin_payment_path(payment), data: {turbo: false} do
+        = heroicon 'pencil-square', variant: :solid, options: {class: "w-6 h-6 inline-block text-green-500 hover:text-green-700"}

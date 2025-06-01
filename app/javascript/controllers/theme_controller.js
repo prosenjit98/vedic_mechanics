@@ -1,14 +1,15 @@
 import { Controller } from "@hotwired/stimulus";
 
+
 export default class extends Controller {
   connect() {    
-    console.log('============------------     connected theme controller');
     const toggleButton = document.getElementById('dark-mode-toggle');
     const bodyElement = document.body;
 
     // Apply dark mode based on localStorage
-    if (localStorage.getItem('theme') === 'dark' || 
-        (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    // if (localStorage.getItem('theme') === 'dark' || 
+    //     (!localStorage.getItem('theme') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+    if (localStorage.getItem('theme') === 'dark'){
       bodyElement.classList.add('dark');
       console.log('dark mode on ======   for local storage =============================');
     } else {
@@ -18,16 +19,35 @@ export default class extends Controller {
 
     // Toggle dark mode on button click
     toggleButton.addEventListener('click', () => {
-      console.log('clicked=========...................');
       bodyElement.classList.toggle('dark');
       // Save the preference in localStorage
       if (bodyElement.classList.contains('dark')) {
         localStorage.setItem('theme', 'dark');
-        console.log('dark mode on ==========    for click============================================');
       } else {
         localStorage.setItem('theme', 'light');
-        console.log('dark mode off ========  for click =============');
       }
     });
+    // initializeCarousel()
   }
+
+  // initializeCarousel() {
+  //   const carouselElement = document.querySelector('div[data-carousel="static"]');
+
+  //   if (carouselElement) {
+  //     // Initialize the carousel
+  //     const carousel = new window.Carousel(carouselElement, {
+  //       interval: 3000, // Adjust interval as needed
+  //       activeClasses: 'bg-green-500', // Customize active classes
+  //       inactiveClasses: 'bg-green-300', // Customize inactive classes
+  //     });
+  
+  //     // Optionally add event listeners for controls
+  //     document
+  //       .querySelector('[data-carousel-prev]')
+  //       ?.addEventListener('click', () => carousel.prev());
+  //     document
+  //       .querySelector('[data-carousel-next]')
+  //       ?.addEventListener('click', () => carousel.next());
+  //   }
+  // }
 }
