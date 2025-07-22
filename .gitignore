@@ -39,4 +39,5 @@
 !/app/assets/builds/.keep
 node_modules
 .byebug_history
+sitemap.xml.*
 
