@@ -9,52 +9,73 @@ export default class extends Controller {
   }
   ensureExternalUserId() {
     let externalUserId
-    if(this.hasUserTarget){
+    if (this.hasUserTarget) {
       externalUserId = this.userTarget.dataset.externalId
-      if(externalUserId != undefined) {
+      if (externalUserId != undefined) {
         let pre_externalUserId = localStorage.getItem("externalUserId");
         this.updateCartStorage(externalUserId)
-        if(pre_externalUserId != externalUserId){
+        if (pre_externalUserId != externalUserId) {
           localStorage.setItem("externalUserId", externalUserId)
           this.updateCartStorage(externalUserId)
         }
       }
-    }else{
+    } else {
       externalUserId = localStorage.getItem("externalUserId")
       if (!externalUserId) {
         externalUserId = uuid_v4()
         localStorage.setItem("externalUserId", externalUserId)
       }
     }
-    if(this.hasLinkTarget){
+    if (this.hasLinkTarget) {
       this.updateHref(externalUserId)
     }
 
   }
 
-  updateCartStorage(externalUserId){
+  setCartCount(el) {
+    const controller = this.application.getControllerForElementAndIdentifier(el, 'cart')
+    console.log("controller-----", controller)
+    controller.updateCartCount();
+  }
+
+  updateCartStorage(externalUserId) {
     fetch(`/carts/get_cart_details?external_user_id=${externalUserId}`)
-    .then(response => response.json())
-    .then(data => {
-      if(data?.cart_items?.length > 0){
-        localStorage.setItem("cart", JSON.stringify(data.cart_items))
-      }else{
-        localStorage.removeItem("cart")
-      }
-      // let el = document.getElementById('cart-count-id')
-      // const controller = this.application.getControllerForElementAndIdentifier(el, 'cart')
-      // controller.updateCartCount();
+      .then(response => response.json())
+      .then(data => {
+        if (data?.cart_items?.length > 0) {
+          localStorage.setItem("cart", JSON.stringify(data.cart_items))
+        } else {
+          localStorage.removeItem("cart")
+        }
+        let els = document.querySelectorAll('[data-cart-target="count"]')
+        const count = data?.cart_items?.reduce((total, item) => total + item.quantity, 0)
+
+        if (els.length == 0) {
+          let interval = setInterval(() => {
+            els = document.querySelectorAll('[data-cart-target="count"]')
+            if (els.length > 0) {
+              clearInterval(interval)
+              els.forEach(el => {
+                el.innerText = count || 0
+              })
+            }
+          }, 1000)
+        } else {
+          els.forEach(el => {
+            el.innerText = el.innerText = count || 0
+          })
+        }
       })
-    .catch(error => {
-      console.error('Error:', error);
-    })
+      .catch(error => {
+        console.error('Error:', error);
+      })
   }
 
   updateHref(externalUserId) {
     this.linkTargets.forEach(link => {
-      console.log({link})
+      console.log({ link })
       const url = new URL(link.href);
-      console.log({url})
+      console.log({ url })
       url.searchParams.set('external_id', externalUserId); // Add or update query parameter
       link.href = url.toString();
     });
@@ -65,9 +86,9 @@ export default class extends Controller {
     this.categoryBarTarget.classList.add("hidden");
   }
 
-  closeSearch(){
+  closeSearch() {
     this.searchBarTarget.classList.add("hidden");
     this.categoryBarTarget.classList.remove("hidden");
   }
-  
+
 }
