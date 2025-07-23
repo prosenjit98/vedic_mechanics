@@ -50,7 +50,7 @@ class CartsController < ApplicationController
   # POST /carts or /carts.json
   def create
     begin
-      @cart = Cart.active.find_by(external_user_id: cart_product_params[:external_user_id])
+      @cart = Cart.active.where(external_user_id: cart_product_params[:external_user_id]).last
       @cart = Cart.new(cart_params) unless @cart.present?
       @cart.user_id = current_user.id if current_user.present?
       @cart.external_user_id = current_user.external_user_id if current_user.present?
@@ -132,7 +132,7 @@ class CartsController < ApplicationController
   end
 
   def get_cart_details
-    @cart = Cart.active.find_by(external_user_id: params[:external_user_id] || current_user.external_user_id)
+    @cart = Cart.active.where(external_user_id: params[:external_user_id] || current_user.external_user_id).last
     @cart_items = @cart&.cart_items
     cart_html = render_to_string(partial: "carts/cart_details", locals: { cart_items: @cart_items, cart: @cart })
 
