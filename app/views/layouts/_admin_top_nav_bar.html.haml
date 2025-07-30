@@ -32,5 +32,5 @@
                 %li
                   %a.block.px-4.py-2.text-sm.text-gray-700.hover:bg-gray-100.dark:text-gray-300.dark:hover:bg-gray-600.dark:hover:text-white{href: "#", role: "menuitem"} Whish List
                 %li
-                  .block.py-2.px-3.text-gray-100.rounded.hover:bg-blue-700
-                    = button_to "Sign Out", destroy_admin_user_session_path, method: :delete
+                  .block.py-2.px-3.text-gray-700.rounded.hover:bg-blue-700.hover:text-gray-100
+                    = button_to "Sign Out", destroy_admin_user_session_path, method: :delete, turbo: false
