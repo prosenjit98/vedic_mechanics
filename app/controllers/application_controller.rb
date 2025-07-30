@@ -28,22 +28,42 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     # request.referrer
-    cookies_path = cookies[:return_to_url]
-    cookies[:return_to_url] = nil
-    cookies_path || request.referrer || root_path
+    if resource.is_a?(AdminUser)
+      super
+    else
+      cookies_path = cookies[:return_to_url]
+      cookies[:return_to_url] = nil
+      cookies_path || request.referrer || root_path
+    end
   end
 
+  def after_sign_out_path_for(resource_or_scope)
+    if resource_or_scope == :admin_user
+      admin_root_path
+    else
+      super
+    end
+  end
   private
   def storable_location?
-    request.get? &&
-      is_navigational_format? &&
-      !devise_controller? &&
-      !request.xhr? &&
-      !request.fullpath.start_with?("/users/auth")
+    if resource.is_a?(AdminUser)
+      super 
+    else
+      request.get? &&
+        is_navigational_format? &&
+        !devise_controller? &&
+        !request.xhr? &&
+        !request.fullpath.start_with?("/users/auth") &&
+        !request.fullpath.start_with?("/admin_users/auth")
+    end
   end
 
   def store_user_location!
-    store_location_for(:user, request.fullpath)
+    if resource.is_a?(AdminUser)
+      super 
+    else
+      store_location_for(:user, request.fullpath)
+    end
   end
 
   # def after_sign_in_path_for(resource_or_scope)
