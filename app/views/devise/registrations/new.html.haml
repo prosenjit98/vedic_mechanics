@@ -41,26 +41,42 @@
                   = f.label :password_confirmation
                   = f.password_field :password_confirmation, autocomplete: "new-password",class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5 mt-2"
                 %div.p-2
-                  = recaptcha_tags async: true, callback: "onRecaptchaSuccess"
-                %button.w-full.text-white.bg-indigo-900.hover:bg-indigo-800.focus:ring-4.focus:outline-none.focus:ring-indigo-300.font-medium.rounded-lg.text-sm.px-5.my-4.text-center{class: "py-2.5", type: "submit", id: "submit-btn", disabled: true} Save
+                  = invisible_recaptcha_tags async: true, text: 'Submit form', class: "w-full text-white bg-indigo-900 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 my-4 py-2.5 text-center"
+                -# .w-full.text-white.bg-indigo-900.hover:bg-indigo-800.focus:ring-4.focus:outline-none.focus:ring-indigo-300.font-medium.rounded-lg.text-sm.px-5.my-4.text-center{class: "py-2.5", type: "submit", id: "submit-btn"} Save
           :javascript
+            var url = "#{registration_path(resource_name)}"
             $('#user_external_user_id').val(localStorage.getItem("externalUserId"))
             function onRecaptchaSuccess() {
               document.getElementById("submit-btn").disabled = false;
             }
 
-            document.addEventListener("DOMContentLoaded", function() {
-              var form = document.querySelector("form");
-              
-              form.addEventListener("submit", function(event) {
-                var recaptchaResponse = document.querySelector("#g-recaptcha-response").value;
-                
-                if (!recaptchaResponse.trim()) {
-                  event.preventDefault(); // Stop form submission
-                  grecaptcha.reset(); // Reset reCAPTCHA in case it was expired
-                  alert("Please verify you are not a robot.");
-                }
-              });
+            $("#submit-btn").on("click", function(event) {
+              event.preventDefault(); // Prevent default form submission
+              // Check if reCAPTCHA is completed
+              if (grecaptcha.getResponse() === "") {
+                alert("Please complete the reCAPTCHA.");
+                return false; // Stop form submission
+              } else {
+                const form = $(this).closest("form");
+                $('.g-recaptcha-response').each(function(){ 
+                  if(!$(this).val()?.trim()){ $(this).remove()}
+                })
+                form.submit(); // Submit the form if reCAPTCHA is completed
+              }
             });
+          
+            ////document.addEventListener("DOMContentLoaded", function() {
+            //  var form = document.querySelector("form");
+            //  
+            //  form.addEventListener("submit", function(event) {
+            //    var recaptchaResponse = document.querySelector("#g-recaptcha-response").value;
+            //    console.log("reCAPTCHA Response:", recaptchaResponse);
+            //    if (!recaptchaResponse.trim()) {
+            //      event.preventDefault(); // Stop form submission
+            //      grecaptcha.reset(); // Reset reCAPTCHA in case it was expired
+            //      alert("Please verify you are not a robot.");
+            //    }
+            //  });
+            //});
 
               
