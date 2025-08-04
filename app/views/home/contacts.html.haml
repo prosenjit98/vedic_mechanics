@@ -18,7 +18,7 @@
               %label.block.mb-2.text-sm.font-medium.text-gray-900{ for: 'country_code' } Phone number
               .flex
                 = f.select :country_code, options_for_select( ISO3166::Country.countries.map { |c| ["#{c.iso_short_name} (#{c.country_code})", "#{c.country_code}"] }, selected: "91"),{}, class: "inline-flex w-1/4 items-center rounded-l-md border border-gray-300 bg-gray-100 px-4 py-2 text-sm text-gray-900 focus:border-green-500 dark:border-gray-600"
-                = f.telephone_field :phone_number, placeholder: "1234567890", class: "rounded-r-lg flex-grow border border-green-300 p-2.5 text-sm focus:border-green-500 focus:ring-blue-500"
+                = f.telephone_field :phone_number, class: "rounded-r-lg flex-grow border border-green-300 p-2.5 text-sm focus:border-green-500 focus:ring-blue-500"
             
             %div.mb-4
               = f.label :email, class: "text-lg dark:text-gray-200 text-gray-900" do
