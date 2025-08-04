@@ -8,7 +8,7 @@
         %p.text-lg.dark:text-gray-400.text-white Get in touch with us, and one of our experts will reach out to you.
       %div{:class => "md:w-1/2"}
         = turbo_frame_tag "contact_form" do
-          = form_with model: @contact do |f|
+          = form_with model: @contact, remote: true do |f|
             %div.mb-4
               = f.label :name, class: "text-lg dark:text-gray-200 text-gray-900" do 
                 Name
@@ -31,9 +31,8 @@
                 Message
                 %span.required.text-red-500 *
               = f.text_area :message, required: true, class: "mt-1 p-3 block w-full rounded-md shadow-sm dark:bg-gray-700 dark:text-gray-200 dark:border-gray-600 focus:border-green-500 focus:ring focus:ring-green-300 focus:ring-opacity-50 transition-all duration-300"
-            = invisible_recaptcha_tags async: true
             .text-center.md:text-left
-              = f.submit "Send Message", class: "mt-4 inline-block bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-full shadow-lg hover:from-blue-500 hover:to-green-500 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition-transform transform hover:scale-105"
+              = invisible_recaptcha_tags async: true, text: 'Send Message', class: "mt-4 inline-block bg-gradient-to-r from-green-500 to-blue-500 text-white px-8 py-3 rounded-full shadow-lg hover:from-blue-500 hover:to-green-500 focus:outline-none focus:ring focus:ring-blue-200 focus:ring-opacity-50 transition-transform transform hover:scale-105"
   %section.company-info.bg-white.dark:bg-gray-900.rounded-lg.shadow-lg.p-8.transition-colors.duration-300
     %div.text-center.mb-8
       %h2.text-4xl.font-extrabold.dark:text-white.text-gray-900 Our Contact Details
