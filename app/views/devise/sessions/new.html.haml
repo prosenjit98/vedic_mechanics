@@ -28,7 +28,7 @@
                       .text-red-500.text-base.font-semibold= alert || notice
                   %div
                     = f.label "Email / Phone number", class: "block mb-2 text-sm font-medium text-gray-900"
-                    = f.text_field :login, autofocus: true, placeholder: "example@gmail.com or 8900011111", required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
+                    = f.text_field :login, autofocus: true, required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
                   %div.mt-4
                     = f.label :password, class: "block mb-2 text-sm font-medium text-gray-900"
                     = f.password_field :password, required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
