@@ -15,3 +15,4 @@ pin "uuid" # @10.0.0
 pin "jquery", preload: true
 pin "@rails/request.js", to: "@rails--request.js.js" # @0.0.11
 pin "sortablejs" # @1.15.6
+pin "driver.js" # @1.3.6

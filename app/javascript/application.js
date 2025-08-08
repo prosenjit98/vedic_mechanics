@@ -7,6 +7,7 @@ import "nice-select2"
 import "aos";
 import "trix"
 import "@rails/actiontext"
+import "driver.js";
 
 import jQuery from "jquery"
 import AOS from 'aos';
