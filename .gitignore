@@ -40,4 +40,5 @@
 node_modules
 .byebug_history
 sitemap.xml.*
+Gemfile.lock
 
