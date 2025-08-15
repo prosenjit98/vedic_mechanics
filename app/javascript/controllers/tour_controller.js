@@ -27,7 +27,7 @@ export default class extends Controller {
         {
           element: ".top_bar_background",
           popover: {
-            title: "Welcome to Nutri-Vedic!",
+            title: "Welcome to Precitech!",
             description: "We're glad to have you here. Let's take a quick tour to help you get familiar with the key features.",
           },
         },
