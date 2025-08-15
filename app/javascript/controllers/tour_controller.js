@@ -14,6 +14,15 @@ export default class extends Controller {
     const tour = driver({
       nextStep: false,
       showProgress: true,
+      onHighlightStarted: (element) => {
+        const isNavbarStep = (element.id === "google_translate_element") || (element.id === 'add_cart_id');
+        if (isNavbarStep) {
+          const hamburger = document.querySelector("#mob_nav_btn");
+          if (hamburger) {
+            hamburger.click();
+          }
+        }
+      },
       steps: [
         {
           element: ".top_bar_background",
