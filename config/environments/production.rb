@@ -37,7 +37,7 @@ Rails.application.configure do
   # config.action_dispatch.x_sendfile_header = "X-Accel-Redirect" # for NGINX
 
   # Store uploaded files on the local file system (see config/storage.yml for options).
-  config.active_storage.service = :amazon
+  config.active_storage.service = :local
 
   # Mount Action Cable outside main process or domain.
   # config.action_cable.mount_path = nil
@@ -52,9 +52,11 @@ Rails.application.configure do
   config.force_ssl = true
 
   # Log to STDOUT by default
-  config.logger = ActiveSupport::Logger.new(STDOUT)
-    .tap  { |logger| logger.formatter = ::Logger::Formatter.new }
-    .then { |logger| ActiveSupport::TaggedLogging.new(logger) }
+  if ENV["RAILS_LOG_TO_STDOUT"].present?
+    logger           = ActiveSupport::Logger.new(STDOUT)
+    logger.formatter = config.log_formatter
+    config.logger    = ActiveSupport::TaggedLogging.new(logger)
+  end
 
   # Prepend all log lines with the following tags.
   config.log_tags = [ :request_id ]
@@ -108,6 +110,6 @@ Rails.application.configure do
     :enable_starttls_auto => true,
     :openssl_verify_mode  => 'none'
   }
-  config.action_mailer.default_url_options = { host: ENV['ACTIONMAILER_HOST'] }
-  config.action_mailer.asset_host = ENV['ACTIONMAILER_HOST']
+  config.action_mailer.default_url_options = { host: ENV['ACTION_MAILER_HOST'] }
+  config.action_mailer.asset_host = ENV['ACTION_MAILER_HOST']
 end

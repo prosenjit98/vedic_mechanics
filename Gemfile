@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.0.3"
+# ruby "3.0.3"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 7.1.3", ">= 7.1.3.2"
@@ -87,4 +87,11 @@ gem "httparty"
 gem 'indian_postal_codes'
 gem 'receipts'
 gem "pagy"
-
+gem 'acts-as-taggable-on'
+gem "acts_as_list"
+gem "acts_as_paranoid"
+gem 'omniauth-google-oauth2'
+gem "omniauth-rails_csrf_protection"
+gem 'recaptcha', require: 'recaptcha/rails'
+gem 'countries'
+gem 'sitemap_generator'

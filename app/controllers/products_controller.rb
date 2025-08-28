@@ -1,17 +1,21 @@
 class ProductsController < ApplicationController
+  before_action :set_nav_filter
   before_action :set_product, only: %i[ show edit update destroy ]
 
   # GET /products or /products.json
   def index
     @categories = Category.to_nested_hash
-    @products = Product.all.includes(:reviews)
-    @products = @products.by_search(params[:search]) if params[:search].present?
-    @products = @products.order(price: params[:price]) if params[:price].present?
-    @products = @products.by_category(params[:category_id]) if params[:category_id].present?
-    @products = @products.order(created_at: params[:created_at]) if params[:created_at].present?
-    @products = @products.by_review(params[:rating]) if params[:rating].present?
-    @products = @products.popular_product if params[:popular].present?
-    @pagy, @products = pagy(@products, items: 2)
+    @products = Product.where(id: params[:product_id])
+    @variants = @products.first.variants if @products.present?
+    @similar_products_variants = ProductVariant.where(variant_id: @variants.ids) if @products.present?
+    # @products = Product.all.includes(:reviews)
+    # @products = @products.by_search(params[:search]) if params[:search].present?
+    # @products = @products.order(price: params[:price]) if params[:price].present?
+    # @products = @products.by_category(params[:category_id]) if params[:category_id].present?
+    # @products = @products.order(created_at: params[:created_at]) if params[:created_at].present?
+    # @products = @products.by_review(params[:rating]) if params[:rating].present?
+    # @products = @products.popular_product if params[:popular].present?
+    @pagy, @products = pagy(@products, items: 20)
     @query_params = request.query_parameters
 
     respond_to do |format|
@@ -20,11 +24,33 @@ class ProductsController < ApplicationController
     end
   end
 
+  def search
+    if params[:query].present?
+      matching_tags = ActsAsTaggableOn::Tag.where("name ILIKE ?", "%#{params[:query]}%")
+      categories = Category.search_by_name(params[:query])
+      categories = categories.flat_map(&:all_subcategories)
+
+      matching_products_by_name = Product.where('name ILIKE ? OR product_code ILIKE ? OR display_category ILIKE ?', "%#{params[:query]}%", "%#{params[:query]}%", "%#{params[:query]}%")
+      matching_products_by_category = Product.by_category(categories&.pluck(:id))
+      matching_products_by_tags = Product.tagged_with(matching_tags.map(&:name), any: true)
+
+      @products_by_name_or_category = matching_products_by_name + matching_products_by_category
+      @products = (@products_by_name_or_category + matching_products_by_tags).uniq
+    else
+      @products = Product.none
+    end
+    respond_to do |format|
+      format.turbo_stream
+    end
+  end
+
   # GET /products/1 or /products/1.json
   def show
+    @variants = @product.variants if @product.present?
+    @similar_products_variants = ProductVariant.where(variant_id: @variants.ids) if @product.present?
     @rating_percentage = @product.reviews.rating_percentage
     breadcrumbs.add "Products", products_path
-    breadcrumbs.add @product.name
+    breadcrumbs.add @product.name_or_code
   end
 
   # GET /products/new

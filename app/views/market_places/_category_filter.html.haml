@@ -1,0 +1,20 @@
+%div{ data: { controller: "sidebar" } }
+  %div.dark:text-gray-300.flex.items-center.font-bold.justify-between.py-1.rounded.dark:hover:bg-gray-800{ data: { action: "click->sidebar#toggle", sidebar_target: "toggle" } }
+    %span.text-sm.p-0
+      = heroicon 'chevron-right', variant: :solid, options: {class: "w-4 h-4 inline-block text-white hover:text-green-700"}
+    - if category[:children].any? && index_h == 0
+      %span.flex-grow.text-sm.p-0.text-slogan-yellow= category[:name]
+      %button.flex.items-center
+        %svg.h-6.w-6.text-yellow-100.ml-2.dark:text-gray-500{ xmlns: 'http://www.w3.org/2000/svg', viewBox: '0 0 20 20', fill: 'currentColor' }
+          %path{ d: 'M6 8l4 4 4-4' }
+    - else
+      - input_id = is_mobile ? "category_mobile_#{category[:id]}" : "category_#{category[:id]}"
+      .flex.items-center.flex-grow.justify-between.cursor-pointer{data: {sidebar_target: "checkbox", filter_target: "filterinput" }}
+        %label.flex-grow.ms-2.text-sm.primary_color.dark:text-green-800.checkbox_label_2.cursor-pointer{:for => input_id, class: "#{params[:category_id] == category[:id].to_s ? 'primary_color' : ''}"}= category[:name]
+        = radio_button_tag 'category_id', category[:id], params[:category_id] == category[:id].to_s, id: input_id, class: "w-0 h-0 text-green-600 bg-yellow-700 border-yellow-300 rounded dark:bg-gray-700 dark:border-gray-600 focus:ring-0 hidden_radio"
+        -# = check_box_tag 'category_id[]', category[:id], checked: params[:category_id]&.include?(category[:id].to_s), id: "category_#{category[:id]}", class: "w-4 h-4 text-green-600 bg-gray-100 border-gray-300 rounded focus:ring-green-500 dark:focus:ring-green-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600", data: {sidebar_target: "checkbox", filter_target: "filterinput" }
+
+  - if category[:children].any? and index_h == 0
+    %div.ml-1.pl-2{ data: { sidebar_target: index_h == 0 ? "root" : "children", 'is-root': (index_h == 0 || index_h == 1) ? "true" : "false" } }
+      - category[:children].each do |child|
+        = render partial: 'market_places/category_filter', locals: { category: child, index_h: 1 + index_h, is_mobile: is_mobile }

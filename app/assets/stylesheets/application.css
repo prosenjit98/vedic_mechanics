@@ -17,15 +17,19 @@
  @import "aos";
 
  :root {
-  --primary_bg_color: #121272; /* Industrial dark grey for primary background */
-  --secondary_color: #6e9cff;  /* Machinery-related orange, symbolizing warning and caution */
+  --primary_bg_color: #064d06; /* Industrial dark grey for primary background */
+  --secondary_color: #e9ff6e;  /* Machinery-related orange, symbolizing warning and caution */
   --primary_text_color: #ffffff; /* Light text for dark backgrounds */
   --secondary_text_color: #333333; /* Dark grey for text on light backgrounds */
-  --form_bg_color: #290862; /* Dark grey for form section background */
-  --form_input_bg_color: #460aae; /* Slightly lighter grey for form input backgrounds */
-  --form_input_border_color: #350882; /* Medium grey for form input borders */
+  --form_bg_color: #0a5d0b; /* Dark grey for form section background */
+  --form_input_bg_color: #478e48; /* Slightly lighter grey for form input backgrounds */
+  --form_input_border_color: #013d02; /* Medium grey for form input borders */
   --form_input_focus_border_color: #2dceff; /* Orange for focused input borders */
   --required_color: #d32f2f; /* Strong red for required asterisk */
+  --new_primary_bg_color: #6b4423;
+  --new_secondary_bg_color: #c68e17;
+  --new_primary_color: #355E3B;
+  --new_secondary_color: #87a96b;
 }
 
 .dark:root {
@@ -40,12 +44,31 @@
   --required_color: #d32f2f; /* Unchanged, stands out in both modes */
 }
 
+body{
+  top: 0 !important;
+}
+body.google-sans {
+  font-family: 'Google Sans', sans-serif;
+}
+
+body.gill-sans {
+  font-family: 'Gill Sans', sans-serif;
+}
+
+body.verdana {
+  font-family: 'Verdana', sans-serif;
+}
+
 .primary-bg {
   background-color: var(--primary_bg_color);
 }
 
 .primary_color {
-  color: var(--primary_bg_color);
+  color: #0a5d0b;
+}
+
+.white_text{
+  color: #fff !important;
 }
 
 .secondary_color {
@@ -92,9 +115,103 @@
   width: 100%;
   height: 45px;
   line-height: 45px;
-  font-size: 1rem;
+  font-size: 0.85rem;
 }
+
 
 select.selectable {
   position: absolute;
+}
+.active {
+  /* font-weight: bold; */
+  text-decoration: underline;
+  color: #fdf6b2;
+}
+.hidden_radio{
+  border: 0
+}
+.hidden_radio:checked{
+  opacity: 0;
+}
+
+.ingredient-link {
+  transition: all 0.3s ease;
+}
+
+.ingredient-link.active {
+  background-color: #38a169; /* More green */
+  color: white;
+  text-decoration: none;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+.top_bar_background {
+  background-color: var(--new_primary_bg_color);
+}
+.lhs_background {
+  background-color: #b87333;
+}
+.new_body_background {
+  background-color: #67E6A8;
+}
+.body_background_2 {
+  background-color: #f7ca69;
+}
+.skiptranslate iframe{
+  display: none !important;
+}
+
+/* Hide the Google Translate logo */
+/* .goog-logo-link {
+  display: none !important;
+} */
+
+/* Remove additional space added by Google Translate */
+/* .goog-te-gadget {
+  font-size: 0 !important;
+}
+
+#google_translate_element {
+  text-align: center;
+  margin: 10px 0;
+} */
+
+/* Customize dropdown appearance */
+/* .goog-te-gadget select {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 5px 10px;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  color: #333;
+} */
+
+/* Dropdown hover effect */
+/* .goog-te-gadget select:hover {
+  background-color: #eaeaea;
+  cursor: pointer;
+} */
+
+#google_translate_element span {
+  display: none !important;
+}
+.goog-te-gadget .goog-te-combo {
+  margin: 0 !important;
+}
+#google_translate_element select{
+  border-width: 0 !important;
+  border-radius: 8px !important;
+  padding: .5rem 1.75rem .5rem .5rem !important;
+  background: #b87334;
+  color: #fff;
+}
+.goog-te-gadget{
+  font-size: 0 !important;
+}
+.z-1000{
+  z-index: 1000;
+}
+.ingredient-details {
+  max-height: 33%; 
+  min-height: 150px;
+  overflow-y: auto;
 }

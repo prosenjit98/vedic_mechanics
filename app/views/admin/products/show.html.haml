@@ -1,0 +1,66 @@
+= content_for :title, "Product Details"
+
+.section
+  .container.mx-auto.py-8
+    .grid.grid-cols-1.md:grid-cols-2.gap-6
+      / Left Section: Product Images
+      .flex.flex-col.items-center
+        %h2.text-2xl.font-semibold.mb-4.text-center Product Images
+        - if @product.product_images.attached?
+          .grid.grid-cols-3.gap-4
+            - @product.product_images.each do |image|
+              .relative
+                - if @product.is_image?(image)
+                  = image_tag image, class: "w-full rounded-lg shadow-md"
+                - elsif @product.is_video?(image)
+                  = video_tag image, controls: true, class: "h-full rounded-lg shadow-md"
+                = button_to delete_image_admin_product_path(file_id: image) , method: :delete, class: "absolute top-2 right-2 text-sm px-2 py-1 rounded hover:text-red-600 transition", data: { confirm: 'Are you sure you want to delete this image?' } do
+                  = heroicon 'trash', variant: :solid, options: {class: "w-4 h-4 text-red-500 hover:text-red-700"}
+
+        - else
+          %p.text-gray-500 No images available for this product.
+
+      / Right Section: Product Details
+      .flex.flex-col
+        %h1.text-3xl.font-bold.mb-4= @product.name
+        %p.text-gray-600.mb-2= "Description: #{@product.description}"
+        %p.text-gray-600.mb-2= "Price: ₹#{number_to_currency(@product.price, unit: '')}"
+        %p.text-gray-600.mb-2= "Per Unit cost: ₹#{number_to_currency(@product.unit_cost, unit: '')}"
+        %p.text-gray-600.mb-2= "Uniq per batch: #{@product.units_per_batch}"
+        %p.text-gray-600.mb-2= "Stock Quantity: #{@product.stock_quantity}"
+        %p.text-gray-600.mb-2= "Discount: #{@product.discount * 100}%"
+        %p.text-gray-600.mb-2= "Original Price: ₹#{number_to_currency(@product.original_price, unit: '')}"
+        %p.text-gray-600.mb-2= "Manufacturing Cost: ₹#{number_to_currency(@product.mfg_cost, unit: '')}"
+        %p.text-gray-600.mb-2= "Approx Delivery Cost: ₹#{number_to_currency(@product.approx_delivery_cost, unit: '')}"
+        %p.text-gray-600.mb-2= "GST: #{@product.gst}"
+        - if @product.vendor_id.present?
+          %p.text-gray-600.mb-2= "Vendor ID: #{@product.vendor_id}"
+        - else
+          %p.text-gray-600.mb-2.text-red-500 Vendor information is not available.
+        - if @product.hsn.present?
+          %p.text-gray-600.mb-2= "HSN Code: #{@product.hsn}"
+        - else
+          %p.text-gray-600.mb-2.text-red-500 HSN Code is not provided.
+        - if @product.variant.present?
+          %p.text-gray-600.mb-2= "Variant: #{@product.variant}"
+        - else
+          %p.text-gray-600.mb-2.text-red-500 No variant specified.
+        - if @product.product_code.present?
+          %p.text-gray-600.mb-2= "Product Code: #{@product.product_code}"
+        - else
+          %p.text-gray-600.mb-2.text-red-500 Product code is not available.
+      - if @product.ingredients.present?
+        .flex.flex-col
+          .h1.text-3xl.font-bold.mb-4 Ingredients
+          - @product.ingredients.each do |ingredient|
+            %p.text-gray-600.mb-2= ingredient.name
+
+    / Specification Section
+    .mt-8
+      %h2.text-2xl.font-semibold.mb-4 Specification
+      .prose
+        = @product.specification&.body || "No specification available."
+
+  / Back Button
+  .flex.justify-center.mt-8
+    = link_to 'Back to Products', admin_products_path, class: "px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600 transition"

@@ -3,6 +3,19 @@ import { Controller } from "@hotwired/stimulus"
 export default class extends Controller {
   static targets = ["mainImage"]
 
+  connect() {
+    let selected_variant = document.querySelector('#selected_variant')
+    if(selected_variant) selected_variant.addEventListener('change', this.changeVariant.bind(this))
+  }
+
+  changeVariant(event) {
+    const selectedVariant = event.target.value
+    console.log({selectedVariant})
+    if(selectedVariant) {
+      console.log(`product_${selectedVariant}`)
+      document.getElementById(`product_${selectedVariant}`)?.click();}
+  }
+
   selectImage(event) {
     const imageUrl = event.target.dataset.imageUrl
     console.log({imageUrl})

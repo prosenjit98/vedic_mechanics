@@ -1,0 +1,3 @@
+= turbo_frame_tag "product-tag-#{@product.id}" do
+  = form_for [:admin, @product], html: { data: { controller: "form-submit-on-blur", form_submit_on_blur_target: "form" } } do |f|
+    = f.text_field :tag_list, class: "form-input block w-full border-gray-300 rounded-md shadow-sm blur-submit", data: { action: "blur->form-submit-on-blur#submitOnBlur", form_submit_on_blur_target: "input" }

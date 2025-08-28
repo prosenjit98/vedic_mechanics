@@ -1,0 +1,14 @@
+= turbo_frame_tag "reward-#{reward.id}" do
+  %div.bg-white.border-b.hover:bg-gray-50.flex.items-center.text-center
+    %div.w-4.p-4.flex-1= reward.id
+    %div.px-6.py-4.text-gray-900.whitespace-nowrap.flex-1= reward.name
+    %div.px-6.py-4.text-gray-900.whitespace-nowrap.flex-1= reward.description
+    %div.px-6.py-4.flex-1= reward.validity
+    %div.px-6.py-4.flex-1= reward.is_active
+    %div.px-6.py-4.flex-1
+      .flex.flex-row{style: "margin-left: 40%;"}
+        %button{class: "mr-4 text-red-500 hover:text-red-800", "data-action" => "click->global-modal#open reward#open", "data-id" => reward.id} Add user
+        = link_to edit_admin_reward_path(reward), data: {turbo: false} do
+          = heroicon 'pencil-square', variant: :solid, options: {class: "w-6 h-6 inline-block text-green-500 hover:text-green-700"}
+        = button_to  admin_reward_path(reward), method: :delete, data: {confirm: "Are you sure?"}, class: "ml-4" do
+          = heroicon 'trash', variant: :solid, options: {class: "w-6 h-6 inline-block text-red-500 hover:text-red-800"}

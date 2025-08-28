@@ -1,11 +1,11 @@
-%div.bg-gray-100.dark:bg-gray-900.text-gray-900.dark:text-gray-100{data: {controller: 'product'}}
+%div.new_body_background.dark:bg-gray-900.text-gray-900.dark:text-gray-100{data: {controller: 'product'}}
   %div.container.mx-auto.px-4.py-8
     .breadcrumbs.mt-4.text-sm.text-gray-600.dark:text-gray-400
       = breadcrumbs.render(format: :inline, separator: ">")
     %div.flex.flex-col.lg:flex-row.gap-8.pt-4
       %div.w-full{class: "lg:w-2/3"}
         %div.flex.flex-col.items-center.lg:flex-row.lg:items-start.gap-4
-          = render 'image_gallery'
+          = render 'image_gallery', { product: @product }
         %div.mt-8.p-4.bg-white.dark:bg-gray-800.rounded-lg.shadow-md
           %h3.text-xl.font-bold.mb-4.text-gray-900.dark:text-gray-100
             Description
@@ -35,13 +35,14 @@
             = link_to 'Write a review', new_review_path(product_id: @product.id), data: {turbo_frame: "global_modal_tag"}, class: "text-sm border border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-green-500 rounded-2xl py-2 px-6"
           = link_to 'Ask a question', new_question_path(product_id: @product.id), data: {turbo_frame: "global_modal_tag"}, class: "text-sm border border-gray-200 dark:border-gray-600 bg-gray-100 dark:bg-gray-800 hover:bg-gray-200 dark:hover:bg-gray-700 hover:text-green-500 rounded-2xl py-2 px-6"
         %div
-          = render 'review_question'
+          = render 'review_question', {product: @product}
       %div.overflow-y-hidden{class: "w-full lg:w-1/3"}
         .card.border.border-gray-200.dark:border-gray-700.bg-white.dark:bg-gray-800.rounded-lg.shadow-md.p-4
           %div.card-header.p-4.flex.items-center
             %div.flex.flex-row.bg-green-200.dark:bg-green-900.text-green-800.dark:text-green-300.px-2.py-1.rounded
-              = "#2 best seller"
-            %span.text-gray-500.dark:text-gray-400.ml-4= "in #{@product.category.name} category"
+              = "#1 Best seller"
+            -if @product.categories.present?
+              %span.text-gray-500.dark:text-gray-400.ml-4= "in #{@product.categories.first.name} category"
           %div.card-body.p-4
             %h2.text-2xl.font-semibold.mb-4.text-gray-900.dark:text-gray-100= @product.name
             %div.flex.items-center.mt-2
@@ -57,9 +58,9 @@
             %div.mt-4.flex.items-baseline
               %span.text-sm.text-gray-400.dark:text-gray-500
                 Price: 
-              %span.text-3xl.font-bold.text-red-500.ml-2
+              %span.text-3xl.font-bold.text-red-500.ml-2.price{data: {amount: @product.price}}
                 = number_to_currency(@product.price, precision: 0, unit: "Rs. ")
-              %span.text-sm.text-gray-600.dark:text-gray-400.line-through.ml-2
+              %span.text-sm.text-gray-600.dark:text-gray-400.line-through.ml-2.price{data: {amount: @product.original_price - @product.approx_delivery_cost}}
                 = number_to_currency(@product.original_price - @product.approx_delivery_cost, precision: 0, unit: "Rs. ")
             %button.w-full.inline-block.bg-gradient-to-r.from-green-500.to-blue-500.text-white.px-8.py-3.rounded-lg.shadow-lg.mt-8.mb-4.hover:from-blue-500.hover:to-green-500.focus:outline-none.focus:ring.focus:ring-blue-200.focus:ring-opacity-50.transition-transform.transform.hover:scale-105{'data-action': "click->cart#addToCart", 'data-product-id': "#{@product.id}"}
               Add to Cart

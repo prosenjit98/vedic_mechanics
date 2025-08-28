@@ -1,12 +1,13 @@
 import { Controller } from "@hotwired/stimulus"
 import { v4 as uuid_v4 } from 'uuid';
 export default class extends Controller {
-  static targets = ["count", "toast"]
+  static targets = ["count", "toast", "cartDetails"]
 
   connect() {
+    this.cacheTime = 30000;
+    this.lastFetchTime = 0;
     this.updateCartCount()
     this.ensureExternalUserId()
-    console.log($('#flash'))
   }
 
   ensureExternalUserId() {
@@ -19,6 +20,7 @@ export default class extends Controller {
   }
 
   addToCart(event) {
+    event.preventDefault();
     const productId = event.currentTarget.dataset.productId
     let cart = JSON.parse(localStorage.getItem("cart")) || []
 
@@ -131,12 +133,41 @@ export default class extends Controller {
   updateCartCount() {
     let cart = JSON.parse(localStorage.getItem("cart")) || []
     const count = cart.reduce((total, item) => total + item.quantity, 0)
-    this.countTarget.innerText = count
+    this.countTargets.forEach(target => target.innerText = count)
+    // this.countTarget.innerText = count
   }
 
   showToast() {
     let el = document.getElementById('flash')
     const controller = this.application.getControllerForElementAndIdentifier(el, 'toast')
     controller.showToast(this.message, this.type)
+  }
+
+  async fetchCartDetails() {
+    const now = Date.now();
+    if (now - this.lastFetchTime < this.cacheTime) {
+      return; // Skip fetching if the cache is still valid
+    }
+
+    try {
+      const response = await fetch("/carts/get_cart_details?external_user_id=" + this.externalUserId);
+      if (!response.ok) {
+        throw new Error("Failed to fetch cart details");
+      }
+
+      const data = await response.json();
+      this.updateCartPopoverCard(data);
+      this.lastFetchTime = now;
+    } catch (error) {
+      console.error("Error fetching cart details:", error);
+    }
+  }
+
+  updateCartPopoverCard(data) {
+    this.cartDetailsTarget.innerHTML = data.html || "No products in the cart";
+    if(data.cart_items?.length === 0){
+      localStorage.setItem("cart", JSON.stringify([]))
+      this.updateCartCount()
+    }
   }
 }

@@ -1,0 +1,47 @@
+-# remove placeholders
+= turbo_stream.remove("products_placeholder")
+-#  append @products to the #article_list turbo_frame
+-# = turbo_stream.update('breadcrumb') do
+-#   %div.fixed.z-40.w-full= categories_breadcrumb(params[:category_id] || params[:parent_category])
+= turbo_stream.update("products_list") do
+  %div.fixed.z-40.w-full.top-52.md:top-44.py-2.body_background_2= categories_breadcrumb(params[:category_id] || params[:parent_category])
+  %div.mt-12
+    %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-3.gap-4.pt-8
+      - @products.each do |product|
+        = render 'product_tiles_view', {product: product}
+  :javascript
+    parent_hidden_field = document.getElementById('parent_category')
+    parent_category_id = "#{params[:parent_category]}"
+    if(parent_category_id && parent_hidden_field) parent_hidden_field.value = parent_category_id
+    function updatePriceDisplay() {
+      const currency = localStorage.getItem("preferredCurrency") || "INR";
+      // Add logic to update all displayed prices dynamically.
+      const priceElements = document.querySelectorAll(".price");
+      priceElements.forEach(element => {
+        const amount = parseFloat(element.dataset.amount);
+        let formattedPrice = "";
+        switch (currency) {
+          case "INR":
+            formattedPrice = `₹${amount.toFixed(0)}`;
+            break;
+          case "USD":
+            formattedPrice = `$${amount.toFixed(0)}`;
+            break;
+          case "EUR":
+            formattedPrice = `€${amount.toFixed(0)}`;
+            break;
+        }
+        element.textContent = formattedPrice;
+      });
+    }
+    updatePriceDisplay();
+-# update the pagination turbo_frame with the current pagination offset
+= turbo_stream.update "products_pagination" do
+  .flex.mt-12.items-center.justify-center.space-x-4.w-full
+    - if @pagy.prev
+      = link_to "Prev", market_places_url(@query_params.except!(:page).merge!({page: @pagy.prev})), data: { turbo_stream: true }, class: "bg-white dark:bg-gray-700 rounded px-6 py-1 border shadow"
+    - if @pagy.next
+      = link_to "Next", market_places_url(@query_params.except!(:page).merge!({page: @pagy.next})), data: { turbo_stream: true }, class: "bg-white dark:bg-gray-700 rounded px-6 py-1 border shadow"
+  -# .flex.mt-12.items-center.justify-center.space-x-4.w-full
+  -#   != pagy_nav(@pagy, anchor_string: 'data-turbo-stream="true"')
+  %p.text-center.mt-8!= pagy_info @pagy

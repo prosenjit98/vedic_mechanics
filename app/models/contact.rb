@@ -1,6 +1,7 @@
 class Contact < ApplicationRecord
   before_create :generate_msg_rf_id
   after_create :send_mail
+  validates_presence_of :name, :email, :message, :phone_number
 
 
 

@@ -2,14 +2,25 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="global-modal"
 export default class extends Controller {
-  static targets = ["output"]
+  static targets = ["output", 'clickShow']
   
   connect() {
-    console.log("Hello from Modal Controller!");
+    if (this.hasOutputTarget) {
+      const $targetEl = document.getElementById('global_model_id');
+      this.modal = new Modal($targetEl, {});
+      this.modal.show();
+    }
+    if (this.hasClickShowTarget) {
+      const $targetEl = document.getElementById('global_model_id');
+      this.modal = new Modal($targetEl, {});
+    }
   }
 
-  close(event) {
-    console.log("Close modal");
-    this.outputTarget.classList.add("hidden");
+  open() {
+    this.modal.show();
+  }
+
+  close() {
+    this.modal.hide();
   }
 }

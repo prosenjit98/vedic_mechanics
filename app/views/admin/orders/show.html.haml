@@ -8,10 +8,11 @@
           %li.p-2.my-2.border-b
             .grid.grid-cols-12.gap-4
               .col-span-2
-                = image_tag(order_item.product.product_images.last, size: "40x40", alt: "Product Image...")
+                - image = item.product.product_images.present? ? item.product.product_images.last : ''
+                = image_tag(image, size: "40x40", alt: "Product Image...")
               .col-span-4 
                 %p.text-gray-500.text-xs Product name
-                = link_to order_item.product.name , admin_product_path(order_item), class: "hover:text-green-500"
+                = link_to (order_item.product&.name_or_code) , admin_product_path(order_item), class: "hover:text-green-500"
                 -# %h2= order_item.product.name 
               .col-span-3 
                 %p.text-gray-500.text-xs Quantity 
@@ -28,13 +29,13 @@
       .flex.flex-row.my-2.border-b.py-3
         .text-gray-500.font-light.text-sm.pl-4{class: "basis-1/2"}
           Subtotal:
-        %div.font-medium.text-sm.text-center{class: "basis-1/2"} 
-          = "₹#{@order.order_items.pluck(:price).sum}"
+        %div.font-medium.text-sm.text-center{class: "basis-1/2"}
+          = "#{@order.order_items.pluck(:price).sum}"
       .flex.flex-row.my-2.border-b.py-3 
         .text-gray-500.font-light.text-sm.pl-4{class: "basis-1/2"}
           Shipping:
         %div.font-medium.text-sm.text-center{class: "basis-1/2"} 
-          = "₹#{0}"
+          = "#{0}"
       .flex.flex-row.my-2.border-b.py-3 
         .text-gray-500.font-light.text-sm.pl-4{class: "basis-1/2"}
           Tax (GST):
@@ -63,7 +64,7 @@
         .text-gray-500.font-light.text-sm{class: "basis-1/4"}
           Total
         %div.font-medium.text-sm.text-red-500{class: "basis-3/4"} 
-          ="₹#{@order.total_price}"
+          ="#{@order.total_price}"
     .rounded-lg.border.bg-white.p-4.mt-4
       %h2.font-medium.text-sm Shipping Address
       .text-gray-500.font-light.text-sm.my-2 

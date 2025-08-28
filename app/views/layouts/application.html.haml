@@ -1,21 +1,25 @@
-%html{lang: "en"} 
+%html.no-scrollbar{lang: "en"} 
   %head
-    %title Machinery co.
+    %title= ENV["app_name"]
     %meta{content: "text/html; charset=UTF-8", "http-equiv": "Content-Type"}/
     %meta{content: "width=device-width, initial-scale=1.0", name: "viewport"}/
+    %meta{name: "description", content: "#{ENV["app_name"]} is a platform for Ayurveda and Nutritional products, offering a wide range of health solutions."}
     %meta{name: "theme-color", content: "#FFFFFF dark:#000000"} 
     %meta{content: "false", name: "turbo-prefetch"}
     %script{src: "https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"}
+    = stylesheet_link_tag "https://cdn.jsdelivr.net/npm/driver.js@1.3.0/dist/driver.min.css"
     = csrf_meta_tags
     = csp_meta_tag
+    = favicon_link_tag 'favicon.ico'
     = stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload"
     = stylesheet_link_tag "application", "data-turbo-track": "reload"
     = javascript_importmap_tags
+    -# %script{:src => "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit", :type => "text/javascript"}
 
-  %body.bg-gray-100.dark:bg-gray-900(data-controller="cart root")
+  %body.body_background_2.dark:bg-gray-900.no-scrollbar(data-controller="cart root currency tour")
     = render 'layouts/top'
-    %main.bg-gray-100.dark:bg-gray-900.text-gray-900.dark:text-gray-100.min-h-screen.max-h-fit{"data-root-target": "user", "data-external-id": current_user&.external_user_id}
-      .mt-14
+    %main.no-scrollbar.body_background_2.dark:bg-gray-900.text-gray-900.dark:text-gray-100.min-h-screen.max-h-fit{"data-root-target": "user", "data-external-id": current_user&.external_user_id}
+      .mt-28.no-scrollbar
         -# .breadcrumbs
         -#   = breadcrumbs.render(format: :inline, separator: ">")
         = turbo_frame_tag "global_modal_tag"
@@ -23,3 +27,5 @@
         #flash.flash.hidden{"data-controller": 'toast', "data-toast-target": 'toast'}
           = render 'layouts/flash_message'
     = render 'layouts/footer'
+    .hidden.lg:block.fixed.bottom-0.left-0.color_text.px-2.py-1.text-sm.rounded{style: "width: 22%;"}= @banner_massage.present? ? @banner_massage.value.gsub("\n", "<br>").html_safe : "This is auto-translated, please forgive any mistakes"
+-#     #google_translate_element

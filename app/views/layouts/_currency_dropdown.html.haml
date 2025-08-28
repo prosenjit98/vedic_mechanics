@@ -1,0 +1,13 @@
+%button.text-white.hover:text-gray-100.dark:text-gray-200.hover:bg-green-500.rounded-lg.px-2{"aria-expanded" => "false", "data-dropdown-toggle" => "currency_dropdown", type: "button"}
+  = heroicon 'currency-dollar', options: { class: "w-5 h-5" }
+  #currency_dropdown.z-50.hidden.my-4.text-base.list-none.bg-white.dark:bg-gray-800.divide-y.divide-gray-100.dark:divide-gray-600.rounded-lg.shadow
+    %ul.py-1{role: "none", "data-currency-target": "menu"}
+      %li
+        .menuitem.block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600{ data: { value: "INR", action: "click->currency#select" } }
+          %span INR
+      %li
+        .menuitem.block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600{ data: { value: "USD", action: "click->currency#select" } }
+          %span USD
+      %li
+        .menuitem.block.px-4.py-2.text-sm.text-gray-700.dark:text-gray-300.hover:bg-gray-100.dark:hover:bg-gray-600{ data: { value: "EUR", action: "click->currency#select" } }
+          %span EUR

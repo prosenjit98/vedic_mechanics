@@ -1,6 +1,6 @@
 = turbo_frame_tag "sign_up_form" do 
   %div{"data-controller" => "global-modal"}
-    .overflow-y-auto.overflow-x-hidden.fixed.top-0.right-0.left-0.z-50.justify-center.items-center.w-full.inset-0.max-h-full{"aria-hidden" => "true", tabindex: "-1" , style:"background-color: rgba(0,0,0,0.6)", "data-global-modal-target" => "output"}
+    .overflow-y-auto.overflow-x-hidden.fixed.top-0.right-0.left-0.justify-center.items-center.w-full.inset-0.max-h-full#global_model_id{"aria-hidden" => "true", tabindex: "-1" , style:"background-color: rgba(0,0,0,0.6);  z-index: 1000;", "data-global-modal-target" => "output"}
       .absolute.p-4.w-full.max-w-lg.max-h-full{style: "top: 50%; left: 50%; transform: translate(-50%, -50%);"}
         .relative.bg-white.rounded-lg.shadow
           .flex.items-center.justify-between.p-4.md:p-5.border-b.rounded-t
@@ -24,24 +24,59 @@
                 .grid.grid-cols-2.gap-2
                   %div
                     = f.label :first_name, class: "block mb-2 text-sm font-medium text-gray-900"
-                    = f.text_field :first_name,autofocus: true, autocomplete: "first_name", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5"
+                    = f.text_field :first_name, autofocus: true, autocomplete: "first_name", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5"
                   %div 
                     = f.label :last_name,class: "block mb-2 text-sm font-medium text-gray-900"
                     = f.text_field :last_name, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5"
                 %div 
-                  = f.label :phone_number,class: "block mb-2 text-sm font-medium text-gray-900"
-                  = f.text_field :phone_number,class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5", placeholder: "9932235011", required: true
+                  = f.label :phone_number, class: "block mb-2 text-sm font-medium text-gray-900"
+                  = f.number_field :phone_number, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-500 focus:border-indigo-900 block w-full p-2.5", required: true
                 %div
                   = f.label :email, class: "block mb-2 text-sm font-medium text-gray-900"
-                  = f.email_field :email, autocomplete: "email",placeholder: "name@company.com",required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
+                  = f.email_field :email, autocomplete: "email",required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
                 %div
                   = f.label :password, class: "block mb-2 text-sm font-medium text-gray-900"
-                  = f.password_field :password, autocomplete: "current-password", required: "", class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
+                  = f.password_field :password, autocomplete: "current-password", required: true, class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
                 %div 
                   = f.label :password_confirmation
-                  = f.password_field :password_confirmation, autocomplete: "new-password",class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5"
-                %button.w-full.text-white.bg-indigo-900.hover:bg-indigo-800.focus:ring-4.focus:outline-none.focus:ring-indigo-300.font-medium.rounded-lg.text-sm.px-5.my-4.text-center{class: "py-2.5", type: "submit"} Save
+                  = f.password_field :password_confirmation, autocomplete: "new-password",class: "bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-indigo-900 focus:border-indigo-900 block w-full p-2.5 mt-2"
+                %div.p-2
+                  = invisible_recaptcha_tags async: true, text: 'Submit form', class: "w-full text-white bg-indigo-900 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-indigo-300 font-medium rounded-lg text-sm px-5 my-4 py-2.5 text-center"
+                -# .w-full.text-white.bg-indigo-900.hover:bg-indigo-800.focus:ring-4.focus:outline-none.focus:ring-indigo-300.font-medium.rounded-lg.text-sm.px-5.my-4.text-center{class: "py-2.5", type: "submit", id: "submit-btn"} Save
           :javascript
+            var url = "#{registration_path(resource_name)}"
             $('#user_external_user_id').val(localStorage.getItem("externalUserId"))
+            function onRecaptchaSuccess() {
+              document.getElementById("submit-btn").disabled = false;
+            }
+
+            $("#submit-btn").on("click", function(event) {
+              event.preventDefault(); // Prevent default form submission
+              // Check if reCAPTCHA is completed
+              if (grecaptcha.getResponse() === "") {
+                alert("Please complete the reCAPTCHA.");
+                return false; // Stop form submission
+              } else {
+                const form = $(this).closest("form");
+                $('.g-recaptcha-response').each(function(){ 
+                  if(!$(this).val()?.trim()){ $(this).remove()}
+                })
+                form.submit(); // Submit the form if reCAPTCHA is completed
+              }
+            });
+          
+            ////document.addEventListener("DOMContentLoaded", function() {
+            //  var form = document.querySelector("form");
+            //  
+            //  form.addEventListener("submit", function(event) {
+            //    var recaptchaResponse = document.querySelector("#g-recaptcha-response").value;
+            //    console.log("reCAPTCHA Response:", recaptchaResponse);
+            //    if (!recaptchaResponse.trim()) {
+            //      event.preventDefault(); // Stop form submission
+            //      grecaptcha.reset(); // Reset reCAPTCHA in case it was expired
+            //      alert("Please verify you are not a robot.");
+            //    }
+            //  });
+            //});
 
               

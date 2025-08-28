@@ -41,4 +41,23 @@ module ApplicationHelper
 
     (full_star_svg * full_stars + empty_star_svg * empty_stars).html_safe
   end
+
+  def svg_icon(icon, css_class= "")
+    content_tag(:svg, class: "icon icon_#{icon} #{css_class}") do
+        content_tag(:use, nil, 'xlink:href' => "#icon_#{icon}")
+    end
+  end
+
+  def inline_svg(filename, options = {})
+    file_path = Rails.root.join('app', 'assets', 'images', filename)
+    return "(SVG file not found)" unless File.exist?(file_path)
+
+    file = File.read(file_path)
+    doc = Nokogiri::HTML::DocumentFragment.parse(file)
+    svg = doc.at_css('svg')
+
+    options.each { |key, value| svg[key.to_s] = value } if svg
+
+    doc.to_html.html_safe
+  end
 end

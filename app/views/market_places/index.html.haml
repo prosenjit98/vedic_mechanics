@@ -1,0 +1,53 @@
+= form_tag market_places_path, :method => 'get', :class => "filter-form", data: { controller: "filter gallery", turbo_stream: true, turbo: true } do
+  .grid.grid-cols-9.gap-0.pr-4.py-8.no-scrollbar
+    .col-span-9.lg:col-span-2
+      .hidden.lg:block{ data: { responsive_target: "web" } }
+        = render 'products/filters', {mobile: false}
+    = hidden_field_tag :parent_category
+    .col-span-9.lg:col-span-7.no-scrollbar.relative
+      -# .flex.justify-between.items-center.py-4
+      -#   .w-full.flex.justify-between
+      -#     = text_field_tag 'search', params[:search], placeholder: "Search for Products", class: "form-input w-full md:w-1/2 px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-500 dark:text-gray-100", data: { filter_target: "filterinput" }
+
+      .py-1.px-8.text-center.baskerVilla.text-xl.w-full.color_text.fixed{class: "lg:w-4/5 z-[41]"} Inspired By Nature, Guided By Tradition
+      .lg:hidden{ data: { responsive_target: "mobile" } }
+        %button.fixed.text-white.bg-green-700.hover:bg-green-900.focus:ring-4.focus:ring-green-300.font-medium.rounded-lg.text-xs.px-3.py-3.ml-2.dark:bg-green-600.dark:hover:bg-green-700.focus:outline-none.dark:focus:ring-green-800{"aria-controls" => "mobile-filter", :class => "py-2.5 -left-4 top-52 md:top-44 z-[41]", "data-drawer-show" => "mobile-filter", "data-drawer-target" => "mobile-filter", :type => "button"}
+          = heroicon 'bars-3', variant: :solid, options: {class: "w-10 md:w-6 h-10 md:h-6 inline-block"}
+        = render 'mobile_drawer'
+      = turbo_frame_tag "breadcrumb" do
+        %div 
+      %div.container.mx-auto.px-4.pt-20.md:pt-2.lg:pt-0.mt-4
+        = turbo_frame_tag "products_list", src: market_places_url(page: params[:page], category_id: params[:category_id], product_id: params[:product_id], concern: params[:concern], ingredient: params[:ingredient], parent_category: params[:parent_category], format: :turbo_stream), loading: "lazy", data: {turbo_action: "advance"} do
+          %div.grid.grid-cols-1.md:grid-cols-2.lg:grid-cols-4.gap-4#products_placeholder
+            - 3.times do
+              = render 'prod_skeleton'
+
+      = turbo_frame_tag "products_pagination", data: {turbo_action: "advance"} do
+        .flex.mt-12.items-center.justify-center.space-x-4.w-full
+          != pagy_nav(@pagy)
+
+
+    %div.hidden.fixed.inset-0.bg-gray-800.bg-opacity-50.flex.items-center.justify-center.z-1000{ id: "product_details_mod", "data-filter-target": "container" }
+      %div.bg-frost-green.rounded-lg.shadow-lg.w-full.max-w-3xl.overflow-hidden{style: 'max-height: 60%;'}
+        %div.p-4.flex.justify-between.items-center.border-b
+          %h3.text-xl.font-semibold.text-gray-900{"data-filter-target": "header"} Details
+          .text-gray-400.hover:text-gray-600{"data-action": "click->filter#close"}
+            %svg.h-6.w-6{ xmlns: "http://www.w3.org/2000/svg", fill: "none", viewBox: "0 0 24 24", stroke: "currentColor" }
+              %path{ d: "M6 18L18 6M6 6l12 12", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2" }
+
+        %div.px-6.py-2
+          %div.text-gray-700.text-sm{"data-filter-target": "content"} Default description text.
+        -# .flex.items-center.p-4.md:p-5.border-t.border-gray-200.rounded-b.dark:border-gray-600
+        -#   %button.text-white.bg-blue-700.hover:bg-blue-800.focus:ring-4.focus:outline-none.focus:ring-blue-300.font-medium.rounded-lg.text-sm.px-5.text-center.dark:bg-blue-600.dark:hover:bg-blue-700.dark:focus:ring-blue-800{:class => "py-2.5", "data-action": "click->filter#close", :type => "button"} Close
+
+
+        -# %div.flex.justify-end.p-4.border-t
+        -#   %button.bg-gray-200.text-gray-700.py-2.px-4.rounded.hover:bg-gray-300{"data-action": "click->filter#close"} Close
+    -# #p-description.absolute.z-10.invisible.inline-block.px-3.py-2.text-sm.font-medium.text-gray-900.bg-white.border.border-gray-200.rounded-lg.shadow-sm.opacity-0.tooltip{role: "tooltip"}
+    -#   Tooltip content
+    -#   .tooltip-arrow{data: "popper-arrow"}
+  #mediaModal.hidden.fixed.inset-0.bg-black.bg-opacity-80.flex.items-center.justify-center.z-50{"data-gallery-target" => "modal"}
+    .relative.rounded-lg.p-4.shadow-lg.max-h-full{class: 'w-1/2 h-3/5'}
+      %button.absolute.top-2.right-2.text-white.text-lg.font-bold.cursor-pointer{"data-action" => "click->gallery#close"} ✕
+      .flex.items-center.justify-center.w-full.h-full
+        #mediaContent.h-full{"data-gallery-target" => "modalContent"}

@@ -3,7 +3,7 @@ class Order < ApplicationRecord
   enum shipping_mode: {COD: 1, online: 2}
   enum status: {initiate: 1, processed: 2, shipped: 3, delivered: 4, returned: 5, cancelled: 6}
 
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
   has_one :refund
   belongs_to :payment, optional: true
@@ -127,7 +127,7 @@ class Order < ApplicationRecord
     user = self.user
     line_items = [["<b>Item</b>", "<b>Unit Cost</b>", "<b>Quantity</b>", "<b>Amount</b>"]]
     self.order_items.each do |oi|
-      line_items << [oi.product.name, "#{oi.product.price.to_f.round(2) }", oi.quantity, "#{oi.price.to_f.round(2)}"]
+      line_items << [oi.product.name_or_code, "#{oi.product.price.to_f.round(2) }", oi.quantity, "#{oi.price.to_f.round(2)}"]
     end
 
     line_items << [nil, nil, "<b>Total</b>", "#{self.total_with_gst.to_f.round(2)}"]
@@ -139,7 +139,7 @@ class Order < ApplicationRecord
         ["Payment method", "Online"]
       ],
       company: {
-        name: "Machinery co.",
+        name: ENV["app_name"],
 
         address: "\n<link href='https://maps.google.com/'>NOHAR, WARD NO 05,\n VILLAGE CHAK DEIDASPURA,\n Chak Deidaspura, Hanumangarh,\n Rajasthan PIN-335523</link>\n",
         email: "chandraherbals2024@gmail.com",

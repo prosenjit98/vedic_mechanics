@@ -4,6 +4,25 @@
 @tailwind utilities;
 @import 'actiontext.css';
 
+@layer utilities {
+  /* Hide scrollbar for Chrome, Safari and Opera */
+  .no-scrollbar::-webkit-scrollbar {
+      display: none;
+  }
+ /* Hide scrollbar for IE, Edge and Firefox */
+  .no-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;  /* Firefox */
+}
+}
+
+.main_background_color{
+  background-color: #cbe7c9;
+}
+.main_secondary_bg_color{
+  background-color: #feeaea;
+}
+
 .breadcrumbs {
   display: flex;
   flex-wrap: wrap;
@@ -142,4 +161,18 @@
 
 .dark .border-green-bottom {
   border-bottom: 0.5px solid #1bbb3b;
+}
+
+.garamond {
+  font-family: 'Garamond', serif;
+}
+.baskerVilla {
+  font-family: 'Didot', 'Bodoni MT', serif;
+}
+.color_text{
+  background-color: #0a5d0a;
+  color: #fdf6b2;
+}
+.slogan-yellow{
+  color: #fdf6b2 !important;
 }

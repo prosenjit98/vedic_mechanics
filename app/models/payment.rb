@@ -3,15 +3,17 @@ class Payment < ApplicationRecord
   enum payment_method: {cod: 1, online: 2}
   enum status: {pending: 1, authorized: 2, captured: 3, error: 4}
   has_one :order
+  has_one_attached :payment_proof
   belongs_to :user
   belongs_to :cart, optional: true
   before_validation :set_payment_reference
-  after_create :create_razorpay_order
+  # after_create :create_razorpay_order
 
   # define aasm state for column status
   aasm column: 'status', enum: true do
     state :pending, initial: true
-    state :authorized, after_enter: :capture_payment
+    # state :authorized, after_enter: :capture_payment
+    state :authorized, after_enter: :send_payment_mail
     state :captured, after_enter: :should_complete_transaction?
     state :error
 
@@ -20,12 +22,16 @@ class Payment < ApplicationRecord
     end
 
     event :capture do
-      transitions from: :authorized, to: :captured
+      transitions from: [:pending, :authorized], to: :captured
     end
 
     event :invalidate do
       transitions from: [:pending, :authorized, :captured], to: :error
     end
+  end
+
+  def send_payment_mail
+    PaymentMailer.payment_confirmation(self).deliver_now
   end
 
     # Creates a Razorpay order if the payment method is "online" by calling Razorpay::Order.create with the specified amount, currency, and receipt. Updates the model columns with the Razorpay order ID if the order is successfully created.
@@ -45,7 +51,7 @@ class Payment < ApplicationRecord
     if self.captured?
       user = self.user
       cart = Cart.find_by(external_user_id: user.external_user_id)
-      order = Order.create(payment_id: self.id, user: user, status: 'initiate', total_price: cart.total_price, total_with_gst: cart.total_price * 1.18, shipping_address_id: user.default_address.id, billing_address_id: user.default_address.id)
+      order = Order.create(payment_id: self.id, user: user, status: 'initiate', total_price: cart.total_price, total_with_gst: cart.price_with_gst, shipping_address_id: user.default_address.id, billing_address_id: user.default_address.id)
       cart.cart_items.each do |item|
         order.order_items.create(product_id: item.product_id, quantity: item.quantity, price: item.price)
       end
@@ -57,7 +63,8 @@ class Payment < ApplicationRecord
     Razorpay::Payment.fetch(raz_payment_id)
   end
 
-  def capture_payment
+  def 
+    capture_payment
     razorpay_payment = fetch_payment(self.razorpay_payment_id)
     if razorpay_payment.status == "authorized"
       # razorpay_payment.capture({ amount: 10000 })

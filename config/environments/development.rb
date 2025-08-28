@@ -90,7 +90,7 @@ Rails.application.configure do
     enable_starttls_auto: true
   }
 
-  config.action_mailer.default_url_options = { host: ENV['ACTIONMAILER_HOST'] }
-  config.action_mailer.asset_host = ENV['ACTIONMAILER_HOST']
+  config.action_mailer.default_url_options = { host: ENV['ACTION_MAILER_HOST'] }
+  config.action_mailer.asset_host = ENV['ACTION_MAILER_HOST']
 
 end
