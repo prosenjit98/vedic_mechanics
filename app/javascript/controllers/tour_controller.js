@@ -27,8 +27,8 @@ export default class extends Controller {
         {
           element: ".top_bar_background",
           popover: {
-            title: "Welcome to Nutri-Vedic!",
-            description: "We're glad to have you here. Let's take a quick tour to help you get familiar with the key features.",
+            title: "Welcome / स्वागत है /સ્વાગત છે",
+            description: "We're glad to have you here. Let's take a quick tour to help you get familiar with the key features. <br/><br/> Please choose your language <br/> (English / हिंदी / ગુજરાતી / मराठी) <br/> from the top right corner.",
           },
         },
         {
