@@ -1,5 +1,6 @@
 class Category < ApplicationRecord
   acts_as_list top_of_list: 1, scope: [:parent_category_id]
+  default_scope { ordered }
   has_many :product_categories, dependent: :destroy
   has_many :products, through: :product_categories
   has_many :child_categories, foreign_key: "parent_category_id", class_name: "Category"
@@ -13,6 +14,7 @@ class Category < ApplicationRecord
   scope :search_by_name,      -> (name) { where('name ILIKE ?', "%#{name}%") }
   scope :parent_categories,   -> { where(parent_category_id: nil) }
   scope :active,              -> { where(is_active: true) }
+  scope :ordered,             -> { order(:position) }
 
   def all_subcategories
     child_categories.active.includes(:child_categories).flat_map do |subcategory|
