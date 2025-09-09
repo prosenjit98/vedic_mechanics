@@ -8,15 +8,16 @@
 -#         %path{:d => "M9 5 5 1 1 5", :stroke => "currentColor", "stroke-linecap" => "round", "stroke-linejoin" => "round", "stroke-width" => "2"}
 -# #accordion-collapse-body-1.hidden{"aria-labelledby" => "accordion-collapse-heading-1", style: "overflow-y: auto;"}
 .lhs_background.overflow-y-auto.shadow-lg.lg:w-22p{style: "height: 83vh; position: fixed;", class: 'w-4/5 md:w-1/2'}
-  -# .bg-yellow-300.px-4.py-1.text-center
-  -#   .text-sm Our all products are
-  -#   .text-md.leading-5.bold.font-mono.text-green-500 Inspired By Nature
-  -#   .text-sm.leading-5 &
-  -#   .text-md.leading-5.semi-bold.font-mono.text-green-500 Guided By Tradition
-  .p-2.rounded-t-none.border-gray-200.lhs_background.dark:border-gray-700.dark:bg-gray-900
-    #sidebar
-      - @categories.each do |category|
-        = render partial: 'category_filter', locals: { category: category, root_cat: true, index_h: 0, is_mobile: mobile }
+  .overflow-y-auto{class: 'h-[calc(83vh-176px)] w-full'}
+    -# .bg-yellow-300.px-4.py-1.text-center
+    -#   .text-sm Our all products are
+    -#   .text-md.leading-5.bold.font-mono.text-green-500 Inspired By Nature
+    -#   .text-sm.leading-5 &
+    -#   .text-md.leading-5.semi-bold.font-mono.text-green-500 Guided By Tradition
+    .p-2.rounded-t-none.border-gray-200.lhs_background.dark:border-gray-700.dark:bg-gray-900
+      #sidebar
+        - @categories.each do |category|
+          = render partial: 'category_filter', locals: { category: category, root_cat: true, index_h: 0, is_mobile: mobile }
       -# - if params[:parent_category].present? && category[:id] == params[:parent_category].to_i 
       -#   = render partial: 'category_filter', locals: { category: category, root_cat: true, active: true }
       -# - unless params[:parent_category].present?
