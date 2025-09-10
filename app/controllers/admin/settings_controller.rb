@@ -23,7 +23,7 @@ class Admin::SettingsController < Admin::BaseController
     @whatsapp_massage_1 = AppConfiguration.new(key: "whatsapp_massage_1") if @whatsapp_massage_1.nil?
     @whatsapp_massage_2 = AppConfiguration.find_by(key: "whatsapp_massage_2")
     @whatsapp_massage_2 = AppConfiguration.new(key: "whatsapp_massage_2") if @whatsapp_massage_2.nil?
-    @parents = Category.left_joins(:products).group(:id).having('COUNT(products.id) = 0').order(:name)
+    @parents = Category.parent_categories.order(:name)
     @errors = false
     if params[:app_configuration].present?
       params[:app_configuration].each do |key, value|
